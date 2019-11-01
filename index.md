@@ -1,4 +1,4 @@
-#Some tips
+# Some tips
 * update an object with a delta json 
 '''
 mapper.readerForUpdating(object).readValue(json);
