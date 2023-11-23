@@ -8,4 +8,4 @@ GitLab Operations [GitLab Ops](GitlabOperations.java)
 
 # Tutorials
 
-BPMN, CMMN, DMM, Flowable and Spring [Flowable with Spring](V2.Flowable%20with%20Spring..md)
+BPMN, CMMN, DMM, Flowable and Spring [Flowable with Spring](FlowablewithSpring.md)
