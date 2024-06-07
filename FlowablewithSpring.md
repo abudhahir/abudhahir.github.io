@@ -1,5 +1,16 @@
 # Mastering BPMN, CMMN, and DMN with Flowable and Spring
 
+## Table of Contents
+
+1. [Introduction to BPMN, CMMN, and DMN](#1-introduction-to-bpmn-cmmn-and-dmn)
+2. [Dive into Flowable](#2-dive-into-flowable)
+3. [Modeling Processes with BPMN](#3-modeling-processes-with-bpmn)
+4. [Managing Cases with CMMN](#4-managing-cases-with-cmmn)
+5. [Decision Making with DMN](#5-decision-making-with-dmn)
+6. [Integrating Flowable with Spring](#6-integrating-flowable-with-spring)
+7. [Advanced Topics and Best Practices](#7-advanced-topics-and-best-practices)
+8. [Final Project and Review](#8-final-project-and-review)
+
 ## 1: Introduction to BPMN, CMMN, and DMN
 
 1.  Introduction to Business Process Management
