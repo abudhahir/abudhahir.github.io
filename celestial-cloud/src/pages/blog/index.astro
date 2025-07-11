@@ -1,0 +1,80 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<Layout title="Blog">
+  <div class="min-h-screen bg-background text-foreground">
+    <div class="container mx-auto px-4 py-8">
+      <div class="max-w-4xl mx-auto">
+        <!-- Back to home button -->
+        <div class="mb-8">
+          <a href="/" class="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
+            Back to Home
+          </a>
+        </div>
+
+        <!-- Blog header -->
+        <header class="mb-12">
+          <h1 class="text-4xl font-bold mb-4">Blog</h1>
+          <p class="text-lg text-muted">Technical articles about Java, Spring Boot, and software development</p>
+        </header>
+
+        <!-- Blog posts -->
+        <div class="grid gap-8">
+          {sortedPosts.map(post => (
+            <article class="glass rounded-lg p-6 border border-border hover:border-primary transition-colors">
+              <div class="flex items-start justify-between gap-4 mb-4">
+                <h2 class="text-xl font-bold">
+                  <a href={`/blog/${post.slug}`} class="text-foreground hover:text-primary transition-colors">
+                    {post.data.title}
+                  </a>
+                </h2>
+                {post.data.featured && (
+                  <span class="px-2 py-1 text-xs bg-primary/20 text-primary rounded-full">
+                    featured
+                  </span>
+                )}
+              </div>
+              
+              <div class="flex items-center gap-4 text-sm text-muted mb-4">
+                <span>{post.data.date.toLocaleDateString()}</span>
+                <span>•</span>
+                <span>{post.data.readTime || '5 min read'}</span>
+                <span>•</span>
+                <span>by {post.data.author}</span>
+              </div>
+              
+              <p class="text-muted mb-4">{post.data.excerpt}</p>
+              
+              {post.data.tags && post.data.tags.length > 0 && (
+                <div class="flex flex-wrap gap-2 mb-4">
+                  {post.data.tags.slice(0, 3).map(tag => (
+                    <span class="px-2 py-1 text-xs bg-secondary border border-border rounded-full">
+                      {tag}
+                    </span>
+                  ))}
+                  {post.data.tags.length > 3 && (
+                    <span class="text-xs px-2 py-1 text-muted">
+                      +{post.data.tags.length - 3} more
+                    </span>
+                  )}
+                </div>
+              )}
+              
+              <a href={`/blog/${post.slug}`} class="text-primary hover:text-primary/80 transition-colors text-sm font-medium">
+                Read More →
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
