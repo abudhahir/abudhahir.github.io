@@ -4,64 +4,106 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This is a GitHub Pages personal blog/documentation site (abudhahir.github.io) focused on Java enterprise development, particularly Spring Framework and business process management technologies.
+This is an Astro-based portfolio website with React components for interactivity, styled with Tailwind CSS. The project uses a dark/light theme system and features smooth animations.
 
-## Common Development Tasks
+## Common Development Commands
 
-### Adding New Content
-- Create markdown files in the root directory
-- Use descriptive filenames (e.g., `TechnologyName.md` or date-based for notes)
-- GitHub Pages automatically renders markdown to HTML
-
-### Updating Existing Content
-- Edit markdown files directly
-- Ensure code examples are properly formatted with syntax highlighting
-- Update mermaid diagrams where relevant
-
-### Git Workflow
 ```bash
-# Check current status
-git status
+# Install dependencies
+npm install
 
-# Add changes
-git add <filename>
+# Start development server (hot reload enabled)
+npm run dev
 
-# Commit with descriptive message
-git commit -m "Added/Updated [description]"
+# Build for production
+npm run build
 
-# Push to GitHub (publishes automatically)
-git push origin master
+# Preview production build locally
+npm run preview
+
+# Run Astro CLI commands
+npm run astro -- <command>
 ```
 
 ## Architecture and Structure
 
-### Content Types
-1. **Technical Tutorials** - Comprehensive guides with code examples
-   - Spring Framework patterns and implementations
-   - Flowable BPM/CMMN/DMN integration guides
-   - Enterprise Java best practices
+### Technology Stack
+- **Astro v5.11.0** - Static site generator with island architecture
+- **React v19.1.0** - Interactive components (selective hydration)
+- **TypeScript** - Type safety with strict configuration
+- **Tailwind CSS v3.4.17** - Utility-first styling
+- **Framer Motion v12.23.3** - Component animations
 
-2. **Utility Classes** - Standalone Java utilities
-   - `GitlabOperations.java` - Bitbucket repository management
-   - `CallHierarchyToMermaid.md` - Code visualization tool
-   - `FindDiff.md` - Object difference detection
+### Key Architectural Patterns
 
-3. **Code Analysis Tools** - Python-based parsers for Java code refactoring
+1. **Astro Islands Architecture**
+   - Static HTML generation by default
+   - React components hydrate only where needed (`client:load` directive)
+   - Optimal performance with selective JavaScript
 
-### Key Technologies Covered
-- **Spring Framework**: Boot, Data JPA, Security, Validation
-- **Flowable**: BPMN, CMMN, DMN engines
-- **Enterprise Patterns**: Strategy, Repository, Service layer
-- **Visualization**: Mermaid diagrams for architecture documentation
+2. **Component Strategy**
+   - `.astro` files: Layout, structure, and static content
+   - `.jsx` files: Interactive components requiring client-side JavaScript
+   - Clear separation between static and dynamic content
 
-### Documentation Standards
-- Use mermaid diagrams for complex architectures and flows
-- Include complete, runnable code examples
-- Provide context and use cases for technical implementations
-- Structure tutorials with clear sections: Overview, Implementation, Testing, Best Practices
+3. **Theme System**
+   - Dark/light mode toggle with localStorage persistence
+   - CSS variables defined in Tailwind config
+   - Theme-aware color palette with semantic naming
 
-## Important Notes
-- No build process required - GitHub Pages handles markdown rendering
-- No automated tests - code examples are for educational purposes
-- The site uses GitHub's default markdown rendering (no Jekyll configuration)
-- Content is primarily Java/Spring focused with enterprise development patterns
+### Project Structure
+
+```
+src/
+├── pages/index.astro      # Main portfolio page
+├── components/
+│   ├── Header.jsx         # Navigation with smooth scroll
+│   ├── Hero.jsx           # Terminal-style hero section
+│   ├── About.jsx          # About section with skills grid
+│   ├── Experience.jsx     # Work experience timeline
+│   ├── Projects.jsx       # Project showcase with filters
+│   ├── Contact.jsx        # Contact form and social links
+│   └── ThemeToggle.jsx    # Theme switcher with persistence
+└── styles/global.css      # Tailwind imports and custom styles
+```
+
+### Tailwind Configuration
+
+The project extends Tailwind with custom theme values:
+- Custom color palette with dark/light mode support
+- Fira Code monospace font
+- Semantic color naming (background, foreground, card, accent, etc.)
+
+### Configuration Options
+
+The portfolio supports configuration through environment variables. Create a `.env` file (copy from `.env.example`):
+
+```bash
+# Feature Toggles
+PUBLIC_SHOW_EXPERIENCE=false  # Set to true to show Experience section
+PUBLIC_SHOW_CONTACT_FORM=true # Set to false to hide contact form
+```
+
+### Development Notes
+
+- Modern developer portfolio with terminal-inspired design
+- Dark theme by default with light mode toggle
+- Smooth scroll navigation and section-based layout
+- React components use `client:load` for immediate hydration
+- All styling uses Tailwind utilities with custom design system
+- Theme colors accessed via CSS custom properties (e.g., `bg-background`, `text-foreground`)
+- Framer Motion for smooth animations and transitions
+- Components are fully responsive with mobile-first design
+- Project data sourced from actual GitHub repositories
+- About section reflects real expertise in enterprise Java + AI integration
+- Skills grid matches actual technology stack used
+
+### Key Features
+
+- **Terminal-style hero section** with typing animation
+- **Skills grid** in About section with hover effects
+- **Experience timeline** with company details and achievements
+- **Project showcase** with filtering and clickable cards linking to GitHub
+- **Contact form** with social media links
+- **Theme persistence** using localStorage
+- **Smooth animations** throughout the site
