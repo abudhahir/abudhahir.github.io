@@ -54,8 +54,7 @@ src/
 #### 1. Create the Markdown File
 
 ```bash
-# Navigate to your project
-cd celestial-cloud
+# Navigate to your project root directory
 
 # Create a new blog post
 touch src/content/blog/my-new-post.md
@@ -279,8 +278,8 @@ PUBLIC_CALENDAR_URL=         # Link to calendar booking
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/celestial-cloud.git
-   cd celestial-cloud
+   git clone https://github.com/abudhahir/abudhahir.github.io.git
+   cd abudhahir.github.io
    ```
 
 2. **Install dependencies**
