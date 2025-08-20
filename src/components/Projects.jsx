@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
+
 const projects = [
   {
     id: 1,
@@ -108,9 +109,14 @@ const projects = [
   },
 ];
 
-export default function Projects() {
+export default function Projects({ showProjects = true }) {
   const [hoveredProject, setHoveredProject] = useState(null);
   const [filter, setFilter] = useState('all');
+
+  // Hide projects section if flag is false
+  if (!showProjects) {
+    return null;
+  }
 
   const filteredProjects = filter === 'all' 
     ? projects 

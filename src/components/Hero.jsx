@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const Hero = () => {
   const [text, setText] = useState('');
-  const fullText = "Hi, I'm Abudhahir";
+  const fullText = "Hi, I'm Abu";
   const [showCursor, setShowCursor] = useState(true);
 
   useEffect(() => {
@@ -71,9 +71,9 @@ const Hero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 2, duration: 0.5 }}
               >
-                <p className="text-xl text-primary mb-2">Enterprise Developer + AI Innovator</p>
+                <p className="text-xl text-primary mb-2">Clarity, Consience, Create and Commit</p>
                 <p className="text-muted mb-8">
-                  Bridging traditional enterprise development with cutting-edge AI
+                  Solutions constructor by craft, tinkerer by passion now with AI.
                 </p>
                 
                 <div className="flex flex-wrap gap-4">
