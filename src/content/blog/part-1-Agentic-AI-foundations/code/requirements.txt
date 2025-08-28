@@ -1,0 +1,40 @@
+# Core dependencies for Part 1: Foundations of Agentic AI
+
+# LangChain ecosystem for agent frameworks
+langchain==0.1.0
+langchain-openai==0.0.5
+langchain-community==0.0.10
+
+# OpenAI integration
+openai==1.3.8
+
+# Data validation and modeling
+pydantic==2.5.2
+
+# Environment management  
+python-dotenv==1.0.0
+
+# Basic data processing
+pandas==2.1.4
+numpy==1.24.3
+
+# HTTP requests for API integration
+requests==2.31.0
+
+# Optional: Vector storage (for advanced examples)
+chromadb==0.4.22
+sentence-transformers==2.2.2
+
+# Optional: Advanced workflow orchestration (for Part 2+)
+# langgraph==0.0.20
+
+# Development and testing
+pytest==7.4.3
+pytest-cov==4.1.0
+
+# Jupyter for interactive examples (optional)
+jupyter==1.0.0
+ipykernel==6.26.0
+
+# Note: For production use, pin to specific versions
+# This requirements.txt provides a working baseline for the tutorial examples

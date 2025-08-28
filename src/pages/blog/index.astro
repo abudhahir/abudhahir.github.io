@@ -1,9 +1,15 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { getPostsBySeries, getSeriesInfo } from '../../utils/series.js';
 
 const posts = await getCollection('blog');
-const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const sortedPosts = posts
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const seriesGroups = await getPostsBySeries();
+const seriesInfo = await getSeriesInfo();
 ---
 
 <Layout title="Blog">
@@ -26,21 +32,88 @@ const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.get
           <p class="text-lg text-muted">Technical articles about Java, Spring Boot, and software development</p>
         </header>
 
+        <!-- Series Overview -->
+        {seriesInfo.length > 0 && (
+          <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6">Series</h2>
+            <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {seriesInfo.map(series => (
+                <div class="glass rounded-lg p-4 border border-border hover:border-primary transition-colors">
+                  <div class="flex items-center justify-between mb-2">
+                    <h3 class="font-semibold text-foreground">{series.name}</h3>
+                    <span class="text-xs bg-primary/20 text-primary px-2 py-1 rounded-full">
+                      {series.count} {series.count === 1 ? 'post' : 'posts'}
+                    </span>
+                  </div>
+                  <p class="text-sm text-muted mb-3">
+                    Latest: {series.latestPost.data.title}
+                  </p>
+                  <a 
+                    href={`/blog/series/${encodeURIComponent(series.name)}`}
+                    class="text-primary hover:text-primary/80 transition-colors text-sm font-medium"
+                  >
+                    View Series →
+                  </a>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <!-- Series Filter -->
+        {seriesInfo.length > 0 && (
+          <div class="mb-8">
+            <div class="flex flex-wrap gap-2">
+              <button 
+                id="all-posts"
+                class="series-filter px-3 py-2 text-sm rounded-lg border transition-colors bg-primary text-white border-primary"
+                data-series="all"
+              >
+                All Posts ({sortedPosts.length})
+              </button>
+              {seriesInfo.map(series => (
+                <button 
+                  class="series-filter px-3 py-2 text-sm rounded-lg border transition-colors bg-secondary border-border text-foreground hover:bg-primary/10"
+                  data-series={series.name}
+                >
+                  {series.name} ({series.count})
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         <!-- Blog posts -->
-        <div class="grid gap-8">
+        <div id="posts-container" class="grid gap-8">
           {sortedPosts.map(post => (
             <article class="glass rounded-lg p-6 border border-border hover:border-primary transition-colors">
               <div class="flex items-start justify-between gap-4 mb-4">
-                <h2 class="text-xl font-bold">
-                  <a href={`/blog/${post.slug}`} class="text-foreground hover:text-primary transition-colors">
-                    {post.data.title}
-                  </a>
-                </h2>
-                {post.data.featured && (
-                  <span class="px-2 py-1 text-xs bg-primary/20 text-primary rounded-full">
-                    featured
-                  </span>
-                )}
+                <div class="flex-1">
+                  <h2 class="text-xl font-bold">
+                    <a href={`/blog/${post.slug}`} class="text-foreground hover:text-primary transition-colors">
+                      {post.data.title}
+                    </a>
+                  </h2>
+                  {post.data.subtitle && (
+                    <p class="text-sm text-muted mt-1">{post.data.subtitle}</p>
+                  )}
+                </div>
+                <div class="flex flex-col gap-2 items-end">
+                  {post.data.series && (
+                    <a 
+                      href={`/blog/series/${encodeURIComponent(post.data.series)}`}
+                      class="px-2 py-1 text-xs bg-secondary/50 text-foreground rounded-full hover:bg-secondary transition-colors"
+                      data-series={post.data.series}
+                    >
+                      {post.data.series}
+                    </a>
+                  )}
+                  {post.data.featured && (
+                    <span class="px-2 py-1 text-xs bg-primary/20 text-primary rounded-full">
+                      featured
+                    </span>
+                  )}
+                </div>
               </div>
               
               <div class="flex items-center gap-4 text-sm text-muted mb-4">
@@ -78,3 +151,48 @@ const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.get
     </div>
   </div>
 </Layout>
+
+<script>
+  // Series filtering functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.series-filter') as NodeListOf<HTMLButtonElement>;
+    const postsContainer = document.getElementById('posts-container');
+    const posts = Array.from(postsContainer?.children || []) as HTMLElement[];
+    
+    if (!postsContainer) return;
+    
+    // Add series data to each post for filtering
+    posts.forEach((post) => {
+      const seriesElement = post.querySelector('[data-series]') as HTMLElement;
+      if (seriesElement && seriesElement.textContent) {
+        post.dataset.series = seriesElement.textContent.trim();
+      } else {
+        post.dataset.series = 'none';
+      }
+    });
+    
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', function(this: HTMLButtonElement) {
+        const selectedSeries = this.dataset.series;
+        
+        // Update button styles
+        filterButtons.forEach((btn) => {
+          btn.classList.remove('bg-primary', 'text-white', 'border-primary');
+          btn.classList.add('bg-secondary', 'border-border', 'text-foreground');
+        });
+        
+        this.classList.remove('bg-secondary', 'border-border', 'text-foreground');
+        this.classList.add('bg-primary', 'text-white', 'border-primary');
+        
+        // Filter posts
+        posts.forEach((post) => {
+          if (selectedSeries === 'all' || post.dataset.series === selectedSeries) {
+            post.style.display = 'block';
+          } else {
+            post.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>

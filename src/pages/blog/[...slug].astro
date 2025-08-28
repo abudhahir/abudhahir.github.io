@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { getPostsInSeries } from '../../utils/series.js';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -12,6 +13,12 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
+
+// Get series information if this post is part of a series
+let seriesPosts = [];
+if (post.data.series) {
+  seriesPosts = await getPostsInSeries(post.data.series);
+}
 ---
 
 <Layout title={post.data.title}>
@@ -43,6 +50,32 @@ const { Content } = await post.render();
             <p class="text-lg text-muted mb-6">{post.data.excerpt}</p>
           )}
           
+          <!-- Series Information -->
+          {post.data.series && (
+            <div class="mb-6">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-sm font-medium text-primary">Series:</span>
+                <span class="text-sm text-muted">{post.data.series}</span>
+              </div>
+              {seriesPosts.length > 1 && (
+                <div class="flex flex-wrap gap-2">
+                  {seriesPosts.map((seriesPost, index) => (
+                    <a 
+                      href={`/blog/${seriesPost.slug}`}
+                      class={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                        seriesPost.slug === post.slug
+                          ? 'bg-primary text-white border-primary'
+                          : 'bg-secondary border-border text-foreground hover:bg-primary/10'
+                      }`}
+                    >
+                      Part {index + 1}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+          
           <!-- Tags -->
           {post.data.tags && post.data.tags.length > 0 && (
             <div class="flex flex-wrap gap-2 mb-6">
@@ -56,66 +89,170 @@ const { Content } = await post.render();
         </header>
 
         <!-- Article content -->
-        <article class="prose prose-lg max-w-none">
+        <article class="prose prose-lg prose-headings:text-foreground prose-p:text-foreground/90 prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-em:text-foreground/80 prose-code:text-foreground prose-pre:bg-secondary prose-pre:border prose-pre:border-border prose-pre:rounded-lg prose-blockquote:border-l-primary prose-blockquote:bg-secondary/50 prose-blockquote:rounded-r max-w-none markdown-content">
           <Content />
         </article>
+
+        <!-- Continue Reading Series -->
+        {post.data.series && seriesPosts.length > 1 && (
+          <section class="mt-16 pt-8 border-t border-border">
+            <h2 class="text-2xl font-semibold mb-6">Continue Reading: {post.data.series}</h2>
+            <div class="grid gap-4 md:grid-cols-2">
+              {seriesPosts
+                .filter(seriesPost => seriesPost.slug !== post.slug)
+                .map((seriesPost, index) => {
+                  const currentIndex = seriesPosts.findIndex(p => p.slug === post.slug);
+                  const isNext = index === currentIndex + 1;
+                  const isPrevious = index === currentIndex - 1;
+                  
+                  return (
+                    <a 
+                      href={`/blog/${seriesPost.slug}`}
+                      class="glass rounded-lg p-4 border border-border hover:border-primary transition-colors group"
+                    >
+                      <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-primary font-medium">
+                          {isNext ? 'Next' : isPrevious ? 'Previous' : `Part ${seriesPosts.indexOf(seriesPost) + 1}`}
+                        </span>
+                        <span class="text-xs bg-primary/20 text-primary px-2 py-1 rounded-full">
+                          {seriesPost.data.readTime || '5 min read'}
+                        </span>
+                      </div>
+                      <h3 class="font-semibold text-foreground group-hover:text-primary transition-colors">
+                        {seriesPost.data.title}
+                      </h3>
+                      {seriesPost.data.subtitle && (
+                        <p class="text-sm text-muted mt-1">{seriesPost.data.subtitle}</p>
+                      )}
+                      <p class="text-sm text-muted mt-2">{seriesPost.data.excerpt}</p>
+                    </a>
+                  );
+                })}
+            </div>
+            <div class="mt-6 text-center">
+              <a 
+                href={`/blog/series/${encodeURIComponent(post.data.series)}`}
+                class="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors font-medium"
+              >
+                View All Parts in Series
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </a>
+            </div>
+          </section>
+        )}
       </div>
     </div>
   </div>
 </Layout>
 
 <style>
+  /* Ensure prose styles are properly applied */
   .prose {
     @apply text-foreground;
   }
   
-  .prose :global(h1),
-  .prose :global(h2),
-  .prose :global(h3),
-  .prose :global(h4),
-  .prose :global(h5),
-  .prose :global(h6) {
-    @apply text-foreground;
+  /* Heading styles */
+  .prose :global(h1) {
+    @apply text-4xl font-bold text-foreground mb-6 mt-8;
   }
   
+  .prose :global(h2) {
+    @apply text-3xl font-semibold text-foreground mb-4 mt-8;
+  }
+  
+  .prose :global(h3) {
+    @apply text-2xl font-semibold text-foreground mb-3 mt-6;
+  }
+  
+  .prose :global(h4) {
+    @apply text-xl font-semibold text-foreground mb-3 mt-6;
+  }
+  
+  .prose :global(h5) {
+    @apply text-lg font-semibold text-foreground mb-2 mt-4;
+  }
+  
+  .prose :global(h6) {
+    @apply text-base font-semibold text-foreground mb-2 mt-4;
+  }
+  
+  /* Paragraph and text styles */
   .prose :global(p) {
-    @apply text-foreground/90;
+    @apply text-foreground/90 mb-4 leading-relaxed;
   }
   
   .prose :global(a) {
-    @apply text-primary hover:text-primary/80 transition-colors;
+    @apply text-primary hover:text-primary/80 transition-colors underline decoration-primary/30 hover:decoration-primary;
   }
   
+  /* Code styles */
   .prose :global(code) {
-    @apply bg-secondary px-1 py-0.5 rounded text-sm;
+    @apply bg-secondary px-2 py-1 rounded text-sm font-mono text-foreground;
   }
   
   .prose :global(pre) {
-    @apply bg-secondary border border-border rounded-lg p-4 overflow-x-auto;
+    @apply bg-secondary border border-border rounded-lg p-4 overflow-x-auto mb-4;
   }
   
   .prose :global(pre code) {
-    @apply bg-transparent p-0;
+    @apply bg-transparent p-0 text-foreground;
   }
   
+  /* Blockquote styles */
   .prose :global(blockquote) {
-    @apply border-l-4 border-primary bg-secondary/50 p-4 rounded-r;
+    @apply border-l-4 border-primary bg-secondary/50 p-4 rounded-r mb-4 italic;
   }
   
+  /* List styles */
   .prose :global(ul),
   .prose :global(ol) {
-    @apply text-foreground/90;
+    @apply text-foreground/90 mb-4 pl-6;
   }
   
   .prose :global(li) {
     @apply mb-2;
   }
   
+  .prose :global(ul li) {
+    @apply list-disc;
+  }
+  
+  .prose :global(ol li) {
+    @apply list-decimal;
+  }
+  
+  /* Text formatting */
   .prose :global(strong) {
     @apply font-semibold text-foreground;
   }
   
   .prose :global(em) {
     @apply italic text-foreground/80;
+  }
+  
+  /* Table styles */
+  .prose :global(table) {
+    @apply w-full border-collapse border border-border mb-4;
+  }
+  
+  .prose :global(th),
+  .prose :global(td) {
+    @apply border border-border p-2 text-left;
+  }
+  
+  .prose :global(th) {
+    @apply bg-secondary font-semibold;
+  }
+  
+  /* Horizontal rule */
+  .prose :global(hr) {
+    @apply border-border my-8;
+  }
+  
+  /* Image styles */
+  .prose :global(img) {
+    @apply rounded-lg max-w-full h-auto;
   }
 </style>

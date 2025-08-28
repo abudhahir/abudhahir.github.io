@@ -10,7 +10,15 @@ const blog = defineCollection({
     author: z.string(),
     featured: z.boolean().optional(),
     readTime: z.string().optional(),
+    series: z.string().optional(),
+    subtitle: z.string().optional(),
+    draft: z.boolean().optional(),
   }),
+  // Enable markdown processing
+  markdown: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
 });
 
 export const collections = {
