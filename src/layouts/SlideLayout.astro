@@ -4,11 +4,9 @@ export interface Props {
   description?: string;
 }
 
-const { title, description = 'Astro description' } = Astro.props;
+const { title, description = 'Slides' } = Astro.props;
 
-// Import global styles
 import '../styles/global.css';
-import Header from '../components/Header.jsx';
 ---
 
 <!DOCTYPE html>
@@ -22,43 +20,25 @@ import Header from '../components/Header.jsx';
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <slot name="head" />
     <script is:inline>
-      // Theme initialization script
+      // Theme initialization (reuse site-wide themes without header)
       (function() {
         const stored = localStorage.getItem('theme') || 'emerald-dark';
         const root = document.documentElement;
         const body = document.body;
-        
-        // Remove all theme classes
         ['light', 'dark', 'emerald-dark'].forEach(theme => {
           root.classList.remove(theme);
           body.classList.remove(theme);
         });
-        
-        // Add current theme class
         root.classList.add(stored);
         body.classList.add(stored);
       })();
     </script>
   </head>
-  <body class="bg-background text-foreground font-sans antialiased overflow-x-hidden">
-    <!-- Global site header/navigation -->
-    <Header client:load />
+  <body class="bg-background text-foreground font-sans antialiased">
     <slot />
   </body>
+  <style is:global>
+    html, body { height: 100%; }
+  </style>
 </html>
 
-<style is:global>
-  html {
-    font-family: system-ui, sans-serif;
-  }
-  
-  * {
-    box-sizing: border-box;
-  }
-  
-  body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-  }
-</style>

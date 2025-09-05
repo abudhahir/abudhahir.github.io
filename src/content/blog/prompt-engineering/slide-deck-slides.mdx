@@ -1,0 +1,22 @@
+---
+title: "Slide deck (Embedded) - Prompt Engineering"
+subtitle: "Slides embedded within the article"
+excerpt: "Reveal.js slide deck embedded directly in the blog page using a React component."
+date: 2025-01-16
+author: "Abu Dhahir"
+tags: ["prompt engineering", "slide deck", "presentation", "LLM", "AI", "mdx"]
+series: "Prompt Engineering Mastery"
+draft: false
+---
+
+import RevealSlides from '../../../components/RevealSlides.jsx';
+import slides from './slide-deck.md?raw';
+
+# Prompt Engineering: Slides (Embedded)
+
+Below is the slide deck rendered inline. Use arrow keys to navigate.
+
+<RevealSlides client:load markdown={slides} height="80vh" />
+
+> Tip: Open the original article for full text, or view the deck in fullscreen using your browser zoom.
+

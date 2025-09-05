@@ -1,0 +1,73 @@
+---
+import { getCollection } from 'astro:content';
+import { marked } from 'marked';
+import SlideLayout from '../../../../../layouts/SlideLayout.astro';
+
+// Locate the specific blog entry containing the slide deck
+const posts = await getCollection('blog');
+const post = posts.find((p) => p.slug === 'prompt-engineering/slide-deck');
+if (!post) {
+  throw new Error('Slide deck post not found: blog/prompt-engineering/slide-deck');
+}
+
+const markdown = post.body || '';
+const pageTitle = post.data?.title ?? 'Slide Deck';
+
+// Split markdown into Reveal.js-compatible horizontal/vertical stacks
+function splitSlides(md) {
+  const horiz = md.trim().split(/\n---\n/g); // horizontal separator
+  return horiz.map(h => h.split(/\n--\n/g)); // vertical separator
+}
+
+const stacks = splitSlides(markdown);
+
+function renderHTML(md) {
+  return marked.parse(md);
+}
+---
+<SlideLayout title={`${pageTitle} — Slides`}>
+  <Fragment slot="head">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/highlight/monokai.css" />
+    <style>
+      .reveal { height: 100vh; }
+      .reveal, .reveal * { color: hsl(var(--foreground)) !important; }
+      .reveal pre, .reveal code { background: hsl(var(--secondary)); }
+      .reveal .slides { text-align: left; }
+      .reveal h1, .reveal h2, .reveal h3, .reveal h4 { color: hsl(var(--foreground)) !important; }
+      .reveal a { color: hsl(var(--primary)); }
+    </style>
+  </Fragment>
+
+  <div class="reveal">
+    <div class="slides">
+      {stacks.map((stack) => (
+        stack.length > 1 ? (
+          <section>
+            {stack.map((s) => (
+              <section set:html={renderHTML(s)} />
+            ))}
+          </section>
+        ) : (
+          <section set:html={renderHTML(stack[0])} />
+        )
+      ))}
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/highlight/highlight.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/notes/notes.js"></script>
+  <script is:inline>
+    window.addEventListener('DOMContentLoaded', () => {
+      const deck = new window.Reveal({
+        hash: true,
+        slideNumber: true,
+        progress: true,
+        center: true,
+        plugins: [ window.RevealHighlight, window.RevealNotes ],
+      });
+      deck.initialize();
+    });
+  </script>
+</SlideLayout>
