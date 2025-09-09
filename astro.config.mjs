@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
+import { mermaidPlugin } from './src/utils/mermaid-plugin.js';
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,9 +17,12 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
   ],
+  markdown: {
+    remarkPlugins: [mermaidPlugin],
+  },
   vite: {
     optimizeDeps: {
-      include: ['framer-motion'],
+      include: ['framer-motion', 'mermaid'],
     },
   },
 });

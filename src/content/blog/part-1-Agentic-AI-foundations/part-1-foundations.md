@@ -1,5 +1,5 @@
 ---
-title: "The Digital Assistant - Foundation of Agentic AI"
+title: "1. The Digital Assistant - Foundation of Agentic AI"
 subtitle: "From Trip Planning to Professional AI Agents"
 excerpt: "Understand the fundamental difference between basic automation, traditional AI chatbots, and truly agentic AI systems through the lens of human planning and real-world examples."
 date: 2025-08-25

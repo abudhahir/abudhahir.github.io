@@ -21,8 +21,55 @@ function splitSlides(md) {
 
 const stacks = splitSlides(markdown);
 
+// Configure marked with better defaults for slides
+marked.use({
+  gfm: true,
+  breaks: true,
+  pedantic: false,
+});
+
 function renderHTML(md) {
-  return marked.parse(md);
+  try {
+    if (typeof md !== 'string') {
+      console.error('renderHTML received non-string input:', typeof md, md);
+      return '<div class="slide-content"><p class="slide-paragraph">Error: Invalid markdown input</p></div>';
+    }
+    
+    // Process the markdown for better slide presentation
+    const processed = md.trim();
+    
+    if (!processed) {
+      return '<div class="slide-content"><p class="slide-paragraph">Empty slide content</p></div>';
+    }
+    
+    let html = marked.parse(processed);
+    
+    // Ensure we have a string
+    if (typeof html !== 'string') {
+      console.error('marked.parse returned non-string:', typeof html, html);
+      return '<div class="slide-content"><p class="slide-paragraph">Error: Markdown parsing failed</p></div>';
+    }
+    
+    // Post-process HTML to add our custom classes
+    html = html
+      .replace(/<h1>/g, '<h1 class="slide-heading-1">')
+      .replace(/<h2>/g, '<h2 class="slide-heading-2">')
+      .replace(/<h3>/g, '<h3 class="slide-heading-3">')
+      .replace(/<h4>/g, '<h4 class="slide-heading-4">')
+      .replace(/<p>/g, '<p class="slide-paragraph">')
+      .replace(/<ul>/g, '<ul class="slide-list">')
+      .replace(/<ol>/g, '<ol class="slide-list">')
+      .replace(/<li>/g, '<li class="slide-list-item">')
+      .replace(/<strong>/g, '<strong class="slide-strong">')
+      .replace(/<em>/g, '<em class="slide-em">')
+      .replace(/<code>/g, '<code class="inline-code">');
+    
+    // Wrap content for better slide layout
+    return `<div class="slide-content">${html}</div>`;
+  } catch (error) {
+    console.error('Error in renderHTML:', error);
+    return '<div class="slide-content"><p class="slide-paragraph">Error rendering slide content</p></div>';
+  }
 }
 ---
 <SlideLayout title={`${pageTitle} — Slides`}>
@@ -30,28 +77,295 @@ function renderHTML(md) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/highlight/monokai.css" />
     <style>
-      .reveal { height: 100vh; }
-      .reveal, .reveal * { color: hsl(var(--foreground)) !important; }
-      .reveal pre, .reveal code { background: hsl(var(--secondary)); }
-      .reveal .slides { text-align: left; }
-      .reveal h1, .reveal h2, .reveal h3, .reveal h4 { color: hsl(var(--foreground)) !important; }
-      .reveal a { color: hsl(var(--primary)); }
+      :root {
+        --reveal-bg: hsl(var(--background));
+        --reveal-fg: hsl(var(--foreground));
+        --reveal-muted: hsl(var(--muted-foreground));
+        --reveal-primary: hsl(var(--primary));
+        --reveal-secondary: hsl(var(--secondary));
+        --reveal-accent: hsl(var(--accent));
+        --reveal-card: hsl(var(--card));
+        --reveal-border: hsl(var(--border));
+      }
+      
+      .reveal-viewport {
+        background: var(--reveal-bg);
+        background-color: var(--reveal-bg);
+      }
+      
+      .reveal { 
+        height: 100vh;
+        font-family: 'Fira Code', "Helvetica Neue", Helvetica, Arial, sans-serif;
+        background: var(--reveal-bg);
+      }
+      
+      .reveal .slides {
+        text-align: center;
+        background: transparent;
+      }
+      
+      .reveal .slides section {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 60px 40px;
+        background: transparent;
+        overflow-y: auto;
+        max-height: 100vh;
+      }
+      
+      .reveal .slide-content {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5em;
+        padding: 0 20px;
+      }
+      
+      /* Remove default margins from generic elements */
+      .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6,
+      .reveal p, .reveal ul, .reveal ol, .reveal li, .reveal pre, .reveal code {
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      
+      /* Slide headings */
+      .slide-heading-1 {
+        color: var(--reveal-fg) !important;
+        font-size: 2.2em;
+        font-weight: 600;
+        text-align: center;
+        margin: 0.3em 0 0.5em 0;
+        line-height: 1.2;
+      }
+      
+      .slide-heading-2 {
+        color: var(--reveal-fg) !important;
+        font-size: 1.8em;
+        font-weight: 600;
+        text-align: center;
+        margin: 0.4em 0 0.8em 0;
+        line-height: 1.3;
+      }
+      
+      .slide-heading-3 {
+        color: var(--reveal-fg) !important;
+        font-size: 1.4em;
+        font-weight: 600;
+        text-align: left;
+        margin: 1em 0 0.5em 0;
+        line-height: 1.3;
+      }
+      
+      .slide-heading-4 {
+        color: var(--reveal-muted) !important;
+        font-size: 1.1em;
+        font-weight: 500;
+        text-align: left;
+        margin: 0.8em 0 0.4em 0;
+      }
+      
+      /* Paragraphs */
+      .slide-paragraph {
+        color: var(--reveal-fg);
+        line-height: 1.8;
+        text-align: left;
+        margin: 0.8em 0;
+        font-size: 1.05em;
+      }
+      
+      /* List items */
+      .slide-list {
+        text-align: left;
+        margin: 1em 0;
+        padding-left: 1.5em;
+        color: var(--reveal-fg);
+      }
+      
+      .slide-list-item {
+        color: var(--reveal-fg);
+        line-height: 1.8;
+        margin: 0.5em 0;
+        font-size: 1em;
+      }
+      
+      /* Strong and emphasis */
+      .slide-strong {
+        color: var(--reveal-primary);
+        font-weight: 700;
+      }
+      
+      .slide-em {
+        color: var(--reveal-accent);
+        font-style: italic;
+      }
+      
+      /* Code blocks */
+      .reveal pre {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        font-size: 0.85em;
+        width: 95%;
+        margin: 1.5em auto;
+        border-radius: 12px;
+        text-align: left;
+        overflow: hidden;
+      }
+      
+      .reveal pre code {
+        background: transparent;
+        color: var(--reveal-fg);
+        padding: 1.5em;
+        max-height: 500px;
+        overflow-x: auto;
+        overflow-y: auto;
+        display: block;
+        line-height: 1.6;
+        font-size: 1em;
+        font-family: 'Fira Code', 'Courier New', monospace;
+      }
+      
+      /* Inline code */
+      .inline-code {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--reveal-accent);
+        padding: 0.2em 0.4em;
+        border-radius: 4px;
+        font-family: 'Fira Code', 'Courier New', monospace;
+        font-size: 0.9em;
+        white-space: nowrap;
+      }
+      
+      .reveal a {
+        color: var(--reveal-primary);
+        text-decoration: none;
+      }
+      
+      .reveal a:hover {
+        color: var(--reveal-accent);
+        text-decoration: underline;
+      }
+      
+      .reveal blockquote {
+        background: var(--reveal-card);
+        border-left: 4px solid var(--reveal-primary);
+        padding: 1em;
+        margin: 1em auto;
+        max-width: 800px;
+        text-align: left;
+        font-style: italic;
+        color: var(--reveal-muted);
+      }
+      
+      .reveal hr {
+        border: none;
+        border-top: 1px solid var(--reveal-border);
+        margin: 2em auto;
+        width: 80%;
+      }
+      
+      .reveal .progress {
+        color: var(--reveal-primary);
+        background: var(--reveal-border);
+        height: 3px;
+      }
+      
+      .reveal .progress span {
+        background: var(--reveal-primary);
+      }
+      
+      .reveal .controls {
+        color: var(--reveal-primary);
+      }
+      
+      .reveal .controls button {
+        color: var(--reveal-primary);
+      }
+      
+      .reveal .slide-number {
+        background: var(--reveal-card);
+        color: var(--reveal-fg);
+        border: 1px solid var(--reveal-border);
+      }
+      
+      /* Override Reveal.js default theme colors */
+      .reveal {
+        color: var(--reveal-fg);
+      }
+      
+      .reveal ::selection {
+        color: var(--reveal-bg);
+        background: var(--reveal-primary);
+      }
+      
+      .reveal ::-moz-selection {
+        color: var(--reveal-bg);
+        background: var(--reveal-primary);
+      }
+      
+      /* Ensure backgrounds work with theme */
+      .reveal .backgrounds {
+        background: var(--reveal-bg);
+      }
+      
+      .reveal .slide-background {
+        background: transparent;
+      }
+      
+      /* Navigation controls theming */
+      .reveal .controls .navigate-left,
+      .reveal .controls .navigate-left.enabled {
+        color: var(--reveal-primary);
+      }
+      
+      .reveal .controls .navigate-right,
+      .reveal .controls .navigate-right.enabled {
+        color: var(--reveal-primary);
+      }
+      
+      .reveal .controls .navigate-up,
+      .reveal .controls .navigate-up.enabled {
+        color: var(--reveal-primary);
+      }
+      
+      .reveal .controls .navigate-down,
+      .reveal .controls .navigate-down.enabled {
+        color: var(--reveal-primary);
+      }
+      
+      .reveal .controls .navigate-left.enabled:hover,
+      .reveal .controls .navigate-right.enabled:hover,
+      .reveal .controls .navigate-up.enabled:hover,
+      .reveal .controls .navigate-down.enabled:hover {
+        color: var(--reveal-accent);
+      }
     </style>
   </Fragment>
 
   <div class="reveal">
     <div class="slides">
-      {stacks.map((stack) => (
-        stack.length > 1 ? (
-          <section>
-            {stack.map((s) => (
-              <section set:html={renderHTML(s)} />
-            ))}
-          </section>
-        ) : (
-          <section set:html={renderHTML(stack[0])} />
-        )
-      ))}
+      {stacks.map((stack, stackIndex) => {
+        if (stack.length > 1) {
+          return (
+            <section>
+              {stack.map((s, slideIndex) => (
+                <section>
+                  <Fragment set:html={renderHTML(s)} />
+                </section>
+              ))}
+            </section>
+          );
+        } else {
+          return (
+            <section>
+              <Fragment set:html={renderHTML(stack[0])} />
+            </section>
+          );
+        }
+      })}
     </div>
   </div>
 
@@ -65,6 +379,31 @@ function renderHTML(md) {
         slideNumber: true,
         progress: true,
         center: true,
+        transition: 'slide',
+        transitionSpeed: 'default',
+        backgroundTransition: 'fade',
+        width: 1280,
+        height: 720,
+        margin: 0.1,
+        minScale: 0.2,
+        maxScale: 2.0,
+        controls: true,
+        controlsLayout: 'bottom-right',
+        controlsTutorial: true,
+        mouseWheel: false,
+        fragmentInURL: false,
+        help: true,
+        showNotes: false,
+        autoPlayMedia: null,
+        autoSlide: 0,
+        autoSlideStoppable: true,
+        touch: true,
+        loop: false,
+        rtl: false,
+        navigationMode: 'default',
+        shuffle: false,
+        keyboard: true,
+        overview: true,
         plugins: [ window.RevealHighlight, window.RevealNotes ],
       });
       deck.initialize();

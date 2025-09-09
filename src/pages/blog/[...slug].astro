@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { getPostsInSeries } from '../../utils/series.js';
+import MermaidRenderer from '../../components/Mermaid.jsx';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -106,6 +107,109 @@ if (post.data.series) {
         <article class="prose prose-lg prose-headings:text-foreground prose-p:text-foreground/90 prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-em:text-foreground/80 prose-code:text-foreground prose-pre:bg-secondary prose-pre:border prose-pre:border-border prose-pre:rounded-lg prose-blockquote:border-l-primary prose-blockquote:bg-secondary/50 prose-blockquote:rounded-r max-w-none markdown-content">
           <Content />
         </article>
+
+        <!-- Mermaid component for client-side rendering -->
+        <MermaidRenderer client:load />
+        
+        <!-- Client-side Mermaid rendering script -->
+        <script>
+          // Wait for the page to load and then render Mermaid diagrams
+          document.addEventListener('DOMContentLoaded', async () => {
+            // Import mermaid dynamically
+            const mermaid = await import('mermaid');
+            
+            // Initialize Mermaid
+            mermaid.default.initialize({
+              startOnLoad: false,
+              theme: 'dark',
+              themeVariables: {
+                primaryColor: '#10b981',
+                primaryTextColor: '#ffffff',
+                primaryBorderColor: '#10b981',
+                lineColor: '#6b7280',
+                secondaryColor: '#374151',
+                tertiaryColor: '#1f2937',
+                background: '#111827',
+                mainBkg: '#1f2937',
+                secondBkg: '#374151',
+                tertiaryBkg: '#4b5563',
+                nodeBkg: '#1f2937',
+                nodeBorder: '#10b981',
+                clusterBkg: '#374151',
+                clusterBorder: '#6b7280',
+                defaultLinkColor: '#6b7280',
+                titleColor: '#ffffff',
+                edgeLabelBackground: '#1f2937',
+                actorBkg: '#1f2937',
+                actorBorder: '#10b981',
+                actorTextColor: '#ffffff',
+                actorLineColor: '#6b7280',
+                signalColor: '#10b981',
+                signalTextColor: '#ffffff',
+                labelBoxBkgColor: '#1f2937',
+                labelBoxBorderColor: '#10b981',
+                labelTextColor: '#ffffff',
+                taskBkgColor: '#1f2937',
+                taskTextColor: '#ffffff',
+                taskTextLightColor: '#9ca3af',
+                taskTextOutsideColor: '#ffffff',
+                taskTextClickableColor: '#10b981',
+                activeTaskBkgColor: '#10b981',
+                activeTaskBorderColor: '#059669',
+                gridColor: '#374151',
+                section0: '#1f2937',
+                section1: '#374151',
+                section2: '#4b5563',
+                section3: '#6b7280',
+                altSection: '#1f2937',
+                activetaskBorderColor: '#059669',
+              },
+              flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis',
+              },
+              sequence: {
+                useMaxWidth: true,
+                wrap: true,
+              },
+              gantt: {
+                useMaxWidth: true,
+              },
+            });
+
+            // Find all code blocks that contain Mermaid syntax
+            const allCodeBlocks = document.querySelectorAll('pre code');
+            const mermaidCodeBlocks = Array.from(allCodeBlocks).filter(block => {
+              const text = block.textContent.trim();
+              return text.startsWith('flowchart') || text.startsWith('graph') || text.startsWith('sequenceDiagram') || text.startsWith('classDiagram');
+            });
+            
+            mermaidCodeBlocks.forEach(async (codeBlock, index) => {
+              const preElement = codeBlock.parentElement;
+              const mermaidCode = codeBlock.textContent;
+              
+              if (mermaidCode) {
+                try {
+                  // Create a container for the diagram
+                  const diagramContainer = document.createElement('div');
+                  diagramContainer.className = 'mermaid-diagram';
+                  diagramContainer.style.cssText = 'margin: 1rem 0; display: flex; justify-content: center; overflow: auto;';
+                  
+                  // Replace the pre element with our container
+                  preElement.parentNode.replaceChild(diagramContainer, preElement);
+                  
+                  // Render the diagram
+                  const { svg } = await mermaid.default.render(`mermaid-${Date.now()}-${index}`, mermaidCode);
+                  diagramContainer.innerHTML = svg;
+                } catch (error) {
+                  console.error('Mermaid rendering error:', error);
+                  preElement.innerHTML = `<div style="color: #ef4444; padding: 1rem; border: 1px solid #ef4444; border-radius: 0.5rem; background-color: #1f2937;">Error rendering diagram: ${error.message}</div>`;
+                }
+              }
+            });
+          });
+        </script>
 
         <!-- Continue Reading Series -->
         {post.data.series && seriesPosts.length > 1 && (
