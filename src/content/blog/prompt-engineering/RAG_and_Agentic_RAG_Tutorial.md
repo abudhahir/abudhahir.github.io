@@ -5,7 +5,7 @@ excerpt: "Learn how RAG enhances LLMs with external knowledge and discover how A
 date: 2025-01-15
 author: "Abu Dhahir"
 tags: ["RAG", "Agentic RAG", "retrieval-augmented generation", "multi-agent systems", "document analysis", "LLM", "AI", "tutorial"]
-series: "AI and Machine Learning"
+series: "Prompt Engineering Mastery"
 draft: false
 ---
 
