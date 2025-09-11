@@ -9,8 +9,6 @@ series: "Prompt Engineering Mastery"
 draft: false
 ---
 
-# RAG and Agentic RAG: A 15-Minute Tutorial
-
 ## Table of Contents
 1. [What is RAG?](#what-is-rag)
 2. [Traditional RAG Pipeline](#traditional-rag-pipeline)
