@@ -1,6 +1,6 @@
 ---
-title: "GitLab MCP Integration: A Usage"
-subtitle: "Learn how to integrate GitLab with AI assistants using the Model Context Protocol (MCP)"
+title: "GitLab MCP Server: Usage"
+subtitle: "setup instructions for article - Learn how to integrate GitLab with AI assistants using the Model Context Protocol (MCP)"
 excerpt: "Complete tutorial covering GitLab MCP server setup, AI assistant integration, CLI usage, troubleshooting, and advanced features. Includes authentication, testing, monitoring, and production deployment strategies."
 date: 2025-09-09
 author: "Abu Dhahir"
