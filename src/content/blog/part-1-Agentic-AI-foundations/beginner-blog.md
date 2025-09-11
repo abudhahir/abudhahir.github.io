@@ -1,8 +1,8 @@
 ---
-title: "Building a GitLab MCP Server: A Beginner's Guide to AI Agent Integration"
+title: "4. Building a GitLab MCP Server: A Beginner's Guide to AI Agent Integration"
 subtitle: "Learn how to build a Model Context Protocol (MCP) server from scratch and integrate it with AI chatbots"
 excerpt: "Step-by-step guide to building an MCP server that connects AI chatbots to GitLab repositories. Learn project structure, CLI integration, server architecture, and AI assistant connectivity with practical examples and real-world implementation."
-date: 2025-01-15
+date: 2025-09-08
 author: "Abu Dhahir"
 tags: ["MCP", "Model Context Protocol", "GitLab", "AI agents", "Python", "CLI", "server architecture", "AI integration", "tutorial", "beginner"]
 series: "Agentic AI Foundations"

@@ -1,8 +1,8 @@
 ---
-title: "GitLab MCP Integration: A Complete Tutorial"
+title: "GitLab MCP Integration: A Usage"
 subtitle: "Learn how to integrate GitLab with AI assistants using the Model Context Protocol (MCP)"
 excerpt: "Complete tutorial covering GitLab MCP server setup, AI assistant integration, CLI usage, troubleshooting, and advanced features. Includes authentication, testing, monitoring, and production deployment strategies."
-date: 2025-01-15
+date: 2025-09-09
 author: "Abu Dhahir"
 tags: ["MCP", "GitLab", "AI integration", "tutorial", "CLI", "authentication", "troubleshooting", "monitoring", "deployment", "automation"]
 series: "Agentic AI Foundations"

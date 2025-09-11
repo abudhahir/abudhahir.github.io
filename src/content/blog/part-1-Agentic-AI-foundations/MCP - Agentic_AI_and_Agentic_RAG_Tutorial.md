@@ -2,7 +2,7 @@
 title: "3. MCP-ifying Agentic AI and Agentic RAG: Building Production-Ready Multi-Agent Systems with MCP Integration"
 subtitle: "From Traditional RAG to Enterprise-Grade Multi-Agent Architectures with Security, Monitoring, and Deployment"
 excerpt: "Master the complete implementation of agentic AI systems that combine retrieval, reasoning, verification, and self-correction through specialized agents. Learn to build production-ready multi-agent RAG workflows with LangGraph, MCP integration, gatekeeper security, hybrid search, and comprehensive deployment strategies. Features real-world examples, security considerations, monitoring, and step-by-step code implementations."
-date: 2025-09-09
+date: 2025-09-03
 author: "Abu Dhahir"
 tags: ["agentic AI", "multi-agent systems", "RAG", "LangGraph", "MCP", "gatekeeper", "access control", "hybrid search", "hallucination detection", "self-correction", "production deployment", "monitoring", "security", "AI architecture"]
 series: "Agentic AI Foundations"
