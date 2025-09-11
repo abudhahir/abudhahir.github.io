@@ -2,7 +2,7 @@
 title: "RAG and Agentic RAG: A 15-Minute Tutorial"
 subtitle: "From Traditional Retrieval to Multi-Agent Systems"
 excerpt: "Learn how RAG enhances LLMs with external knowledge and discover how Agentic RAG uses multiple specialized agents for improved accuracy, verification, and reliability in document analysis."
-date: 2025-01-15
+date: 2025-09-11
 author: "Abu Dhahir"
 tags: ["RAG", "Agentic RAG", "retrieval-augmented generation", "multi-agent systems", "document analysis", "LLM", "AI", "tutorial"]
 series: "Prompt Engineering Mastery"
