@@ -8,7 +8,7 @@ import { mermaidPlugin } from './src/utils/mermaid-plugin.js';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://abudhahir.github.io',
-  showProjects: false, // Custom flag to control Projects section visibility
+  showProjects: true, // Custom flag to control Projects section visibility
   integrations: [
     react(),
     mdx(),
