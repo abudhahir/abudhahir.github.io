@@ -1,0 +1,41 @@
+# Sample configuration for testing HTTP logging
+spring:
+  application:
+    name: lgtm-logging-sample
+
+# HTTP Logging Configuration
+lgtm:
+  logging:
+    http:
+      enabled: true
+      include-request-body: true
+      include-response-body: true
+      include-request-headers: true
+      include-response-headers: true
+      include-query-string: true
+      include-client-info: true
+      include-timings: true
+      max-payload-length: 10000
+      pretty-print: true
+      
+      # Exclude actuator and health endpoints from logging
+      exclude-patterns:
+        - /actuator/**
+        - /health
+      
+      # Don't log OPTIONS requests
+      exclude-methods:
+        - OPTIONS
+      
+      # Mask sensitive headers
+      masked-headers:
+        - Authorization
+        - X-API-Key
+        - Cookie
+        - Set-Cookie
+
+# Logging configuration
+logging:
+  level:
+    root: INFO
+    com.yourorg.lgtm.autoconfigure.logging.HttpLoggingFilter: INFO

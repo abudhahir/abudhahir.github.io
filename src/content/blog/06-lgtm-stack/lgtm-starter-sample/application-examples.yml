@@ -1,0 +1,309 @@
+# ============================================
+# HTTP Logging Configuration Examples
+# ============================================
+
+# Example 1: Minimal Configuration (All defaults)
+# This enables logging for all endpoints with all features
+lgtm:
+  logging:
+    http:
+      enabled: true
+
+---
+
+# Example 2: Production Configuration
+# Logs essential info, excludes health checks and actuator endpoints
+lgtm:
+  logging:
+    http:
+      enabled: true
+      include-request-body: true
+      include-response-body: true
+      include-request-headers: true
+      include-response-headers: true
+      include-query-string: true
+      include-client-info: true
+      include-timings: true
+      max-payload-length: 5000
+      pretty-print: false
+      
+      # Exclude health checks and internal endpoints
+      exclude-patterns:
+        - /actuator/**
+        - /health
+        - /metrics
+        - /favicon.ico
+        - /swagger-ui/**
+        - /v3/api-docs/**
+      
+      # Don't log OPTIONS requests
+      exclude-methods:
+        - OPTIONS
+        - HEAD
+      
+      # Mask sensitive headers
+      masked-headers:
+        - Authorization
+        - X-API-Key
+        - X-Auth-Token
+        - Cookie
+        - Set-Cookie
+        - X-CSRF-Token
+
+---
+
+# Example 3: Development Configuration
+# Logs everything with pretty printing for easier debugging
+lgtm:
+  logging:
+    http:
+      enabled: true
+      include-request-body: true
+      include-response-body: true
+      include-request-headers: true
+      include-response-headers: true
+      include-query-string: true
+      include-client-info: true
+      include-timings: true
+      include-request-attributes: true
+      max-payload-length: -1  # No limit
+      pretty-print: true
+      
+      # Only exclude actuator in dev
+      exclude-patterns:
+        - /actuator/**
+
+---
+
+# Example 4: API-Only Logging
+# Only log specific API endpoints
+lgtm:
+  logging:
+    http:
+      enabled: true
+      
+      # Only log API endpoints
+      include-patterns:
+        - /api/**
+        - /v1/**
+        - /v2/**
+      
+      # Only log REST methods
+      include-methods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+      
+      exclude-patterns:
+        - /api/health
+        - /api/ping
+
+---
+
+# Example 5: Security-Focused Configuration
+# Minimal logging, heavy masking
+lgtm:
+  logging:
+    http:
+      enabled: true
+      include-request-body: false  # Don't log bodies for security
+      include-response-body: false
+      include-request-headers: true
+      include-response-headers: false
+      include-query-string: false  # Query strings might contain tokens
+      include-client-info: true
+      include-timings: true
+      max-payload-length: 0
+      
+      # Mask many headers
+      masked-headers:
+        - Authorization
+        - X-API-Key
+        - X-Auth-Token
+        - Cookie
+        - Set-Cookie
+        - X-CSRF-Token
+        - Proxy-Authorization
+        - X-Password
+        - X-Secret
+
+---
+
+# Example 6: Performance Monitoring Only
+# Just track timing and status codes
+lgtm:
+  logging:
+    http:
+      enabled: true
+      include-request-body: false
+      include-response-body: false
+      include-request-headers: false
+      include-response-headers: false
+      include-query-string: false
+      include-client-info: false
+      include-timings: true
+      
+      exclude-patterns:
+        - /actuator/**
+        - /static/**
+        - /webjars/**
+
+---
+
+# Example 7: Full Configuration with Comments
+lgtm:
+  logging:
+    http:
+      # Master switch for HTTP logging
+      enabled: true
+      
+      # Include request body in logs
+      include-request-body: true
+      
+      # Include response body in logs
+      include-response-body: true
+      
+      # Include all request headers (except masked ones)
+      include-request-headers: true
+      
+      # Include all response headers (except masked ones)
+      include-response-headers: true
+      
+      # Include query string parameters
+      include-query-string: true
+      
+      # Include client IP and User-Agent
+      include-client-info: true
+      
+      # Include request/response timing
+      include-timings: true
+      
+      # Include request attributes (session info, etc.)
+      include-request-attributes: false
+      
+      # Maximum size of request/response body to log (in bytes)
+      # -1 = unlimited, 0 = don't log bodies
+      max-payload-length: 10000
+      
+      # Use pretty printing (multiline) for JSON structures
+      pretty-print: false
+      
+      # URL patterns to EXCLUDE from logging (Ant-style patterns)
+      exclude-patterns:
+        - /actuator/**      # Spring Boot Actuator
+        - /health           # Health check endpoint
+        - /metrics          # Metrics endpoint
+        - /prometheus       # Prometheus endpoint
+        - /favicon.ico      # Browser favicon requests
+        - /swagger-ui/**    # Swagger UI
+        - /v3/api-docs/**   # OpenAPI docs
+        - /webjars/**       # WebJars resources
+        - /static/**        # Static resources
+        - /public/**        # Public resources
+        - /error            # Error page
+      
+      # URL patterns to INCLUDE in logging (if specified, only these are logged)
+      # Leave empty to log all endpoints (except excluded ones)
+      include-patterns:
+        # - /api/**
+        # - /v1/**
+      
+      # HTTP methods to EXCLUDE from logging
+      exclude-methods:
+        - OPTIONS  # CORS preflight
+        - HEAD     # HEAD requests
+      
+      # HTTP methods to INCLUDE in logging (if specified, only these are logged)
+      # Leave empty to log all methods (except excluded ones)
+      include-methods:
+        # - GET
+        # - POST
+        # - PUT
+        # - DELETE
+        # - PATCH
+      
+      # Headers to mask in logs (for security/privacy)
+      masked-headers:
+        - Authorization       # Bearer tokens, Basic auth
+        - X-API-Key          # API keys
+        - X-Auth-Token       # Custom auth tokens
+        - Cookie             # Session cookies
+        - Set-Cookie         # Response cookies
+        - X-CSRF-Token       # CSRF tokens
+        - Proxy-Authorization # Proxy auth
+        - X-Password         # Any password headers
+        - X-Secret           # Secret headers
+
+---
+
+# Example 8: Multiple Profiles
+spring:
+  profiles:
+    active: dev
+
+---
+# Development profile
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+lgtm:
+  logging:
+    http:
+      enabled: true
+      include-request-body: true
+      include-response-body: true
+      include-request-headers: true
+      include-response-headers: true
+      max-payload-length: -1
+      pretty-print: true
+      exclude-patterns:
+        - /actuator/**
+
+---
+# Staging profile
+spring:
+  config:
+    activate:
+      on-profile: staging
+
+lgtm:
+  logging:
+    http:
+      enabled: true
+      include-request-body: true
+      include-response-body: true
+      max-payload-length: 10000
+      exclude-patterns:
+        - /actuator/**
+        - /health
+        - /metrics
+
+---
+# Production profile
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+lgtm:
+  logging:
+    http:
+      enabled: true
+      include-request-body: true
+      include-response-body: false  # Don't log response bodies in prod
+      include-request-headers: true
+      include-response-headers: false
+      max-payload-length: 5000
+      pretty-print: false
+      exclude-patterns:
+        - /actuator/**
+        - /health
+        - /metrics
+        - /prometheus
+      exclude-methods:
+        - OPTIONS
+        - HEAD
