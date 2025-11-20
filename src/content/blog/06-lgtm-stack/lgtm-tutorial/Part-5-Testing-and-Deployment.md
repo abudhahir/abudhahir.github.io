@@ -1,14 +1,3 @@
----
-title: "Part 5: Testing, Deployment, and Best Practices"
-date: "2024-12-21"
-excerpt: "Covers testing strategies, Testcontainers workflows, publishing pipelines, documentation, and production checklists for the LGTM starter."
-tags: ["Tutorial", "Java", "Spring", "Observability", "Testing"]
-author: "Abudhahir"
-featured: false
-readTime: "11 min read"
-series: "LGTM Starter Tutorial"
-draft: false
----
 # Part 5: Testing, Deployment, and Best Practices
 
 ## Table of Contents

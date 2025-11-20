@@ -1,14 +1,3 @@
----
-title: "Part 0: Fundamentals and Project Setup"
-date: "2024-12-16"
-excerpt: "Foundational walkthrough of LGTM starter architecture, multi-module setup, dependency management, and auto-configuration basics."
-tags: ["Tutorial", "Java", "Spring", "Observability", "LGTM"]
-author: "Abudhahir"
-featured: false
-readTime: "8 min read"
-series: "LGTM Starter Tutorial"
-draft: false
----
 # Part 0: Fundamentals and Project Setup
 
 ## Table of Contents
@@ -72,7 +61,7 @@ When you add this dependency, Spring Boot:
 Our LGTM starter will follow Spring Boot conventions:
 
 ```
-lgtm-spring-boot/
+lgtm-stack-starter/
 │
 ├── pom.xml (parent)
 │
@@ -84,42 +73,40 @@ lgtm-spring-boot/
 │       │   │   ├── LgtmAutoConfiguration.java
 │       │   │   ├── LgtmProperties.java
 │       │   │   │
+│       │   │   ├── http/
+│       │   │   │   ├── HttpLoggingAutoConfiguration.java
+│       │   │   │   ├── HttpLoggingFilter.java
+│       │   │   │   └── HttpLoggingProperties.java
+│       │   │   │
 │       │   │   ├── loki/
-│       │   │   │   ├── LokiAutoConfiguration.java
-│       │   │   │   ├── LokiProperties.java
-│       │   │   │   └── LokiAppenderConfigurer.java
+│       │   │   │   └── ... (scaffolded)
 │       │   │   │
 │       │   │   ├── tempo/
-│       │   │   │   ├── TempoAutoConfiguration.java
-│       │   │   │   ├── TempoProperties.java
-│       │   │   │   └── TempoTracingConfigurer.java
+│       │   │   │   └── ... (scaffolded)
 │       │   │   │
-│       │   │   ├── metrics/
-│       │   │   │   ├── MetricsAutoConfiguration.java
-│       │   │   │   ├── MetricsProperties.java
-│       │   │   │   └── MimirRemoteWriteConfigurer.java
-│       │   │   │
-│       │   │   └── health/
-│       │   │       └── LgtmHealthIndicator.java
+│       │   │   └── metrics/
+│       │   │       └── ... (scaffolded)
 │       │   │
 │       │   └── resources/
-│       │       ├── META-INF/
-│       │       │   ├── spring/
-│       │       │   │   └── org.springframework.boot.autoconfigure.AutoConfiguration.imports
-│       │       │   └── spring-configuration-metadata.json
-│       │       │
-│       │       └── dashboards/
-│       │           ├── spring-boot-overview.json
-│       │           └── jvm-metrics.json
+│       │       └── META-INF/
+│       │           └── spring/
+│       │               └── org.springframework.boot.autoconfigure.AutoConfiguration.imports
 │       │
 │       └── test/
-│           └── java/com/yourorg/lgtm/autoconfigure/
-│               ├── LgtmAutoConfigurationTest.java
-│               ├── LokiAutoConfigurationTest.java
-│               └── TempoAutoConfigurationTest.java
+│           └── java/com/yourorg/lgtm/autoconfigure/http/
+│               └── HttpLoggingFilterTest.java
 │
-└── lgtm-spring-boot-starter/
-    └── pom.xml (dependency aggregator)
+├── lgtm-spring-boot-starter/
+│   └── pom.xml (dependency aggregator)
+│
+└── lgtm-sample-app/
+    ├── pom.xml
+    └── src/
+        ├── main/
+        │   ├── java/com/yourorg/lgtm/sample/
+        │   │   └── SampleApplication.java
+        │   └── resources/
+        │       └── application.yml
 ```
 
 **Why This Structure?**
@@ -164,6 +151,7 @@ Create `pom.xml` in the root directory:
     <modules>
         <module>lgtm-spring-boot-autoconfigure</module>
         <module>lgtm-spring-boot-starter</module>
+        <module>lgtm-sample-app</module>
     </modules>
 
     <properties>
@@ -539,9 +527,6 @@ META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
 
 ```
 com.yourorg.lgtm.autoconfigure.LgtmAutoConfiguration
-com.yourorg.lgtm.autoconfigure.LokiAutoConfiguration
-com.yourorg.lgtm.autoconfigure.TempoAutoConfiguration
-com.yourorg.lgtm.autoconfigure.MetricsAutoConfiguration
 ```
 
 ---

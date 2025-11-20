@@ -1,14 +1,3 @@
----
-title: "Part 2: Tempo Integration - Distributed Tracing"
-date: "2024-12-18"
-excerpt: "Implements Tempo tracing support with OpenTelemetry setup, span instrumentation, configuration, and advanced propagation patterns."
-tags: ["Tutorial", "Java", "Spring", "Observability", "Tracing"]
-author: "Abudhahir"
-featured: false
-readTime: "16 min read"
-series: "LGTM Starter Tutorial"
-draft: false
----
 # Part 2: Tempo Integration - Distributed Tracing
 
 ## Table of Contents

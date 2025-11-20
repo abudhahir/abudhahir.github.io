@@ -1,14 +1,3 @@
----
-title: "Part 4: Advanced Features and Integration"
-date: "2024-12-20"
-excerpt: "Explores cross-signal correlation, health indicators, dashboards, exemplars, annotations, and performance tuning for the LGTM starter."
-tags: ["Tutorial", "Java", "Spring", "Observability", "Architecture"]
-author: "Abudhahir"
-featured: false
-readTime: "13 min read"
-series: "LGTM Starter Tutorial"
-draft: false
----
 # Part 4: Advanced Features and Integration
 
 ## Table of Contents

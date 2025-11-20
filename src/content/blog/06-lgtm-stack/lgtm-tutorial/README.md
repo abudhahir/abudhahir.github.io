@@ -1,14 +1,3 @@
----
-title: "Complete Tutorial: Building a Spring Boot Starter for LGTM Stack"
-date: "2024-12-16"
-excerpt: "Overview and navigation guide for the multi-part LGTM starter tutorial covering setup through deployment."
-tags: ["Tutorial", "Java", "Spring", "Observability", "LGTM"]
-author: "Abudhahir"
-featured: false
-readTime: "8 min read"
-series: "LGTM Starter Tutorial"
-draft: false
----
 # Complete Tutorial: Building a Spring Boot Starter for LGTM Stack
 
 A comprehensive, step-by-step guide to creating a production-ready Spring Boot starter for the LGTM (Loki, Grafana, Tempo, Mimir) observability stack.

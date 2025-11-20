@@ -1,14 +1,3 @@
----
-title: "Part 1: Loki Integration - Centralized Logging"
-date: "2024-12-17"
-excerpt: "Deep dive into modeling properties, configuring Logback, and validating Loki logging inside the LGTM starter."
-tags: ["Tutorial", "Java", "Spring", "Observability", "Logging"]
-author: "Abudhahir"
-featured: false
-readTime: "16 min read"
-series: "LGTM Starter Tutorial"
-draft: false
----
 # Part 1: Loki Integration - Centralized Logging
 
 ## Table of Contents

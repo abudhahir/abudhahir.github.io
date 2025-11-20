@@ -1,14 +1,3 @@
----
-title: "Part 3: Metrics Integration - Prometheus and Mimir"
-date: "2024-12-19"
-excerpt: "Guides you through property binding, auto-configuration, and custom Micrometer metrics for Prometheus and Mimir."
-tags: ["Tutorial", "Java", "Spring", "Observability", "Metrics"]
-author: "Abudhahir"
-featured: false
-readTime: "16 min read"
-series: "LGTM Starter Tutorial"
-draft: false
----
 # Part 3: Metrics Integration - Prometheus and Mimir
 
 ## Table of Contents
