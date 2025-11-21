@@ -1,3 +1,22 @@
+---
+title: "HTTP Logging Implementation - File Summary"
+date: 2025-09-02
+excerpt: "Complete implementation of HTTP request/response logging with configurable endpoint and method exclusions for the LGTM Spring Boot Starter."
+tags:
+  - "logging"
+  - "http"
+  - "spring-boot"
+  - "lgtm"
+author: "YourOrg Contributor"
+draft: true
+slug: "http-logging-file-summary"
+categories:
+  - "development"
+  - "documentation"
+image: "/assets/images/lgtm/http-logging.png"
+lastmod: "2025-11-21"
+---
+
 # HTTP Logging Implementation - File Summary
 
 ## Overview

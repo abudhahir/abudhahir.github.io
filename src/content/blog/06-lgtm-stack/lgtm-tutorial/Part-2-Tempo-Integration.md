@@ -1,3 +1,13 @@
+---
+title: " Part 2: Tempo Integration for Distributed Tracing"
+subtitle: "Leverage OpenTelemetry to Send Distributed Traces to Grafana Tempo"
+excerpt: "Dive into distributed tracing with Grafana Tempo. This guide covers setting up the OpenTelemetry SDK, exporting traces via OTLP, and instrumenting your application for automatic and manual span creation to gain deep insights into your microservices architecture."
+date: 2025-09-04
+author: "Abu Dhahir"
+tags: ["Spring Boot", "Tempo", "Distributed Tracing", "OpenTelemetry", "Observability"]
+series: "Building a Spring Boot Starter for LGTM"
+draft: false
+---
 # Part 2: Tempo Integration - Distributed Tracing
 
 ## Table of Contents

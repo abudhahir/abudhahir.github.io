@@ -1,3 +1,13 @@
+---
+title: "Part 4: Advanced Features and Integration"
+subtitle: "Correlate Logs and Traces, Create Health Indicators, and Provision Grafana Dashboards"
+excerpt: "Elevate your observability starter with advanced features. Learn to automatically correlate logs and traces, implement custom health indicators for the LGTM stack, use exemplars to link metrics to traces, and programmatically provision Grafana dashboards."
+date: 2025-09-06
+author: "Abu Dhahir"
+tags: ["Spring Boot", "Grafana", "Observability", "Correlation", "Health Indicator"]
+series: "Building a Spring Boot Starter for LGTM"
+draft: false
+---
 # Part 4: Advanced Features and Integration
 
 ## Table of Contents

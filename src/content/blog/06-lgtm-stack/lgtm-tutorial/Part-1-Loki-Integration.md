@@ -1,3 +1,13 @@
+---
+title: "Part 1: Loki Integration for Centralized Logging"
+subtitle: "Programmatically Configure Logback to Ship Structured Logs Directly to Loki"
+excerpt: "Learn how to integrate Grafana Loki for powerful, centralized logging. This part of the series walks you through programmatically configuring a Logback appender, creating structured JSON logs, and designing effective labels for efficient querying."
+date: 2025-09-03
+author: "Abu Dhahir"
+tags: ["Spring Boot", "Loki", "Logging", "Logback", "Observability"]
+series: "Building a Spring Boot Starter for LGTM"
+draft: false
+---
 # Part 1: Loki Integration - Centralized Logging
 
 ## Table of Contents

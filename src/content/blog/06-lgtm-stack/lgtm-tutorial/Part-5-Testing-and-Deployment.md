@@ -1,4 +1,14 @@
-# Part 5: Testing, Deployment, and Best Practices
+---
+title: "Part 5: Testing and Deployment"
+subtitle: "From Unit Tests with Testcontainers to Publishing on Maven Central"
+excerpt: "Ensure your Spring Boot starter is production-ready. This final part covers comprehensive testing strategies, including unit tests for auto-configuration, full-stack integration tests with Testcontainers, and the complete process for publishing your starter to Maven Central."
+date: 2025-09-07
+author: "Abu Dhahir"
+tags: ["Spring Boot", "Testing", "Testcontainers", "Maven", "Deployment"]
+series: "Building a Spring Boot Starter for LGTM"
+draft: false
+---
+# Part 5: Testing and Deployment
 
 ## Table of Contents
 1. [Unit Testing](#unit-testing)

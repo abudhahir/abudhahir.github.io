@@ -1,3 +1,13 @@
+---
+title: "Series: Building a Production-Ready Spring Boot Starter for the LGTM Stack"
+subtitle: "A 5-Part Guide to Mastering Observability, from Project Setup to Maven Central Deployment"
+excerpt: "Follow our comprehensive 5-part series to build a complete, production-ready Spring Boot starter for the LGTM (Loki, Grafana, Tempo, Mimir) stack. Learn about auto-configuration, logging, tracing, metrics, advanced features, and deployment."
+date: 2025-09-01
+author: "Abu Dhahir"
+tags: ["Spring Boot", "LGTM", "Observability", "Java", "Tutorial"]
+series: "Building a Spring Boot Starter for LGTM"
+draft: false
+---
 # Complete Tutorial: Building a Spring Boot Starter for LGTM Stack
 
 A comprehensive, step-by-step guide to creating a production-ready Spring Boot starter for the LGTM (Loki, Grafana, Tempo, Mimir) observability stack.
@@ -155,8 +165,6 @@ mvn clean install
 # Run tests
 mvn test
 
-# Start LGTM stack
-docker-compose up -d
 ```
 
 ### Basic Usage
@@ -263,38 +271,18 @@ By the end of this tutorial, you will understand:
 
 ## 📖 Tutorial Flow
 
-```
-Part 0: Foundation
-   ↓
-   Setup project structure
-   Understand core concepts
-   
-Part 1: Loki
-   ↓
-   Implement logging
-   Test with local Loki
-   
-Part 2: Tempo
-   ↓
-   Implement tracing
-   Test with local Tempo
-   
-Part 3: Metrics
-   ↓
-   Implement metrics
-   Prometheus + Mimir
-   
-Part 4: Advanced
-   ↓
-   Correlation
-   Dashboards
-   Custom features
-   
-Part 5: Production
-   ↓
-   Testing
-   Publishing
-   Best practices
+```mermaid
+flowchart TB
+  P0["Part 0: Foundation<br/>Setup project structure<br/>Understand core concepts"]
+  P1["Part 1: Loki<br/>Implement logging<br/>Test with local Loki"]
+  P2["Part 2: Tempo<br/>Implement tracing<br/>Test with local Tempo"]
+  P3["Part 3: Metrics<br/>Implement metrics<br/>Prometheus + Mimir"]
+  P4["Part 4: Advanced<br/>Correlation<br/>Dashboards<br/>Custom features"]
+  P5["Part 5: Production<br/>Testing<br/>Publishing<br/>Best practices"]
+
+
+
+  P0 --> P1 --> P2 --> P3 --> P4 --> P5
 ```
 
 ---

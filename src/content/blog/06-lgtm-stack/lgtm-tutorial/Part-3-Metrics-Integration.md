@@ -1,3 +1,13 @@
+---
+title: "Part 3: Metrics Integration with Prometheus and Mimir"
+subtitle: "Configure Micrometer for Scrape-Based and Push-Based Metric Collection"
+excerpt: "Master metrics collection with Micrometer, Prometheus, and Mimir. This tutorial explains how to expose a Prometheus scrape endpoint, configure remote write for Mimir, and create custom metrics using counters, gauges, and timers."
+date: 2025-09-05
+author: "Abu Dhahir"
+tags: ["Spring Boot", "Prometheus", "Mimir", "Metrics", "Micrometer"]
+series: "Building a Spring Boot Starter for LGTM"
+draft: false
+---
 # Part 3: Metrics Integration - Prometheus and Mimir
 
 ## Table of Contents

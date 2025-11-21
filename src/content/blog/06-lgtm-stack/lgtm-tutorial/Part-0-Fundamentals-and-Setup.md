@@ -1,3 +1,13 @@
+---
+title: "Part 0: Fundamentals and Project Setup"
+subtitle: "Laying the Groundwork for a Production-Ready Observability Starter"
+excerpt: "Kickstart your journey into creating custom Spring Boot starters. This guide covers the foundational concepts, project architecture, and multi-module setup required to build a production-ready starter for the LGTM (Loki, Grafana, Tempo, Mimir) stack."
+date: 2025-09-02
+author: "Abu Dhahir"
+tags: ["Spring Boot", "Maven", "Auto-Configuration", "Spring Boot Starter", "LGTM"]
+series: "Building a Spring Boot Starter for LGTM"
+draft: false
+---
 # Part 0: Fundamentals and Project Setup
 
 ## Table of Contents
