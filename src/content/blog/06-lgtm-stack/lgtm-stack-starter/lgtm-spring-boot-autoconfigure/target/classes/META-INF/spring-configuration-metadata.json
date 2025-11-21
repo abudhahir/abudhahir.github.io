@@ -1,0 +1,253 @@
+{
+  "groups": [
+    {
+      "name": "lgtm",
+      "type": "com.yourorg.lgtm.autoconfigure.LgtmProperties",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.LgtmProperties"
+    },
+    {
+      "name": "lgtm.http",
+      "type": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.LgtmProperties",
+      "sourceMethod": "getHttp()"
+    },
+    {
+      "name": "lgtm.logging.http",
+      "type": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "lgtm.application-name",
+      "type": "java.lang.String",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.LgtmProperties"
+    },
+    {
+      "name": "lgtm.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.LgtmProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "lgtm.environment",
+      "type": "java.lang.String",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.LgtmProperties"
+    },
+    {
+      "name": "lgtm.http.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable HTTP request\/response logging",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "lgtm.http.exclude-methods",
+      "type": "java.util.List<java.lang.String>",
+      "description": "HTTP methods to exclude from logging Example: [\"OPTIONS\", \"HEAD\"]",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties"
+    },
+    {
+      "name": "lgtm.http.exclude-patterns",
+      "type": "java.util.List<java.lang.String>",
+      "description": "URL patterns to exclude from logging (supports Ant-style patterns) Example: [\"\/actuator\/**\", \"\/health\", \"\/metrics\"]",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties"
+    },
+    {
+      "name": "lgtm.http.include-client-info",
+      "type": "java.lang.Boolean",
+      "description": "Log client info (IP, User-Agent)",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "lgtm.http.include-methods",
+      "type": "java.util.List<java.lang.String>",
+      "description": "HTTP methods to include in logging If empty, all methods are included (except excluded ones) Example: [\"GET\", \"POST\", \"PUT\", \"DELETE\"]",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties"
+    },
+    {
+      "name": "lgtm.http.include-patterns",
+      "type": "java.util.List<java.lang.String>",
+      "description": "URL patterns to include in logging (supports Ant-style patterns) If empty, all endpoints are included (except excluded ones) Example: [\"\/api\/**\", \"\/v1\/**\"]",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties"
+    },
+    {
+      "name": "lgtm.http.include-query-string",
+      "type": "java.lang.Boolean",
+      "description": "Log query parameters",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "lgtm.http.include-request-attributes",
+      "type": "java.lang.Boolean",
+      "description": "Request attributes to log",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "lgtm.http.include-request-body",
+      "type": "java.lang.Boolean",
+      "description": "Log request body",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "lgtm.http.include-request-headers",
+      "type": "java.lang.Boolean",
+      "description": "Log request headers",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "lgtm.http.include-response-body",
+      "type": "java.lang.Boolean",
+      "description": "Log response body",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "lgtm.http.include-response-headers",
+      "type": "java.lang.Boolean",
+      "description": "Log response headers",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "lgtm.http.include-timings",
+      "type": "java.lang.Boolean",
+      "description": "Log timing information (request duration)",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "lgtm.http.masked-headers",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Headers to mask in logs (for security) Example: [\"Authorization\", \"X-API-Key\", \"Cookie\"]",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties"
+    },
+    {
+      "name": "lgtm.http.max-payload-length",
+      "type": "java.lang.Integer",
+      "description": "Maximum payload size to log (in bytes). -1 for unlimited.",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": 10000
+    },
+    {
+      "name": "lgtm.http.pretty-print",
+      "type": "java.lang.Boolean",
+      "description": "Use pretty print for JSON bodies",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "lgtm.logging.http.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable HTTP request\/response logging",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "lgtm.logging.http.exclude-methods",
+      "type": "java.util.List<java.lang.String>",
+      "description": "HTTP methods to exclude from logging Example: [\"OPTIONS\", \"HEAD\"]",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties"
+    },
+    {
+      "name": "lgtm.logging.http.exclude-patterns",
+      "type": "java.util.List<java.lang.String>",
+      "description": "URL patterns to exclude from logging (supports Ant-style patterns) Example: [\"\/actuator\/**\", \"\/health\", \"\/metrics\"]",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties"
+    },
+    {
+      "name": "lgtm.logging.http.include-client-info",
+      "type": "java.lang.Boolean",
+      "description": "Log client info (IP, User-Agent)",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "lgtm.logging.http.include-methods",
+      "type": "java.util.List<java.lang.String>",
+      "description": "HTTP methods to include in logging If empty, all methods are included (except excluded ones) Example: [\"GET\", \"POST\", \"PUT\", \"DELETE\"]",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties"
+    },
+    {
+      "name": "lgtm.logging.http.include-patterns",
+      "type": "java.util.List<java.lang.String>",
+      "description": "URL patterns to include in logging (supports Ant-style patterns) If empty, all endpoints are included (except excluded ones) Example: [\"\/api\/**\", \"\/v1\/**\"]",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties"
+    },
+    {
+      "name": "lgtm.logging.http.include-query-string",
+      "type": "java.lang.Boolean",
+      "description": "Log query parameters",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "lgtm.logging.http.include-request-attributes",
+      "type": "java.lang.Boolean",
+      "description": "Request attributes to log",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "lgtm.logging.http.include-request-body",
+      "type": "java.lang.Boolean",
+      "description": "Log request body",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "lgtm.logging.http.include-request-headers",
+      "type": "java.lang.Boolean",
+      "description": "Log request headers",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "lgtm.logging.http.include-response-body",
+      "type": "java.lang.Boolean",
+      "description": "Log response body",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "lgtm.logging.http.include-response-headers",
+      "type": "java.lang.Boolean",
+      "description": "Log response headers",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "lgtm.logging.http.include-timings",
+      "type": "java.lang.Boolean",
+      "description": "Log timing information (request duration)",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "lgtm.logging.http.masked-headers",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Headers to mask in logs (for security) Example: [\"Authorization\", \"X-API-Key\", \"Cookie\"]",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties"
+    },
+    {
+      "name": "lgtm.logging.http.max-payload-length",
+      "type": "java.lang.Integer",
+      "description": "Maximum payload size to log (in bytes). -1 for unlimited.",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": 10000
+    },
+    {
+      "name": "lgtm.logging.http.pretty-print",
+      "type": "java.lang.Boolean",
+      "description": "Use pretty print for JSON bodies",
+      "sourceType": "com.yourorg.lgtm.autoconfigure.http.HttpLoggingProperties",
+      "defaultValue": false
+    }
+  ],
+  "hints": []
+}

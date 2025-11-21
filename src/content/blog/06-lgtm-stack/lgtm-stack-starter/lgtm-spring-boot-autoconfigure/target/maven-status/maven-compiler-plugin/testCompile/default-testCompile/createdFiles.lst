@@ -1,0 +1,7 @@
+com/yourorg/lgtm/autoconfigure/http/HttpLoggingFilterUnitTest.class
+com/yourorg/lgtm/autoconfigure/http/HttpLoggingFilterExclusionTest.class
+com/yourorg/lgtm/autoconfigure/http/HttpLoggingFilterIntegrationTest.class
+com/yourorg/lgtm/autoconfigure/http/HttpLoggingFilterInclusionTest.class
+com/yourorg/lgtm/autoconfigure/http/HttpLoggingFilterSecurityTest.class
+com/yourorg/lgtm/autoconfigure/http/HttpLoggingFilterPerformanceTest.class
+com/yourorg/lgtm/autoconfigure/http/HttpLoggingFilterMethodExclusionTest.class

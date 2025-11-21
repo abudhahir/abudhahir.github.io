@@ -1,0 +1,6 @@
+META-INF/spring-configuration-metadata.json
+com/yourorg/lgtm/autoconfigure/LgtmProperties.class
+com/yourorg/lgtm/autoconfigure/http/HttpLoggingProperties.class
+com/yourorg/lgtm/autoconfigure/http/HttpLoggingFilter.class
+com/yourorg/lgtm/autoconfigure/http/HttpLoggingAutoConfiguration.class
+com/yourorg/lgtm/autoconfigure/LgtmAutoConfiguration.class
