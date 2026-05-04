@@ -42,7 +42,7 @@ const seriesInfo = await getSeriesInfo();
                   <div class="flex items-center justify-between mb-2">
                     <h3 class="font-semibold text-foreground">{series.name}</h3>
                     <span class="text-xs bg-primary/20 text-primary px-2 py-1 rounded-full">
-                      {series.count} {series.count === 1 ? 'post' : 'posts'}
+                      {series.count} {series.count === 1 ? '' : ''}
                     </span>
                   </div>
                   <p class="text-sm text-muted mb-3">

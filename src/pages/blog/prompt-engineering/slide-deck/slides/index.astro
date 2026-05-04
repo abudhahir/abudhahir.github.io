@@ -1,22 +1,24 @@
 ---
-import { getCollection } from 'astro:content';
-import { marked } from 'marked';
-import SlideLayout from '../../../../../layouts/SlideLayout.astro';
+import { getCollection } from "astro:content";
+import { marked } from "marked";
+import SlideLayout from "../../../../../layouts/SlideLayout.astro";
 
 // Locate the specific blog entry containing the slide deck
-const posts = await getCollection('blog');
-const post = posts.find((p) => p.slug === 'prompt-engineering/slide-deck');
+const posts = await getCollection("blog");
+const post = posts.find((p) => p.slug === "prompt-engineering/slide-deck");
 if (!post) {
-  throw new Error('Slide deck post not found: blog/prompt-engineering/slide-deck');
+  throw new Error(
+    "Slide deck post not found: blog/prompt-engineering/slide-deck",
+  );
 }
 
-const markdown = post.body || '';
-const pageTitle = post.data?.title ?? 'Slide Deck';
+const markdown = post.body || "";
+const pageTitle = post.data?.title ?? "Slide Deck";
 
 // Split markdown into Reveal.js-compatible horizontal/vertical stacks
 function splitSlides(md) {
   const horiz = md.trim().split(/\n---\n/g); // horizontal separator
-  return horiz.map(h => h.split(/\n--\n/g)); // vertical separator
+  return horiz.map((h) => h.split(/\n--\n/g)); // vertical separator
 }
 
 const stacks = splitSlides(markdown);
@@ -30,26 +32,26 @@ marked.use({
 
 function renderHTML(md) {
   try {
-    if (typeof md !== 'string') {
-      console.error('renderHTML received non-string input:', typeof md, md);
+    if (typeof md !== "string") {
+      console.error("renderHTML received non-string input:", typeof md, md);
       return '<div class="slide-content"><p class="slide-paragraph">Error: Invalid markdown input</p></div>';
     }
-    
+
     // Process the markdown for better slide presentation
     const processed = md.trim();
-    
+
     if (!processed) {
       return '<div class="slide-content"><p class="slide-paragraph">Empty slide content</p></div>';
     }
-    
+
     let html = marked.parse(processed);
-    
+
     // Ensure we have a string
-    if (typeof html !== 'string') {
-      console.error('marked.parse returned non-string:', typeof html, html);
+    if (typeof html !== "string") {
+      console.error("marked.parse returned non-string:", typeof html, html);
       return '<div class="slide-content"><p class="slide-paragraph">Error: Markdown parsing failed</p></div>';
     }
-    
+
     // Post-process HTML to add our custom classes
     html = html
       .replace(/<h1>/g, '<h1 class="slide-heading-1">')
@@ -63,19 +65,26 @@ function renderHTML(md) {
       .replace(/<strong>/g, '<strong class="slide-strong">')
       .replace(/<em>/g, '<em class="slide-em">')
       .replace(/<code>/g, '<code class="inline-code">');
-    
+
     // Wrap content for better slide layout
     return `<div class="slide-content">${html}</div>`;
   } catch (error) {
-    console.error('Error in renderHTML:', error);
+    console.error("Error in renderHTML:", error);
     return '<div class="slide-content"><p class="slide-paragraph">Error rendering slide content</p></div>';
   }
 }
 ---
-<SlideLayout title={`${pageTitle} — Slides`}>
+
+<SlideLayout title={`${pageTitle} - Slides`}>
   <Fragment slot="head">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/highlight/monokai.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/highlight/monokai.css"
+    />
     <style>
       :root {
         --reveal-bg: hsl(var(--background));
@@ -87,23 +96,24 @@ function renderHTML(md) {
         --reveal-card: hsl(var(--card));
         --reveal-border: hsl(var(--border));
       }
-      
+
       .reveal-viewport {
         background: var(--reveal-bg);
         background-color: var(--reveal-bg);
       }
-      
-      .reveal { 
+
+      .reveal {
         height: 100vh;
-        font-family: 'Fira Code', "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-family:
+          "Fira Code", "Helvetica Neue", Helvetica, Arial, sans-serif;
         background: var(--reveal-bg);
       }
-      
+
       .reveal .slides {
         text-align: center;
         background: transparent;
       }
-      
+
       .reveal .slides section {
         display: flex;
         flex-direction: column;
@@ -113,7 +123,7 @@ function renderHTML(md) {
         overflow-y: auto;
         max-height: 100vh;
       }
-      
+
       .reveal .slide-content {
         width: 100%;
         max-width: 1200px;
@@ -123,14 +133,24 @@ function renderHTML(md) {
         gap: 1.5em;
         padding: 0 20px;
       }
-      
+
       /* Remove default margins from generic elements */
-      .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6,
-      .reveal p, .reveal ul, .reveal ol, .reveal li, .reveal pre, .reveal code {
+      .reveal h1,
+      .reveal h2,
+      .reveal h3,
+      .reveal h4,
+      .reveal h5,
+      .reveal h6,
+      .reveal p,
+      .reveal ul,
+      .reveal ol,
+      .reveal li,
+      .reveal pre,
+      .reveal code {
         margin: 0 !important;
         padding: 0 !important;
       }
-      
+
       /* Slide headings */
       .slide-heading-1 {
         color: var(--reveal-fg) !important;
@@ -140,7 +160,7 @@ function renderHTML(md) {
         margin: 0.3em 0 0.5em 0;
         line-height: 1.2;
       }
-      
+
       .slide-heading-2 {
         color: var(--reveal-fg) !important;
         font-size: 1.8em;
@@ -149,7 +169,7 @@ function renderHTML(md) {
         margin: 0.4em 0 0.8em 0;
         line-height: 1.3;
       }
-      
+
       .slide-heading-3 {
         color: var(--reveal-fg) !important;
         font-size: 1.4em;
@@ -158,7 +178,7 @@ function renderHTML(md) {
         margin: 1em 0 0.5em 0;
         line-height: 1.3;
       }
-      
+
       .slide-heading-4 {
         color: var(--reveal-muted) !important;
         font-size: 1.1em;
@@ -166,7 +186,7 @@ function renderHTML(md) {
         text-align: left;
         margin: 0.8em 0 0.4em 0;
       }
-      
+
       /* Paragraphs */
       .slide-paragraph {
         color: var(--reveal-fg);
@@ -175,7 +195,7 @@ function renderHTML(md) {
         margin: 0.8em 0;
         font-size: 1.05em;
       }
-      
+
       /* List items */
       .slide-list {
         text-align: left;
@@ -183,25 +203,25 @@ function renderHTML(md) {
         padding-left: 1.5em;
         color: var(--reveal-fg);
       }
-      
+
       .slide-list-item {
         color: var(--reveal-fg);
         line-height: 1.8;
         margin: 0.5em 0;
         font-size: 1em;
       }
-      
+
       /* Strong and emphasis */
       .slide-strong {
         color: var(--reveal-primary);
         font-weight: 700;
       }
-      
+
       .slide-em {
         color: var(--reveal-accent);
         font-style: italic;
       }
-      
+
       /* Code blocks */
       .reveal pre {
         background: rgba(255, 255, 255, 0.05);
@@ -214,7 +234,7 @@ function renderHTML(md) {
         text-align: left;
         overflow: hidden;
       }
-      
+
       .reveal pre code {
         background: transparent;
         color: var(--reveal-fg);
@@ -225,30 +245,30 @@ function renderHTML(md) {
         display: block;
         line-height: 1.6;
         font-size: 1em;
-        font-family: 'Fira Code', 'Courier New', monospace;
+        font-family: "Fira Code", "Courier New", monospace;
       }
-      
+
       /* Inline code */
       .inline-code {
         background: rgba(255, 255, 255, 0.1);
         color: var(--reveal-accent);
         padding: 0.2em 0.4em;
         border-radius: 4px;
-        font-family: 'Fira Code', 'Courier New', monospace;
+        font-family: "Fira Code", "Courier New", monospace;
         font-size: 0.9em;
         white-space: nowrap;
       }
-      
+
       .reveal a {
         color: var(--reveal-primary);
         text-decoration: none;
       }
-      
+
       .reveal a:hover {
         color: var(--reveal-accent);
         text-decoration: underline;
       }
-      
+
       .reveal blockquote {
         background: var(--reveal-card);
         border-left: 4px solid var(--reveal-primary);
@@ -259,83 +279,83 @@ function renderHTML(md) {
         font-style: italic;
         color: var(--reveal-muted);
       }
-      
+
       .reveal hr {
         border: none;
         border-top: 1px solid var(--reveal-border);
         margin: 2em auto;
         width: 80%;
       }
-      
+
       .reveal .progress {
         color: var(--reveal-primary);
         background: var(--reveal-border);
         height: 3px;
       }
-      
+
       .reveal .progress span {
         background: var(--reveal-primary);
       }
-      
+
       .reveal .controls {
         color: var(--reveal-primary);
       }
-      
+
       .reveal .controls button {
         color: var(--reveal-primary);
       }
-      
+
       .reveal .slide-number {
         background: var(--reveal-card);
         color: var(--reveal-fg);
         border: 1px solid var(--reveal-border);
       }
-      
+
       /* Override Reveal.js default theme colors */
       .reveal {
         color: var(--reveal-fg);
       }
-      
+
       .reveal ::selection {
         color: var(--reveal-bg);
         background: var(--reveal-primary);
       }
-      
+
       .reveal ::-moz-selection {
         color: var(--reveal-bg);
         background: var(--reveal-primary);
       }
-      
+
       /* Ensure backgrounds work with theme */
       .reveal .backgrounds {
         background: var(--reveal-bg);
       }
-      
+
       .reveal .slide-background {
         background: transparent;
       }
-      
+
       /* Navigation controls theming */
       .reveal .controls .navigate-left,
       .reveal .controls .navigate-left.enabled {
         color: var(--reveal-primary);
       }
-      
+
       .reveal .controls .navigate-right,
       .reveal .controls .navigate-right.enabled {
         color: var(--reveal-primary);
       }
-      
+
       .reveal .controls .navigate-up,
       .reveal .controls .navigate-up.enabled {
         color: var(--reveal-primary);
       }
-      
+
       .reveal .controls .navigate-down,
       .reveal .controls .navigate-down.enabled {
         color: var(--reveal-primary);
       }
-      
+
       .reveal .controls .navigate-left.enabled:hover,
       .reveal .controls .navigate-right.enabled:hover,
       .reveal .controls .navigate-up.enabled:hover,
@@ -347,48 +367,54 @@ function renderHTML(md) {
 
   <div class="reveal">
     <div class="slides">
-      {stacks.map((stack, stackIndex) => {
-        if (stack.length > 1) {
-          return (
-            <section>
-              {stack.map((s, slideIndex) => (
-                <section>
-                  <Fragment set:html={renderHTML(s)} />
-                </section>
-              ))}
-            </section>
-          );
-        } else {
-          return (
-            <section>
-              <Fragment set:html={renderHTML(stack[0])} />
-            </section>
-          );
-        }
-      })}
+      {
+        stacks.map((stack, stackIndex) => {
+          if (stack.length > 1) {
+            return (
+              <section>
+                {stack.map((s, slideIndex) => (
+                  <section>
+                    <Fragment set:html={renderHTML(s)} />
+                  </section>
+                ))}
+              </section>
+            );
+          } else {
+            return (
+              <section>
+                <Fragment set:html={renderHTML(stack[0])} />
+              </section>
+            );
+          }
+        })
+      }
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/highlight/highlight.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/notes/notes.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/highlight/highlight.js"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/notes/notes.js"
+  ></script>
   <script is:inline>
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener("DOMContentLoaded", () => {
       const deck = new window.Reveal({
         hash: true,
         slideNumber: true,
         progress: true,
         center: true,
-        transition: 'slide',
-        transitionSpeed: 'default',
-        backgroundTransition: 'fade',
+        transition: "slide",
+        transitionSpeed: "default",
+        backgroundTransition: "fade",
         width: 1280,
         height: 720,
         margin: 0.1,
         minScale: 0.2,
         maxScale: 2.0,
         controls: true,
-        controlsLayout: 'bottom-right',
+        controlsLayout: "bottom-right",
         controlsTutorial: true,
         mouseWheel: false,
         fragmentInURL: false,
@@ -400,11 +426,11 @@ function renderHTML(md) {
         touch: true,
         loop: false,
         rtl: false,
-        navigationMode: 'default',
+        navigationMode: "default",
         shuffle: false,
         keyboard: true,
         overview: true,
-        plugins: [ window.RevealHighlight, window.RevealNotes ],
+        plugins: [window.RevealHighlight, window.RevealNotes],
       });
       deck.initialize();
     });
