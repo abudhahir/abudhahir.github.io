@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la ~/.claude/skills/ 2>/dev/null | head -20 && echo \"---\" && ls -la /Users/abu/projects/personal/abudhahir.github.io/.claude/ 2>/dev/null)",
+      "Read(//Users/abu/.claude/skills/**)",
+      "Bash(mkdir -p /Users/abu/projects/personal/abudhahir.github.io/.claude/skills/abu-blog-writing && ls /Users/abu/projects/personal/abudhahir.github.io/.claude/skills/)",
+      "Edit(/.claude/skills/abu-blog-writing/**)",
+      "mcp__plugin_everything-claude-code_context7__resolve-library-id",
+      "mcp__plugin_everything-claude-code_exa__web_search_exa",
+      "mcp__plugin_everything-claude-code_github__get_file_contents",
+      "mcp__plugin_everything-claude-code_github__search_issues",
+      "mcp__plugin_everything-claude-code_context7__query-docs",
+      "mcp__plugin_everything-claude-code_github__search_code"
+    ],
+    "additionalDirectories": [
+      "/Users/abu/projects/personal/abudhahir.github.io/.claude/skills"
+    ]
+  }
+}

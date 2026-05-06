@@ -1,6 +1,6 @@
 ---
 title: "Scaling OpenAPI Code Generation Across Multiple Specs"
-excerpt: "Generalise OpenAPI Generator across many YAML specs in Spring Boot 4 + Java 21 — dynamic Gradle tasks, Maven execution blocks, core config flags, and shared-model strategies."
+excerpt: "Generalise OpenAPI Generator across many YAML specs in Spring Boot 4 + Java 21 - dynamic Gradle tasks, Maven execution blocks, core config flags, and shared-model strategies."
 date: "Dec 22 2024"
 author: "Abu Dhahir"
 series: "OpenAPI Generators for Spring Boot 4"

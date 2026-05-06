@@ -1,6 +1,6 @@
 ---
 title: "OpenAPI Source Code Generation for Spring Boot 4 and Java 21"
-excerpt: "How OpenAPI Generator produces models, API interfaces, and delegate beans for a contract-first Spring Boot 4 service on Java 21 — Records, Jackson 3, Jakarta EE 11, and HttpExchange clients."
+excerpt: "How OpenAPI Generator produces models, API interfaces, and delegate beans for a contract-first Spring Boot 4 service on Java 21 - Records, Jackson 3, Jakarta EE 11, and HttpExchange clients."
 date: "Dec 21 2024"
 author: "Abu Dhahir"
 series: "OpenAPI Generators for Spring Boot 4"
