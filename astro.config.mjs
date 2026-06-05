@@ -7,7 +7,7 @@ import { mermaidPlugin } from './src/utils/mermaid-plugin.js';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://cleveloper.com',
+  site: 'https://abudhahir.github.io',
   showProjects: true, // Custom flag to control Projects section visibility
   integrations: [
     react(),
