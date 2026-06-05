@@ -17,7 +17,7 @@ Of course! Let's reframe our journey from the world of interns to the structured
 
 Forget everything you know about whispering to a magical box. Building Agentic AI isn't magic; it's **management**. It's about assembling and orchestrating a hyper-efficient, lightning-fast, and sometimes brilliantly literal tech team inside your computer.
 
-Your Large Language Model (LLM) isn't a genie. It's a **massive, pre-trained pool of talent**—a blend of developers, writers, analysts, and creatives, all waiting for a project assignment.
+Your Large Language Model (LLM) isn't a genie. It's a **massive, pre-trained pool of talent**-a blend of developers, writers, analysts, and creatives, all waiting for a project assignment.
 
 Your job is to be the **Project Lead**. You define the vision, provide the specs, and manage the workflow. Let's meet your team and learn how to lead them.
 
@@ -341,7 +341,7 @@ This is the magic. The AI is no longer a static language model; it's a **dynamic
 
 #### **Planning & Self-Correction: The Team Lead Who Manages Themselves**
 
-With great power (tools) comes great responsibility. We need our AI team to not just execute blindly, but to plan its work and correct course when things go wrong—just a human team would.
+With great power (tools) comes great responsibility. We need our AI team to not just execute blindly, but to plan its work and correct course when things go wrong-just a human team would.
 
 **The Tech Team Analogy:**
 This is the difference between a junior dev who gets stuck on an error and a senior lead who creates a backup plan, tries a different approach, and documents the solution.
@@ -403,7 +403,7 @@ An AI without tools is all talk. An AI with tools is a digital workforce. Your p
 
 ### **🎤 Slides-Style Bullet Points (The TL;DR)**
 
-*   **🛠️ Tools Are Everything:** Agency is born when you give your AI team **tools**—functions to execute code, call APIs, query data.
+*   **🛠️ Tools Are Everything:** Agency is born when you give your AI team **tools**-functions to execute code, call APIs, query data.
 *   **⚙️ ReAct in Action:** The **ReAct loop** (Thought -> Action[Tool] -> Observation) is the **CI/CD pipeline** for your AI team's work.
 *   **🌳 Think in Trees:** Techniques like **Tree of Thought** make your agent explore multiple solutions, like a senior engineer weighing different designs.
 *   **🤖 Self-Correcting Systems:** A true agent can hit a runtime error, reason about it, and try a different tool or approach. It **debugs itself**.

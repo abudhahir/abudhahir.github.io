@@ -7,8 +7,8 @@ import { mermaidPlugin } from './src/utils/mermaid-plugin.js';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://abudhahir.github.io',
-  showProjects: false, // Custom flag to control Projects section visibility
+  site: 'https://cleveloper.com',
+  showProjects: true, // Custom flag to control Projects section visibility
   integrations: [
     react(),
     mdx(),
@@ -23,6 +23,12 @@ export default defineConfig({
   vite: {
     optimizeDeps: {
       include: ['framer-motion', 'mermaid'],
+    },
+    ssr: {
+      noExternal: ['framer-motion'],
+    },
+    resolve: {
+      dedupe: ['react', 'react-dom'],
     },
   },
 });

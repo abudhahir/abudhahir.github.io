@@ -379,7 +379,7 @@ The key to mastery lies in:
 3. Developing intuition for which approach works best for different situations
 4. Continuously refining prompts based on results and feedback
 
-Remember that prompt engineering is both an art and a science—while frameworks provide structure, creativity and experimentation often lead to the best results.
+Remember that prompt engineering is both an art and a science-while frameworks provide structure, creativity and experimentation often lead to the best results.
 
 #### **6. Best Practices and Optimization Strategies**
 

@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { getPostsBySeries, getSeriesInfo } from '../../utils/series.js';
+import BlogSeries from '../../components/BlogSeries.jsx';
 
 const posts = await getCollection('blog');
 const sortedPosts = posts
@@ -32,59 +33,25 @@ const seriesInfo = await getSeriesInfo();
           <p class="text-lg text-muted">Technical articles about Java, Spring Boot, and software development</p>
         </header>
 
-        <!-- Series Overview -->
-        {seriesInfo.length > 0 && (
-          <section class="mb-12">
-            <h2 class="text-2xl font-semibold mb-6">Series</h2>
-            <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {seriesInfo.map(series => (
-                <div class="glass rounded-lg p-4 border border-border hover:border-primary transition-colors">
-                  <div class="flex items-center justify-between mb-2">
-                    <h3 class="font-semibold text-foreground">{series.name}</h3>
-                    <span class="text-xs bg-primary/20 text-primary px-2 py-1 rounded-full">
-                      {series.count} {series.count === 1 ? '' : ''}
-                    </span>
-                  </div>
-                  <p class="text-sm text-muted mb-3">
-                    Latest: {series.latestPost.data.title}
-                  </p>
-                  <a 
-                    href={`/blog/series/${encodeURIComponent(series.name)}`}
-                    class="text-primary hover:text-primary/80 transition-colors text-sm font-medium"
-                  >
-                    View Series →
-                  </a>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
+        <!-- Tabs -->
+        <div class="flex gap-4 mb-8 border-b border-border">
+          <button id="tab-series" class="pb-2 px-2 text-lg font-semibold border-b-2 border-primary text-foreground transition-colors">
+            Series
+          </button>
+          <button id="tab-posts" class="pb-2 px-2 text-lg font-semibold border-b-2 border-transparent text-muted hover:text-foreground transition-colors">
+            Posts
+          </button>
+        </div>
 
-        <!-- Series Filter -->
-        {seriesInfo.length > 0 && (
-          <div class="mb-8">
-            <div class="flex flex-wrap gap-2">
-              <button 
-                id="all-posts"
-                class="series-filter px-3 py-2 text-sm rounded-lg border transition-colors bg-primary text-white border-primary"
-                data-series="all"
-              >
-                All Posts ({sortedPosts.length})
-              </button>
-              {seriesInfo.map(series => (
-                <button 
-                  class="series-filter px-3 py-2 text-sm rounded-lg border transition-colors bg-secondary border-border text-foreground hover:bg-primary/10"
-                  data-series={series.name}
-                >
-                  {series.name} ({series.count})
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
+        <!-- Series Tab Content -->
+        <div id="series-tab-content" class="block">
+          <BlogSeries client:load seriesInfo={seriesInfo} />
+        </div>
 
-        <!-- Blog posts -->
-        <div id="posts-container" class="grid gap-8">
+        <!-- Posts Tab Content -->
+        <div id="posts-tab-content" class="hidden">
+          <!-- Blog posts -->
+          <div id="posts-container" class="grid gap-8">
           {sortedPosts.map(post => (
             <article class="glass rounded-lg p-6 border border-border hover:border-primary transition-colors">
               <div class="flex items-start justify-between gap-4 mb-4">
@@ -146,6 +113,7 @@ const seriesInfo = await getSeriesInfo();
               </a>
             </article>
           ))}
+          </div>
         </div>
       </div>
     </div>
@@ -153,46 +121,43 @@ const seriesInfo = await getSeriesInfo();
 </Layout>
 
 <script>
-  // Series filtering functionality
+  // Tab switching functionality
   document.addEventListener('DOMContentLoaded', function() {
-    const filterButtons = document.querySelectorAll('.series-filter') as NodeListOf<HTMLButtonElement>;
-    const postsContainer = document.getElementById('posts-container');
-    const posts = Array.from(postsContainer?.children || []) as HTMLElement[];
+    const tabSeries = document.getElementById('tab-series');
+    const tabPosts = document.getElementById('tab-posts');
+    const contentSeries = document.getElementById('series-tab-content');
+    const contentPosts = document.getElementById('posts-tab-content');
     
-    if (!postsContainer) return;
+    if (!tabSeries || !tabPosts || !contentSeries || !contentPosts) return;
     
-    // Add series data to each post for filtering
-    posts.forEach((post) => {
-      const seriesElement = post.querySelector('[data-series]') as HTMLElement;
-      if (seriesElement && seriesElement.textContent) {
-        post.dataset.series = seriesElement.textContent.trim();
-      } else {
-        post.dataset.series = 'none';
-      }
+    tabSeries.addEventListener('click', () => {
+      // Update tabs
+      tabSeries.classList.add('border-primary', 'text-foreground');
+      tabSeries.classList.remove('border-transparent', 'text-muted');
+      
+      tabPosts.classList.remove('border-primary', 'text-foreground');
+      tabPosts.classList.add('border-transparent', 'text-muted');
+      
+      // Update content
+      contentSeries.classList.remove('hidden');
+      contentSeries.classList.add('block');
+      contentPosts.classList.add('hidden');
+      contentPosts.classList.remove('block');
     });
     
-    filterButtons.forEach((button) => {
-      button.addEventListener('click', function(this: HTMLButtonElement) {
-        const selectedSeries = this.dataset.series;
-        
-        // Update button styles
-        filterButtons.forEach((btn) => {
-          btn.classList.remove('bg-primary', 'text-white', 'border-primary');
-          btn.classList.add('bg-secondary', 'border-border', 'text-foreground');
-        });
-        
-        this.classList.remove('bg-secondary', 'border-border', 'text-foreground');
-        this.classList.add('bg-primary', 'text-white', 'border-primary');
-        
-        // Filter posts
-        posts.forEach((post) => {
-          if (selectedSeries === 'all' || post.dataset.series === selectedSeries) {
-            post.style.display = 'block';
-          } else {
-            post.style.display = 'none';
-          }
-        });
-      });
+    tabPosts.addEventListener('click', () => {
+      // Update tabs
+      tabPosts.classList.add('border-primary', 'text-foreground');
+      tabPosts.classList.remove('border-transparent', 'text-muted');
+      
+      tabSeries.classList.remove('border-primary', 'text-foreground');
+      tabSeries.classList.add('border-transparent', 'text-muted');
+      
+      // Update content
+      contentPosts.classList.remove('hidden');
+      contentPosts.classList.add('block');
+      contentSeries.classList.add('hidden');
+      contentSeries.classList.remove('block');
     });
   });
 </script>

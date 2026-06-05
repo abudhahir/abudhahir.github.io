@@ -22,7 +22,7 @@ const Header = () => {
   const navItems = [
     { name: 'About', href: '#about' },
     ...(showExperience ? [{ name: 'Experience', href: '#experience' }] : []),
-    { name: 'Projects', href: '#projects' },
+    { name: 'Projects', href: '/projects', isExternal: true },
     { name: 'Blog', href: '/blog', isExternal: true },
     ...(showContactForm ? [{ name: 'Contact', href: '#contact' }] : []),
   ];

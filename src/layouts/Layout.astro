@@ -42,7 +42,7 @@ import Header from '../components/Header.jsx';
   </head>
   <body class="bg-background text-foreground font-sans antialiased overflow-x-hidden">
     <!-- Global site header/navigation -->
-    <Header client:load />
+    <Header client:only="react" />
     <slot />
   </body>
 </html>

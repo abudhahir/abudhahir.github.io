@@ -2,12 +2,12 @@ import { motion } from 'framer-motion';
 
 const About = () => {
   const skills = {
-    'Backend': ['Java', 'Spring Boot', 'Spring Cloud', 'Python', 'Node.js'],
-    'Frontend': ['TypeScript', 'JavaScript', 'React', 'HTML5', 'CSS3'],
+    'Backend': ['Java', 'Spring Boot', 'Spring Cloud', 'Python', 'Node.js', 'Microservices', 'PostgreSQL'],
+    'Frontend': ['TypeScript', 'JavaScript', 'React', 'Angular', 'Astro', 'HTML5', 'CSS3'],
     'AI/ML': ['OpenAI API', 'LangGraph', 'AI Agents', 'Azure OpenAI', 'Machine Learning'],
-    'Cloud & DevOps': ['Docker', 'Azure', 'Containerization', 'CI/CD', 'Git'],
+    'Cloud & DevOps': ['Docker', 'Azure', 'Kubernetes', 'Containerization', 'CI/CD', 'Git'],
     'Mobile': ['Flutter', 'Dart', 'Mobile Development', 'Cross-platform'],
-    'Tools': ['VS Code', 'IntelliJ', 'Mermaid', 'AST Analysis', 'Code Generation'],
+    'Architecture & Tools': ['System Design', 'DDD', 'Architecture Patterns', 'VS Code', 'IntelliJ', 'Mermaid', 'AST Analysis', 'Code Generation'],
   };
 
   const containerVariants = {
@@ -57,23 +57,29 @@ const About = () => {
             viewport={{ once: true }}
           >
             <div className="prose prose-invert max-w-none">
-              <p className="text-lg text-muted mb-6">
-                I'm a passionate developer who bridges traditional enterprise development 
-                with cutting-edge AI capabilities. With deep expertise in Java/Spring 
-                ecosystem and modern AI integration, I create tools and applications that 
-                enhance developer productivity while maintaining enterprise-grade quality.
+              <p className="text-xl text-primary/80 font-medium italic mb-8 border-l-2 border-primary pl-4">
+                "Code is craft. Architecture is art. Mentoring is legacy."
               </p>
               <p className="text-lg text-muted mb-6">
-                My work spans from building robust Spring Boot applications and cloud-native 
-                solutions to creating AI-powered developer tools like diagram generators and 
-                code analysis utilities. I'm particularly interested in how AI can transform 
-                traditional development workflows and make complex tasks more accessible.
+                With over three decades in software engineering and nine years as a solutions
+                architect, I've witnessed - and shaped - the evolution of enterprise technology
+                from monolithic systems to cloud-native microservices, and now into the era of
+                AI-augmented development. My career spans Banking, Manufacturing, and SaaS
+                domains, giving me a broad perspective on how technology transforms industries.
+              </p>
+              <p className="text-lg text-muted mb-6">
+                Today, I focus on bridging the gap between enterprise reliability and AI innovation.
+                I lead architecture transformations, build AI-powered developer tools - from
+                diagram generators to code analyzers - and champion the adoption of modern
+                practices like Domain-Driven Design, event-driven systems, and cloud-native
+                infrastructure. My open-source contributions reflect my belief that great tools
+                should be accessible to everyone.
               </p>
               <p className="text-lg text-muted">
-                Whether it's integrating Azure OpenAI for intelligent diagram generation, 
-                building AST parsers for code analysis, or exploring AI agents with LangGraph, 
-                I enjoy pushing the boundaries of what's possible when enterprise reliability 
-                meets AI innovation.
+                Beyond building systems, I'm deeply invested in building people. Mentoring
+                engineers, empowering teams, and cultivating a culture of continuous learning
+                is as integral to my work as writing code. I believe the best architectures are
+                invisible - they simply enable people to do their best work.
               </p>
             </div>
 
@@ -86,20 +92,24 @@ const About = () => {
               viewport={{ once: true }}
             >
               <motion.div variants={itemVariants} className="glass p-4 rounded-lg">
-                <p className="text-primary font-mono text-sm">focus:</p>
-                <p className="text-foreground font-medium">Enterprise + AI</p>
+                <p className="text-primary font-mono text-sm">experience:</p>
+                <p className="text-foreground font-medium">30+ Years in Engineering</p>
               </motion.div>
               <motion.div variants={itemVariants} className="glass p-4 rounded-lg">
-                <p className="text-primary font-mono text-sm">specialization:</p>
-                <p className="text-foreground font-medium">Developer Tools</p>
+                <p className="text-primary font-mono text-sm">architecture:</p>
+                <p className="text-foreground font-medium">9+ Years as Architect</p>
               </motion.div>
               <motion.div variants={itemVariants} className="glass p-4 rounded-lg">
-                <p className="text-primary font-mono text-sm">languages:</p>
-                <p className="text-foreground font-medium">Java, Python, TypeScript</p>
+                <p className="text-primary font-mono text-sm">domains:</p>
+                <p className="text-foreground font-medium">Banking, Manufacturing, SaaS</p>
               </motion.div>
               <motion.div variants={itemVariants} className="glass p-4 rounded-lg">
-                <p className="text-primary font-mono text-sm">interests:</p>
-                <p className="text-foreground font-medium">AI Agents, Code Analysis</p>
+                <p className="text-primary font-mono text-sm">mission:</p>
+                <p className="text-foreground font-medium">AI Enablement & Dev Tooling</p>
+              </motion.div>
+              <motion.div variants={itemVariants} className="glass p-4 rounded-lg col-span-2">
+                <p className="text-primary font-mono text-sm">passion:</p>
+                <p className="text-foreground font-medium">Engineering Mentor & Team Builder</p>
               </motion.div>
             </motion.div>
           </motion.div>
@@ -114,7 +124,7 @@ const About = () => {
             <h3 className="text-2xl font-bold mb-6 font-mono">
               <span className="text-primary">$</span> skills --list
             </h3>
-            
+
             <motion.div
               className="space-y-6"
               variants={containerVariants}

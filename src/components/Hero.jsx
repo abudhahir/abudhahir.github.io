@@ -71,9 +71,9 @@ const Hero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 2, duration: 0.5 }}
               >
-                <p className="text-xl text-primary mb-2">Clarity, Consience, Create and Commit</p>
+                <p className="text-xl text-primary mb-2">Clarity, Conscience, Create, and Commit</p>
                 <p className="text-muted mb-8">
-                  Solutions constructor by craft, tinkerer by passion now with AI.
+                  Architect and engineer by profession, tinkerer by nature, AI enabler by passion.
                 </p>
                 
                 <div className="flex flex-wrap gap-4">

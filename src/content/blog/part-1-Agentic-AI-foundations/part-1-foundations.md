@@ -506,4 +506,4 @@ while not goals_achieved() and steps < max_steps:
 
 ---
 
-*Ready to build agents that think, plan, and act like you do? Let's make AI that doesn't just chat—but actually gets things done! 🎯*
+*Ready to build agents that think, plan, and act like you do? Let's make AI that doesn't just chat-but actually gets things done! 🎯*
