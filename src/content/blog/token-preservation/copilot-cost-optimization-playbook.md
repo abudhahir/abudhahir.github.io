@@ -11,17 +11,17 @@ series: "Token Preservation"
 # The GitHub Copilot Cost-Optimization Playbook: A Hands-On Guide for Teams
 
 *📥 [Download the Lunch & Learn Presentation (.pptx)](/downloads/Copilot-Cost-LunchAndLearn.pptx)*
-*A practical, step-by-step companion for engineering teams on Copilot Business, Enterprise, and Pro — built around the June 2026 shift to token-based AI Credits.*
+*A practical, step-by-step companion for engineering teams on Copilot Business, Enterprise, and Pro - built around the June 2026 shift to token-based AI Credits.*
 
 ---
 
 ## Why this guide exists
 
-In June 2026, GitHub quietly changed the rules of the game. The old "premium requests" counting system — where you got, say, 300 requests a month and each frontier-model call ate a multiple of one — is gone for almost everyone. In its place: **GitHub AI Credits**, where **1 credit = $0.01**, and you're billed on the *tokens* you actually consume — input, output, and cached — at each model's published rate.
+In June 2026, GitHub quietly changed the rules of the game. The old "premium requests" counting system - where you got, say, 300 requests a month and each frontier-model call ate a multiple of one - is gone for almost everyone. In its place: **GitHub AI Credits**, where **1 credit = $0.01**, and you're billed on the *tokens* you actually consume - input, output, and cached - at each model's published rate.
 
 This matters because the cost levers changed. Under the old system, your typed prompt was the unit. Under the new system, the unit is **tokens**, and tokens come overwhelmingly from things you don't type: the files Copilot attaches as context, the conversation history it re-sends every turn, the tool schemas it loads, and every autonomous step an agent takes. A single careless agent run can quietly burn more credits than a hundred thoughtful chat messages.
 
-The good news: this gives you far more control. If you understand where tokens go, you can cut spend by half or more *without* losing capability. This playbook is organized into three tiers — **Basic**, **Intermediate**, and **Advanced** — so you can adopt the easy wins today and grow into the sophisticated controls over time.
+The good news: this gives you far more control. If you understand where tokens go, you can cut spend by half or more *without* losing capability. This playbook is organized into three tiers - **Basic**, **Intermediate**, and **Advanced** - so you can adopt the easy wins today and grow into the sophisticated controls over time.
 
 > **A note on the mental model.** Three numbers determine the cost of any Copilot interaction:
 > **(1) which model** you use (cheapest to most expensive is a ~20x spread on input tokens),
@@ -31,32 +31,32 @@ The good news: this gives you far more control. If you understand where tokens g
 
 ---
 
-# Tier 1 — Basic: Habits Everyone Adopts Today
+# Tier 1 - Basic: Habits Everyone Adopts Today
 
 These cost nothing to implement, require no admin rights, and deliver the biggest immediate savings. If your team does only this tier, you'll already be ahead of most organizations.
 
-## 1.1 Use free completions for routine coding — don't open chat
+## 1.1 Use free completions for routine coding - don't open chat
 
 The most underused fact about Copilot: **inline code completions (the grey "ghost text") and Next Edit Suggestions are unlimited and completely free on every paid plan.** They don't touch your credit pool at all.
 
-So the first rule is behavioral: if you're just writing code — filling in a function body, completing a loop, writing a test that follows an obvious pattern — let the inline suggestions do it. Opening a chat panel or an agent to write a five-line function is paying credits for something you get for free.
+So the first rule is behavioral: if you're just writing code - filling in a function body, completing a loop, writing a test that follows an obvious pattern - let the inline suggestions do it. Opening a chat panel or an agent to write a five-line function is paying credits for something you get for free.
 
 **Do this:**
 ```python
-# Just start typing and let ghost text complete it — $0.
+# Just start typing and let ghost text complete it - $0.
 def calculate_invoice_total(line_items: list[LineItem]) -> Decimal:
     total = Decimal("0")
     for item in line_items:
         # Copilot completes the rest inline, free of charge
 ```
 
-**Not this:** opening Copilot Chat and typing *"write me a function that totals invoice line items"* — that's a metered model call for something completions handle for free.
+**Not this:** opening Copilot Chat and typing *"write me a function that totals invoice line items"* - that's a metered model call for something completions handle for free.
 
 ## 1.2 Default your model picker to "Auto"
 
-In every Copilot surface — VS Code chat, the CLI, the cloud agent — there's a model picker. Set it to **Auto** and leave it there as your default.
+In every Copilot surface - VS Code chat, the CLI, the cloud agent - there's a model picker. Set it to **Auto** and leave it there as your default.
 
-Auto does two things for you. First, it routes simple tasks to cheaper models and reserves the expensive reasoning models for genuinely hard problems, so you're not paying frontier prices for trivial work. Second — and this is a direct, official discount — **paid plans get 10% off model costs while using Auto.** It is the single laziest way to save money, because it requires you to do nothing except not override it.
+Auto does two things for you. First, it routes simple tasks to cheaper models and reserves the expensive reasoning models for genuinely hard problems, so you're not paying frontier prices for trivial work. Second - and this is a direct, official discount - **paid plans get 10% off model costs while using Auto.** It is the single laziest way to save money, because it requires you to do nothing except not override it.
 
 The corollary: **don't switch models mid-conversation** unless you have a reason. GitHub notes that model-switching mid-session increases cost (it breaks prompt caching) without much quality gain.
 
@@ -74,7 +74,7 @@ A good prompt states the **goal**, the **constraints**, and **when to stop**.
 
 The strong version gives Copilot exactly enough context to be right on the first pass, bounds the scope so it doesn't wander into other files (more output tokens), and asks for a one-sentence explanation instead of an essay.
 
-## 1.4 Ask for terse output — output tokens are the expensive ones
+## 1.4 Ask for terse output - output tokens are the expensive ones
 
 On most models, **output tokens cost roughly 5x what input tokens cost.** A chatty, over-explained answer is disproportionately expensive. When you don't need the prose, say so.
 
@@ -84,7 +84,7 @@ Useful phrases to keep in your back pocket:
 - *"Just the diff."*
 - *"List the file names, don't show the contents."*
 
-These feel small, but across a team and a month they compound into real money — and you usually didn't want the essay anyway.
+These feel small, but across a team and a month they compound into real money - and you usually didn't want the essay anyway.
 
 ## 1.5 Start a fresh chat for each new task
 
@@ -96,13 +96,13 @@ When you switch to an unrelated task, **start a new chat.** It's the cheapest co
 
 Copilot Chat has three modes, and they differ enormously in cost because they differ in how many tokens and round-trips they generate:
 
-| Mode | What it does | Relative cost | Use it for |
-|---|---|---|---|
-| **Ask** | One prompt, one answer | Lowest | Questions, explanations, "how do I…", small lookups |
-| **Edit** | Edits one or a few named files | Medium | A clear change to specific files |
+| Mode      | What it does                                                    | Relative cost                       | Use it for                                                 |
+| --------- | --------------------------------------------------------------- | ----------------------------------- | ---------------------------------------------------------- |
+| **Ask**   | One prompt, one answer                                          | Lowest                              | Questions, explanations, "how do I…", small lookups        |
+| **Edit**  | Edits one or a few named files                                  | Medium                              | A clear change to specific files                           |
 | **Agent** | Autonomous loop: plans, reads, edits, runs tools, self-corrects | Highest (often 10-40x a single Ask) | Genuine multi-file features, migrations, complex debugging |
 
-The mistake that quietly drains pools: reaching for **Agent mode** out of habit for a task that **Ask** or **Edit** would handle. Agent mode is powerful and sometimes exactly right — but every step it takes is another metered model call, and it can take dozens. Use it deliberately, not by default.
+The mistake that quietly drains pools: reaching for **Agent mode** out of habit for a task that **Ask** or **Edit** would handle. Agent mode is powerful and sometimes exactly right - but every step it takes is another metered model call, and it can take dozens. Use it deliberately, not by default.
 
 > **Basic Tier checklist:**
 > - [ ] Let inline completions write routine code (free)
@@ -110,13 +110,13 @@ The mistake that quietly drains pools: reaching for **Agent mode** out of habit 
 > - [ ] Prompts are specific: goal + constraints + stop condition
 > - [ ] Ask for terse output when you don't need prose
 > - [ ] New task = new chat
-> - [ ] Ask < Edit < Agent — pick the smallest mode that works
+> - [ ] Ask < Edit < Agent - pick the smallest mode that works
 
 ---
 
-# Tier 2 — Intermediate: Configuration & Repeatable Practice
+# Tier 2 - Intermediate: Configuration & Repeatable Practice
 
-This tier moves from individual habits to **configured behavior** — settings, repository instructions, and context discipline that make the cheap path the default path for the whole team. It's where you stop relying on willpower and start relying on setup.
+This tier moves from individual habits to **configured behavior** - settings, repository instructions, and context discipline that make the cheap path the default path for the whole team. It's where you stop relying on willpower and start relying on setup.
 
 ## 2.1 Scope your context with #-references
 
@@ -128,13 +128,13 @@ When you let Copilot guess what context is relevant, it tends to over-attach: th
 **Cheap and more accurate (you pin the context):**
 > Why is the total wrong in #file:checkout/totals.py at the #sym:apply_discount function? Reference #file:checkout/models.py for the data shapes.
 
-You'll often find the scoped version is not only cheaper but *better*, because the model isn't distracted by irrelevant files. Close unrelated editor tabs for the same reason — open tabs are a common silent context source.
+You'll often find the scoped version is not only cheaper but *better*, because the model isn't distracted by irrelevant files. Close unrelated editor tabs for the same reason - open tabs are a common silent context source.
 
 ## 2.2 Add a repository instructions file
 
 A `.github/copilot-instructions.md` file is read on (nearly) every Copilot interaction in that repo. Used well, it eliminates a whole category of wasted round-trips: the back-and-forth where Copilot guesses your conventions wrong and you correct it.
 
-Keep it **short** — it loads every time, so a bloated instructions file is itself a recurring token cost. Aim for high-signal conventions and a default-terse instruction.
+Keep it **short** - it loads every time, so a bloated instructions file is itself a recurring token cost. Aim for high-signal conventions and a default-terse instruction.
 
 **Sample `.github/copilot-instructions.md`:**
 ```markdown
@@ -196,13 +196,13 @@ Two VS Code settings give you guardrails without changing how you work. Put thes
 }
 ```
 
-`chat.agent.maxRequests` is the standout: it converts an unbounded worst case ("the agent looped 60 times on a hard problem") into a bounded one. If an agent hits the cap, you can always continue deliberately — but now *you* decide to spend more, instead of discovering it after the fact.
+`chat.agent.maxRequests` is the standout: it converts an unbounded worst case ("the agent looped 60 times on a hard problem") into a bounded one. If an agent hits the cap, you can always continue deliberately - but now *you* decide to spend more, instead of discovering it after the fact.
 
-> **Verify setting names against current VS Code docs** — Copilot settings are renamed and promoted out of preview frequently.
+> **Verify setting names against current VS Code docs** - Copilot settings are renamed and promoted out of preview frequently.
 
-## 2.5 Watch your usage — make cost visible
+## 2.5 Watch your usage - make cost visible
 
-You can't manage what you can't see. In VS Code, click the **Copilot icon in the Status Bar** to open the status dashboard; it shows the percentage of your monthly AI-credit allowance used and your reset date. Power users can open the **Chat Debug View** (⋯ menu → "Show Chat Debug View") to see per-interaction token counts — eye-opening the first time you watch a single agent step consume thousands of tokens.
+You can't manage what you can't see. In VS Code, click the **Copilot icon in the Status Bar** to open the status dashboard; it shows the percentage of your monthly AI-credit allowance used and your reset date. Power users can open the **Chat Debug View** (⋯ menu → "Show Chat Debug View") to see per-interaction token counts - eye-opening the first time you watch a single agent step consume thousands of tokens.
 
 Make checking this a habit, the way you'd glance at a fuel gauge. Awareness alone changes behavior.
 
@@ -214,7 +214,7 @@ This is the highest-leverage *intermediate* practice, sitting right at the borde
 2. **Plan (fresh chat).** Paste the summary. *"Given this, write a step-by-step plan to add OAuth. List files to change. Don't write code yet."* You get a plan you can review.
 3. **Implement (fresh chat, agent mode).** Paste the approved plan. *"Implement step 1 only: create the OAuth config module per this plan."* Then step 2, and so on.
 
-Why this saves money: each session starts with **minimal, relevant context** instead of dragging an ever-growing history. The model isn't re-reading the whole exploration every time it writes a line of code. As a bonus, the plan is reviewable before any expensive implementation begins — you catch a wrong approach while it's still cheap to fix.
+Why this saves money: each session starts with **minimal, relevant context** instead of dragging an ever-growing history. The model isn't re-reading the whole exploration every time it writes a line of code. As a bonus, the plan is reviewable before any expensive implementation begins - you catch a wrong approach while it's still cheap to fix.
 
 > **Intermediate Tier checklist:**
 > - [ ] Scope context with `#file:` / `#sym:` references; close stray tabs
@@ -226,13 +226,13 @@ Why this saves money: each session starts with **minimal, relevant context** ins
 
 ---
 
-# Tier 3 — Advanced: Skills, Hooks, MCP Discipline & Org Controls
+# Tier 3 - Advanced: Skills, Hooks, MCP Discipline & Org Controls
 
-This tier is for power users, tech leads, and admins. It covers the surfaces that can save the most — and, if left unmanaged, *cost* the most: the Copilot CLI, MCP servers, custom skills/agents, automation hooks, and organization-wide policy and budget enforcement.
+This tier is for power users, tech leads, and admins. It covers the surfaces that can save the most - and, if left unmanaged, *cost* the most: the Copilot CLI, MCP servers, custom skills/agents, automation hooks, and organization-wide policy and budget enforcement.
 
 ## 3.1 Master the Copilot CLI's context commands
 
-The Copilot CLI is a terminal-native agent. It's wonderful for scriptable, repo-aware work — and because it's an agent, it's one of the biggest potential cost drivers. Each prompt you submit is metered, and the agent's internal steps ride along in the same growing token stream. The CLI gives you explicit commands to manage that:
+The Copilot CLI is a terminal-native agent. It's wonderful for scriptable, repo-aware work - and because it's an agent, it's one of the biggest potential cost drivers. Each prompt you submit is metered, and the agent's internal steps ride along in the same growing token stream. The CLI gives you explicit commands to manage that:
 
 ```bash
 # Visualize how much of the context window you're currently using
@@ -250,19 +250,19 @@ The Copilot CLI is a terminal-native agent. It's wonderful for scriptable, repo-
 
 The CLI **auto-compacts at about 80%** of the context window, but waiting for that means you've already paid for a bloated context many times over. Compact or clear *proactively* when you change tasks.
 
-**Use Plan Mode** (Shift+Tab) before big changes — it produces a plan first, which raises first-pass success and cuts the expensive retry loops.
+**Use Plan Mode** (Shift+Tab) before big changes - it produces a plan first, which raises first-pass success and cuts the expensive retry loops.
 
-**Use `/fleet` (parallel subagents) sparingly.** GitHub explicitly warns it drives higher token consumption — each subagent carries its *own* context window. Parallelism is a time-saver, not a cost-saver; spend it only when wall-clock time genuinely matters.
+**Use `/fleet` (parallel subagents) sparingly.** GitHub explicitly warns it drives higher token consumption - each subagent carries its *own* context window. Parallelism is a time-saver, not a cost-saver; spend it only when wall-clock time genuinely matters.
 
 > **Caveat:** content exclusion (the Business/Enterprise privacy control) does **not** apply to the CLI or agent mode. Don't rely on it for cost or privacy in those surfaces.
 
 ## 3.2 Be disciplined about MCP servers
 
-Model Context Protocol (MCP) servers extend Copilot with external tools — databases, issue trackers, browsers, internal APIs. They're genuinely powerful. They're also a **silent, recurring token tax**: each enabled tool injects its schema (roughly 100-500 tokens) into the system prompt on *every agent step*. Fifteen servers across fifteen steps can mean hundreds of thousands of tokens of pure overhead before the agent does anything useful.
+Model Context Protocol (MCP) servers extend Copilot with external tools - databases, issue trackers, browsers, internal APIs. They're genuinely powerful. They're also a **silent, recurring token tax**: each enabled tool injects its schema (roughly 100-500 tokens) into the system prompt on *every agent step*. Fifteen servers across fifteen steps can mean hundreds of thousands of tokens of pure overhead before the agent does anything useful.
 
-**The discipline: enable only what the current task needs.** Treat MCP servers like browser extensions — having fifty installed and active slows everything and costs you constantly.
+**The discipline: enable only what the current task needs.** Treat MCP servers like browser extensions - having fifty installed and active slows everything and costs you constantly.
 
-**Sample `.vscode/mcp.json` — lean, with servers off by default:**
+**Sample `.vscode/mcp.json` - lean, with servers off by default:**
 ```jsonc
 {
   "servers": {
@@ -285,12 +285,12 @@ In VS Code's agent panel, use the **Configure Tools** button to toggle off tools
 
 ## 3.3 Build custom skills and scoped agents
 
-A **custom agent** (defined in a `.chatmode.md`-style file or the equivalent in your Copilot version) lets you predefine a focused tool set, model, and instruction for a recurring job — so that job runs lean every time instead of loading your whole tool palette and a fresh wall of instructions.
+A **custom agent** (defined in a `.chatmode.md`-style file or the equivalent in your Copilot version) lets you predefine a focused tool set, model, and instruction for a recurring job - so that job runs lean every time instead of loading your whole tool palette and a fresh wall of instructions.
 
-**Sample custom agent — a deliberately cheap reviewer:**
+**Sample custom agent - a deliberately cheap reviewer:**
 ```markdown
 ---
-description: "Fast, cheap PR reviewer — comments only, never edits"
+description: "Fast, cheap PR reviewer - comments only, never edits"
 model: gpt-5-mini
 tools: ['codebase', 'search']
 ---
@@ -308,17 +308,17 @@ Notice every line is doing cost work: a cheap model is pinned, the tool set is m
 
 ## 3.4 Use hooks to enforce efficiency automatically
 
-Hooks let you run deterministic scripts at points in the agent lifecycle — before a tool runs, after an edit, at session start. The cost angle: **deterministic checks are free and stop expensive agent retry loops.** If a linter or test catches an error mechanically, the agent doesn't burn three more model round-trips discovering it the slow way.
+Hooks let you run deterministic scripts at points in the agent lifecycle - before a tool runs, after an edit, at session start. The cost angle: **deterministic checks are free and stop expensive agent retry loops.** If a linter or test catches an error mechanically, the agent doesn't burn three more model round-trips discovering it the slow way.
 
-**Sample hook config — run cheap checks after edits so the agent self-corrects against free signal:**
+**Sample hook config - run cheap checks after edits so the agent self-corrects against free signal:**
 ```jsonc
-// .copilot/hooks.json (illustrative — confirm exact schema in current docs)
+// .copilot/hooks.json (illustrative - confirm exact schema in current docs)
 {
   "hooks": {
     "postEdit": [
       {
         // Lint and type-check after each edit. Failures feed back to the
-        // agent as deterministic signal — far cheaper than the model
+        // agent as deterministic signal - far cheaper than the model
         // "noticing" the bug across extra reasoning steps.
         "command": "ruff check ${file} && mypy ${file}",
         "blocking": true
@@ -339,24 +339,24 @@ Hooks let you run deterministic scripts at points in the agent lifecycle — bef
 
 The principle: **push correctness onto free, deterministic tooling (linters, type-checkers, tests) and reserve paid model reasoning for the genuinely ambiguous parts.** Every bug a hook catches mechanically is a model round-trip you didn't pay for.
 
-## 3.5 Admin controls — policies and the four budget layers
+## 3.5 Admin controls - policies and the four budget layers
 
 Everything above is bottom-up. This is top-down: as a Business/Enterprise admin you set the boundaries that make overspend structurally difficult.
 
-**Model & feature policies.** At the org or enterprise level you control which models and which features (agent mode, CLI, code review, MCP, third-party agents) members can use. The most direct cost policy is restricting the most expensive frontier models to the teams that truly need them, while leaving lightweight and versatile models broadly available — and nudging everyone toward Auto.
+**Model & feature policies.** At the org or enterprise level you control which models and which features (agent mode, CLI, code review, MCP, third-party agents) members can use. The most direct cost policy is restricting the most expensive frontier models to the teams that truly need them, while leaving lightweight and versatile models broadly available - and nudging everyone toward Auto.
 
 **The four budget layers** (credits are pooled org-wide; these control what happens around and beyond the pool):
 
-| Layer | Scope | Behavior |
-|---|---|---|
-| **User-level budget (ULB)** | One user | The **only hard per-person stop.** Active in both pool and overage phases. A $0 ULB blocks a user immediately. |
-| **Cost-center budget** | A team/group | Caps metered charges after the pool is exhausted. |
-| **Organization budget** | An org's repos | Tracks/limits spend for that org. |
-| **Enterprise spending limit** | Whole enterprise | Caps total metered charges after the pool is exhausted. |
+| Layer                         | Scope            | Behavior                                                                                                       |
+| ----------------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------- |
+| **User-level budget (ULB)**   | One user         | The **only hard per-person stop.** Active in both pool and overage phases. A $0 ULB blocks a user immediately. |
+| **Cost-center budget**        | A team/group     | Caps metered charges after the pool is exhausted.                                                              |
+| **Organization budget**       | An org's repos   | Tracks/limits spend for that org.                                                                              |
+| **Enterprise spending limit** | Whole enterprise | Caps total metered charges after the pool is exhausted.                                                        |
 
-**Two defaults that will surprise you — fix them before rollout:**
+**Two defaults that will surprise you - fix them before rollout:**
 
-1. **"Stop usage when budget limit is reached" is OFF by default** on enterprise spending limits and cost-center budgets. Left off, those limits are *alerts*, not caps — charges keep accruing past them. **Turn it on** for every limit you intend as a hard ceiling.
+1. **"Stop usage when budget limit is reached" is OFF by default** on enterprise spending limits and cost-center budgets. Left off, those limits are *alerts*, not caps - charges keep accruing past them. **Turn it on** for every limit you intend as a hard ceiling.
 2. **Under AI Credits, setting the enterprise budget to $0 does NOT stop individual users** the way the old premium-request trick did. Use **universal user-level budgets** as your real per-person control.
 
 Also remember **"lowest remaining headroom wins":** a user can be blocked by the enterprise limit before reaching their own ULB. Whenever you raise ULBs, re-check the enterprise limit so you don't accidentally throttle everyone.
@@ -365,7 +365,7 @@ Also remember **"lowest remaining headroom wins":** a user can be blocked by the
 
 Treat Copilot spend the way you'd treat any cloud cost: a fixed layer (seats) plus a variable layer (credits, and the Actions minutes that Copilot code review also consumes).
 
-- **Dashboards & reports.** Use the AI usage dashboard and downloadable usage reports to find high-consumption users and patterns. Pooled credits mean light users subsidize heavy ones — so look at the *distribution*, not just the total.
+- **Dashboards & reports.** Use the AI usage dashboard and downloadable usage reports to find high-consumption users and patterns. Pooled credits mean light users subsidize heavy ones - so look at the *distribution*, not just the total.
 - **Alerts.** Configure budget alerts at **75 / 90 / 100%** and confirm who receives them.
 - **Monthly tuning loop.** Read the dashboard and act on what it shows:
   - *Users blocked early in the month* → their ULB is too tight, or they need coaching on model/mode choice.
@@ -419,13 +419,13 @@ What are you doing?
 **The three rules that capture 80% of the savings:**
 1. **Completions are free; agent mode is expensive.** Use the smallest mode that works.
 2. **Auto by default.** 10% off and smart routing for zero effort.
-3. **Small context, fresh sessions.** Scope with `#`, close tabs, start new chats — tokens you don't send are tokens you don't pay for.
+3. **Small context, fresh sessions.** Scope with `#`, close tabs, start new chats - tokens you don't send are tokens you don't pay for.
 
 ---
 
 ## A final word on intent
 
-The goal of this playbook is **not minimal usage** — a team that's afraid to use Copilot is wasting the seats you bought. The goal is **value per credit**: getting the most real engineering done for each dollar of tokens. Spend freely on the hard problems where a frontier model in agent mode genuinely earns its cost; be frugal on the routine work where a free completion or a cheap model does the same job. Used this way, cost discipline isn't a tax on productivity — it's what lets you afford to use the powerful tools where they actually matter.
+The goal of this playbook is **not minimal usage** - a team that's afraid to use Copilot is wasting the seats you bought. The goal is **value per credit**: getting the most real engineering done for each dollar of tokens. Spend freely on the hard problems where a frontier model in agent mode genuinely earns its cost; be frugal on the routine work where a free completion or a cheap model does the same job. Used this way, cost discipline isn't a tax on productivity - it's what lets you afford to use the powerful tools where they actually matter.
 
 ---
 

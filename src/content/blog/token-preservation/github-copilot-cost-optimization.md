@@ -11,15 +11,15 @@ series: "Token Preservation"
 
 # The GitHub Copilot Cost-Optimization Playbook
 
-In June 2026, GitHub shifted the billing model for Copilot Business, Enterprise, and Pro. The old system of counting "premium requests" is gone. In its place: **GitHub AI Credits**, where **1 credit = $0.01**, and you're billed on the *tokens* you actually consume—input, output, and cached—at each model's published rate.
+In June 2026, GitHub shifted the billing model for Copilot Business, Enterprise, and Pro. The old system of counting "premium requests" is gone. In its place: **GitHub AI Credits**, where **1 credit = $0.01**, and you're billed on the *tokens* you actually consume-input, output, and cached-at each model's published rate.
 
 This shift changes the cost levers. Under the token system, the majority of tokens come from things you don't type: files attached as context, chat history, tool schemas, and autonomous agent steps. The good news? This gives you far more control. By understanding where tokens go, you can cut spend dramatically without losing capability.
 
-Here is a hands-on guide organized into three tiers—**Basic**, **Intermediate**, and **Advanced**—to help your team adopt easy wins today and grow into sophisticated controls over time.
+Here is a hands-on guide organized into three tiers-**Basic**, **Intermediate**, and **Advanced**-to help your team adopt easy wins today and grow into sophisticated controls over time.
 
 ---
 
-## Tier 1 — Basic: Habits Everyone Should Adopt Today
+## Tier 1 - Basic: Habits Everyone Should Adopt Today
 
 These practices cost nothing to implement, require no admin rights, and deliver immediate savings.
 
@@ -49,7 +49,7 @@ Copilot Chat has three modes with vastly different costs:
 
 ---
 
-## Tier 2 — Intermediate: Configuration & Repeatable Practice
+## Tier 2 - Intermediate: Configuration & Repeatable Practice
 
 This tier moves from individual habits to configured behavior that makes the cheap path the default path for the whole team.
 
@@ -82,9 +82,9 @@ Instead of one long agent session, split complex work into three deliberate sess
 
 ---
 
-## Tier 3 — Advanced: Skills, Hooks, and Admin Controls
+## Tier 3 - Advanced: Skills, Hooks, and Admin Controls
 
-This tier is for power users and admins to manage the surfaces that can save—or cost—the most.
+This tier is for power users and admins to manage the surfaces that can save-or cost-the most.
 
 ### 1. Master the Copilot CLI Context Commands
 The CLI is a terminal-native agent. Use explicit commands to manage context:
@@ -115,6 +115,6 @@ Set model and feature policies at the org level. Configure the four budget layer
 
 ## Conclusion: Maximizing Value per Credit
 
-The goal of this playbook is not to minimize usage—a team afraid to use Copilot is wasting the seats you bought. The goal is **value per credit**. Spend freely on hard problems where a frontier model in agent mode earns its cost, and be frugal on routine work where free completions or cheap models do the job perfectly. 
+The goal of this playbook is not to minimize usage-a team afraid to use Copilot is wasting the seats you bought. The goal is **value per credit**. Spend freely on hard problems where a frontier model in agent mode earns its cost, and be frugal on routine work where free completions or cheap models do the job perfectly. 
 
 Cost discipline isn't a tax on productivity; it's the strategy that lets you afford the most powerful tools exactly when they matter most.

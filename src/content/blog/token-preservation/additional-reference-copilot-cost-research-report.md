@@ -8,12 +8,12 @@ readTime: "10 min read"
 series: "Token Preservation"
 ---
 
-# Team Guideline: Controlling GitHub Copilot Cost (AI Credits) — Business, Enterprise & Pro, Stock Copilot
+# Team Guideline: Controlling GitHub Copilot Cost (AI Credits) - Business, Enterprise & Pro, Stock Copilot
 
-> Research report compiled June 2026. Pricing, allowances, model lists, and per-token rates change frequently — verify all figures against current GitHub documentation before publishing internally.
+> Research report compiled June 2026. Pricing, allowances, model lists, and per-token rates change frequently - verify all figures against current GitHub documentation before publishing internally.
 
 ## TL;DR
-- **The single most important fact: as of June 1, 2026, GitHub Copilot no longer bills on "premium requests" — it bills on token-based GitHub AI Credits (1 credit = $0.01).** Your whole guideline must be built around tokens (model choice x context size x output length x number of agent steps), not request counts. The old "premium request multiplier" system is legacy and now applies only to a shrinking pool of annual Pro/Pro+ subscribers.
+- **The single most important fact: as of June 1, 2026, GitHub Copilot no longer bills on "premium requests" - it bills on token-based GitHub AI Credits (1 credit = $0.01).** Your whole guideline must be built around tokens (model choice x context size x output length x number of agent steps), not request counts. The old "premium request multiplier" system is legacy and now applies only to a shrinking pool of annual Pro/Pro+ subscribers.
 - **Code completions and Next Edit Suggestions remain unlimited and free on all paid plans; everything else (Chat, agent mode, Copilot CLI, code review, cloud agent) draws down AI credits.** The cheapest reliable savings: default to "Auto" model selection (10% discount), route simple work to lightweight models, keep context small, split research/plan/implement into fresh sessions, and reserve frontier models (GPT-5.5, Claude Opus) for genuinely hard tasks.
 - **For Business/Enterprise, credits are pooled org-wide and admins control spend through four budget layers; the critical, easy-to-miss settings are that "Stop usage when budget limit is reached" is OFF by default on enterprise/cost-center limits, and user-level budgets are the only hard per-person stop.** Configure these before educating the team.
 
@@ -21,8 +21,8 @@ series: "Token Preservation"
 1. **Billing changed fundamentally on June 1, 2026.** Premium Request Units (PRUs) were replaced by GitHub AI Credits, metered on input + output + cached tokens at each model's published API rate. This is date-sensitive; verify all figures against current GitHub docs.
 2. **Plan allowances (monthly):** Pro = 1,500 credits ($10 value); Pro+ = 7,000 ($39); Max = 20,000 ($100); Business = 1,900/user; Enterprise = 3,900/user. Existing Business/Enterprise customers receive higher promotional pooled allowances of **$30 (3,000 credits) and $70 (7,000 credits) per user/month for the first three months (June 1 - September 1, 2026)** before reverting to standard.
 3. **Output tokens are the expensive ones** (roughly 5x input on most models), and most input tokens come from context (files, history, tool schemas), not your typed prompt.
-4. **Agent mode and Copilot CLI are the biggest cost drivers** — a single task fires many model calls across many tool steps with growing context.
-5. **There is no longer an automatic fallback to a cheaper model** when credits/budget run out — work simply stops (except free completions). This makes budgeting and model discipline more important than under the old system.
+4. **Agent mode and Copilot CLI are the biggest cost drivers** - a single task fires many model calls across many tool steps with growing context.
+5. **There is no longer an automatic fallback to a cheaper model** when credits/budget run out - work simply stops (except free completions). This makes budgeting and model discipline more important than under the old system.
 6. **Auto model selection gives a 10% discount** and routes simple tasks to cheaper models.
 7. **Admins control cost through policies (which models/features are allowed) and four budget layers** (user-level, cost-center, organization, enterprise).
 
@@ -36,20 +36,20 @@ series: "Token Preservation"
 
 **Monthly included allowances (AI Credits):**
 
-| Plan | Price | Included credits/month | Notes |
-|---|---|---|---|
-| Free | $0 | small credit allowance + 2,000 completions | select models only |
-| Pro | $10 | 1,500 (1,000 base + 500 flex) | |
-| Pro+ | $39 | 7,000 (3,900 base + 3,100 flex) | |
-| Max | $100 | 20,000 (10,000 base + 10,000 flex) | upgrade-only after June 1, 2026 |
-| Business | $19/user | 1,900/user, pooled | promo $30 (3,000) Jun 1-Sep 1, 2026 |
-| Enterprise | $39/user | 3,900/user, pooled | promo $70 (7,000) Jun 1-Sep 1, 2026 |
+| Plan       | Price    | Included credits/month                     | Notes                               |
+| ---------- | -------- | ------------------------------------------ | ----------------------------------- |
+| Free       | $0       | small credit allowance + 2,000 completions | select models only                  |
+| Pro        | $10      | 1,500 (1,000 base + 500 flex)              |                                     |
+| Pro+       | $39      | 7,000 (3,900 base + 3,100 flex)            |                                     |
+| Max        | $100     | 20,000 (10,000 base + 10,000 flex)         | upgrade-only after June 1, 2026     |
+| Business   | $19/user | 1,900/user, pooled                         | promo $30 (3,000) Jun 1-Sep 1, 2026 |
+| Enterprise | $39/user | 3,900/user, pooled                         | promo $70 (7,000) Jun 1-Sep 1, 2026 |
 
 Credits do **not** roll over month to month. "Base credits" match your subscription price; the "flex allotment" is a variable top-up GitHub can adjust as model economics change.
 
 **What's free vs. metered.** Code completions (ghost text) and Next Edit Suggestions are **unlimited and not billed** on all paid plans. Everything that calls a model is metered: Copilot Chat, agent mode, Copilot CLI, Copilot cloud agent, Copilot Spaces, Spark, code review, and third-party coding agents.
 
-**Per-token model rates (per 1M tokens, input / output).** Lightweight: GPT-5 mini $0.25/$2.00 (included), GPT-5.4 nano $0.20/$1.25, MAI-Code-1-Flash $0.75/$4.50, Raptor mini $0.25/$2.00. Versatile: Claude Haiku 4.5 $1.00/$5.00, Claude Sonnet 4.x $3.00/$15.00, GPT-5.4 $2.50/$15.00. Powerful/frontier: GPT-5.5 $5.00/$30.00, Claude Opus 4.5-4.8 $5.00/$25.00, Gemini 3.1 Pro $2.00/$12.00. The spread between cheapest and most expensive is ~20x on input — model choice is now the single biggest cost lever.
+**Per-token model rates (per 1M tokens, input / output).** Lightweight: GPT-5 mini $0.25/$2.00 (included), GPT-5.4 nano $0.20/$1.25, MAI-Code-1-Flash $0.75/$4.50, Raptor mini $0.25/$2.00. Versatile: Claude Haiku 4.5 $1.00/$5.00, Claude Sonnet 4.x $3.00/$15.00, GPT-5.4 $2.50/$15.00. Powerful/frontier: GPT-5.5 $5.00/$30.00, Claude Opus 4.5-4.8 $5.00/$25.00, Gemini 3.1 Pro $2.00/$12.00. The spread between cheapest and most expensive is ~20x on input - model choice is now the single biggest cost lever.
 
 **Ask vs. Edit vs. Agent mode.** All three consume credits when they call a model; the difference is how many tokens. Ask is typically one prompt + one response; Edit touches one or a few files; Agent mode runs an autonomous loop (plan -> read files -> edit -> run tools -> self-correct), each step adding to context and output. Under AI Credits, **every token the agent processes is metered**, so agent mode is dramatically more expensive than a single chat.
 
