@@ -1,0 +1,725 @@
+{
+  "brand": "COPILOT COST PLAYBOOK · ABUDHAHIR",
+  "meterLabel": "CREDIT POOL CONSUMED",
+  "slides": [
+    {
+      "type": "TitleSlide",
+      "tagText": "TOKEN PRESERVATION SERIES · 2026",
+      "chipText": "ENTERPRISE",
+      "title": "Copilot Cost<br>Optimization Playbook",
+      "subtitle": "A hands-on, three-tier guide for engineering teams on Copilot Business, Enterprise, and Pro &mdash; built around the June 2026 shift to token-based AI Credits.",
+      "creditBold": "Value per credit,",
+      "creditMuted": "not minimal usage",
+      "hintContent": "<kbd>&rarr;</kbd> Space advance &middot; <kbd>O</kbd> overview &middot; <kbd>F</kbd> fullscreen"
+    },
+
+    {
+      "type": "Slide",
+      "content": [
+        { "type": "Eyebrow", "num": "01", "text": "The New Reality" },
+        { "type": "Headline", "html": "In June 2026 the billing model<br><span class='hl'>changed.</span>" },
+        {
+          "type": "CardGrid",
+          "cols": 2,
+          "content": [
+            {
+              "type": "SlideCard",
+              "variant": "bad",
+              "title": "Before · Premium Requests",
+              "content": ["A fixed quota — say 300 requests/month. Each frontier-model call ate a multiple of one. Your typed prompt was the unit."]
+            },
+            {
+              "type": "SlideCard",
+              "variant": "good",
+              "title": "After · GitHub AI Credits",
+              "content": ["1 credit = $0.01. Billed on the tokens you actually consume — input, output, and cached — at each model's published rate."]
+            }
+          ]
+        },
+        {
+          "type": "NoteBlock",
+          "html": "<b>Why it matters:</b> tokens come overwhelmingly from things you <b>don't type</b> &mdash; files attached as context, history re-sent every turn, tool schemas, and every autonomous agent step. One careless agent run can burn more credits than a hundred thoughtful chat messages."
+        }
+      ]
+    },
+
+    {
+      "type": "Slide",
+      "content": [
+        { "type": "Eyebrow", "num": "02", "text": "The Mental Model" },
+        { "type": "Headline", "html": "Three levers <span class='cool'>control</span> the cost of any interaction." },
+        {
+          "type": "CardGrid",
+          "cols": 3,
+          "content": [
+            {
+              "type": "SlideCard",
+              "variant": "accent",
+              "title": "① Which Model",
+              "content": ["Cheapest to most expensive is a ~20× spread on input tokens. Auto routes intelligently so you don't pay frontier prices for trivial work."]
+            },
+            {
+              "type": "SlideCard",
+              "variant": "accent",
+              "title": "② How Much Context",
+              "content": ["Your prompt is usually the smallest part. Attached files, conversation history, and tool schemas ride along on every turn."]
+            },
+            {
+              "type": "SlideCard",
+              "variant": "accent",
+              "title": "③ How Many Round-trips",
+              "content": ["One chat reply vs. forty agent steps. Every step is another metered model call."]
+            }
+          ]
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "good",
+          "html": "Understand where tokens go and you can cut spend by <b>half or more</b> without losing capability. Every technique in this playbook pulls one of these three levers."
+        }
+      ]
+    },
+
+    {
+      "type": "Slide",
+      "content": [
+        { "type": "Eyebrow", "num": "03", "text": "The Cost Spectrum" },
+        { "type": "Headline", "html": "Not all models cost the <span class='hl'>same.</span>" },
+        {
+          "type": "Spectrum",
+          "markers": [
+            { "position": "5%", "tier": "lo", "value": "1×", "name": "gpt-5-mini" },
+            { "position": "27%", "tier": "lo", "value": "~3×", "name": "GPT-4o class" },
+            { "position": "52%", "tier": "mid", "value": "~10×", "name": "Claude Sonnet" },
+            { "position": "76%", "tier": "hi", "value": "~15×", "name": "Gemini Pro" },
+            { "position": "95%", "tier": "hi", "value": "~20×", "name": "GPT-5.5 / Opus" }
+          ]
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "good",
+          "html": "<b>Auto mode</b> reserves expensive reasoning models for genuinely hard problems and gives paid plans a <b>10% discount</b> on model costs. Set it and leave it."
+        }
+      ]
+    },
+
+    {
+      "type": "Slide",
+      "content": [
+        { "type": "Eyebrow", "num": "04", "text": "Tier 1 · Basic" },
+        { "type": "Headline", "html": "Habits everyone should adopt <span class='cool'>today.</span>" },
+        { "type": "Lead", "html": "They cost nothing to implement, require no admin rights, and deliver the biggest immediate savings. Do only this tier and you're already ahead of most organizations." },
+        {
+          "type": "CardGrid",
+          "cols": 3,
+          "content": [
+            {
+              "type": "SlideCard",
+              "variant": "good",
+              "label": "FREE",
+              "labelType": "lbl-free",
+              "title": "Use Completions",
+              "content": ["Inline ghost text and Next Edit Suggestions are unlimited and free on every paid plan. Don't open chat to write a five-line function."]
+            },
+            {
+              "type": "SlideCard",
+              "variant": "good",
+              "label": "−10%",
+              "labelType": "lbl-free",
+              "title": "Default to Auto",
+              "content": ["Smart routing + 10% discount for zero effort. The laziest way to save money is to not override it."]
+            },
+            {
+              "type": "SlideCard",
+              "variant": "accent",
+              "title": "Be Specific",
+              "content": ["State the goal, the constraints, and when to stop. A vague prompt that produces a wrong answer costs you twice."]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "type": "Slide",
+      "content": [
+        { "type": "Eyebrow", "num": "05", "text": "Tier 1 · Free Completions" },
+        { "type": "Headline", "html": "Let ghost text write routine code &mdash; <span class='cool'>$0.</span>" },
+        { "type": "Lead", "html": "The most underused fact about Copilot: inline completions never touch your credit pool. If you're filling in a function body or an obvious pattern, let the suggestions do it." },
+        {
+          "type": "CardGrid",
+          "cols": 2,
+          "content": [
+            {
+              "type": "SlideCard",
+              "variant": "good",
+              "title": "Do this",
+              "content": [
+                { "type": "Code", "content": ["def calculate_invoice_total(items):"] },
+                "Start typing and let ghost text complete the body — free of charge."
+              ]
+            },
+            {
+              "type": "SlideCard",
+              "variant": "bad",
+              "title": "Not this",
+              "content": ["Opening Copilot Chat and typing “write me a function that totals invoice line items” — a metered model call for something completions handle for free."]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "type": "Slide",
+      "content": [
+        { "type": "Eyebrow", "num": "06", "text": "Tier 1 · Output & Sessions" },
+        { "type": "Headline", "html": "Output tokens cost roughly <span class='hl'>5&times;</span> the input." },
+        {
+          "type": "CardGrid",
+          "cols": 2,
+          "content": [
+            {
+              "type": "SlideCard",
+              "variant": "accent",
+              "title": "Ask for Terse Output",
+              "content": [
+                "Keep these in your back pocket:",
+                { "type": "TickList", "items": [
+                  "\"Code only, no explanation.\"",
+                  "\"Answer in one or two sentences.\"",
+                  "\"Just the diff.\"",
+                  "\"List the file names, don't show contents.\""
+                ]}
+              ]
+            },
+            {
+              "type": "SlideCard",
+              "variant": "accent",
+              "title": "Fresh Chat per Task",
+              "content": ["A session re-sends its entire accumulated history on every turn. Your tenth question drags the previous nine back through the model as input. New task = new chat — reset the running context to zero."]
+            }
+          ]
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "danger",
+          "html": "<b>Don't switch models mid-conversation</b> without a reason. It breaks prompt caching and increases cost without much quality gain."
+        }
+      ]
+    },
+
+    {
+      "type": "Slide",
+      "content": [
+        { "type": "Eyebrow", "num": "07", "text": "Tier 1 · Mode Selection" },
+        { "type": "Headline", "html": "Match the <span class='vio'>mode</span> to the task." },
+        {
+          "type": "DataTable",
+          "headers": [
+            { "label": "Mode" },
+            { "label": "What it does" },
+            { "label": "Relative cost" },
+            { "label": "Use it for", "hideSm": true }
+          ],
+          "rows": [
+            {
+              "cells": [
+                { "value": "Ask", "name": true, "dot": "d-teal" },
+                { "value": "One prompt, one answer" },
+                { "value": "Lowest", "price": "lo" },
+                { "value": "Questions, explanations, small lookups", "hideSm": true }
+              ]
+            },
+            {
+              "cells": [
+                { "value": "Edit", "name": true, "dot": "d-amber" },
+                { "value": "Edits one or a few named files" },
+                { "value": "Medium", "price": "mid" },
+                { "value": "A clear change to specific files", "hideSm": true }
+              ]
+            },
+            {
+              "highlight": true,
+              "cells": [
+                { "value": "Agent", "name": true, "dot": "d-coral" },
+                { "value": "Autonomous loop: plans, reads, edits, runs tools" },
+                { "value": "10–40× Ask", "price": "hi" },
+                { "value": "Multi-file features, migrations, complex debug", "hideSm": true }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "danger",
+          "html": "The mistake that quietly drains pools: reaching for <b>Agent mode</b> out of habit for a task that <b>Ask</b> or <b>Edit</b> would handle. Every step it takes is another metered call &mdash; and it can take dozens."
+        }
+      ]
+    },
+
+    {
+      "type": "Slide",
+      "content": [
+        { "type": "Eyebrow", "num": "08", "text": "Tier 1 · Checklist" },
+        { "type": "Headline", "html": "The <span class='cool'>basic</span> tier in one screen." },
+        {
+          "type": "TickList",
+          "items": [
+            "Let inline completions write routine code &mdash; <b>free</b>",
+            "Model picker set to <b>Auto</b>",
+            "Prompts are specific: <b>goal + constraints + stop condition</b>",
+            "Ask for <b>terse output</b> when you don't need prose",
+            "New task = <b>new chat</b>",
+            "Ask &lt; Edit &lt; Agent &mdash; pick the <b>smallest mode</b> that works"
+          ]
+        }
+      ]
+    },
+
+    {
+      "type": "Slide",
+      "content": [
+        { "type": "Eyebrow", "num": "09", "text": "Tier 2 · Intermediate" },
+        { "type": "Headline", "html": "Configuration that makes the <span class='cool'>cheap path</span> the default path." },
+        { "type": "Lead", "html": "This tier moves from individual habits to configured behavior &mdash; settings, repository instructions, and context discipline for the whole team. Stop relying on willpower; start relying on setup." },
+        {
+          "type": "CardGrid",
+          "cols": 2,
+          "content": [
+            {
+              "type": "SlideCard",
+              "variant": "good",
+              "title": "Scope Context with #-refs",
+              "content": [
+                "Tell Copilot exactly what to look at instead of letting it over-attach:",
+                { "type": "Code", "content": ["#file:checkout/totals.py #sym:apply_discount"] },
+                "Close unrelated editor tabs — open tabs are a silent context source."
+              ]
+            },
+            {
+              "type": "SlideCard",
+              "variant": "vio",
+              "title": "Repository Instructions",
+              "content": ["A short .github/copilot-instructions.md is read on nearly every interaction. It eliminates the back-and-forth where Copilot guesses your conventions wrong. Keep it short — it loads every time."]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "type": "Slide",
+      "content": [
+        { "type": "Eyebrow", "num": "10", "text": "Tier 2 · Path-scoped Instructions" },
+        { "type": "Headline", "html": "Load instructions <span class='vio'>only</span> where they apply." },
+        { "type": "Lead", "html": "For larger repos, attach instructions to specific paths so you don't pay for backend rules while editing frontend code. Use the <b>applyTo</b> frontmatter under .github/instructions/." },
+        {
+          "type": "CardGrid",
+          "cols": 2,
+          "content": [
+            {
+              "type": "SlideCard",
+              "variant": "accent",
+              "title": "frontend.instructions.md",
+              "content": [
+                { "type": "Code", "content": ["applyTo: \"web/**/*.{ts,tsx}\""] },
+                "React 19 function components and hooks only. Tailwind utilities, no inline styles. Fetch via the useApi() wrapper."
+              ]
+            },
+            {
+              "type": "SlideCard",
+              "variant": "vio",
+              "title": "The \"Don't\" section does cost work",
+              "content": [
+                { "type": "TickList", "items": [
+                  "\"Don't refactor unrelated code\" &mdash; cuts output tokens",
+                  "\"Don't add comments that restate the code\"",
+                  "\"Don't add dependencies without flagging first\""
+                ]}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "type": "Slide",
+      "content": [
+        { "type": "Eyebrow", "num": "11", "text": "Tier 2 · VS Code Settings" },
+        { "type": "Headline", "html": "Ship these <span class='hl'>guardrails</span> in settings.json" },
+        {
+          "type": "TickList",
+          "items": [
+            "<b>summarizeAgentConversationHistory</b> = true <span>&mdash; auto-compacts long agent conversations so later turns don't drag the whole history</span>",
+            "<b>chat.agent.maxRequests</b> = 15 <span>&mdash; hard cap on model requests per agent run (default 25)</span>",
+            "<b>chat.utilityModel</b> = gpt-5-mini <span>&mdash; route commit messages, chat titles, and intent detection to a cheaper model</span>",
+            "<b>chat.tools.compressOutput.enabled</b> = true <span>&mdash; compresses large terminal output before sending</span>"
+          ]
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "vio",
+          "html": "<b>maxRequests</b> is the standout: it converts an unbounded worst case (\"the agent looped 60 times\") into a bounded one. If the agent hits the cap, <b>you</b> decide to spend more &mdash; instead of discovering it after the fact."
+        }
+      ]
+    },
+
+    {
+      "type": "Slide",
+      "content": [
+        { "type": "Eyebrow", "num": "12", "text": "Tier 2 · Make Cost Visible" },
+        { "type": "Headline", "html": "You can't manage what you can't <span class='cool'>see.</span>" },
+        {
+          "type": "CardGrid",
+          "cols": 2,
+          "content": [
+            {
+              "type": "SlideCard",
+              "variant": "accent",
+              "title": "Status Bar Dashboard",
+              "content": ["Click the Copilot icon in the VS Code Status Bar to see the percentage of your monthly AI-credit allowance used and your reset date. Glance at it like a fuel gauge."]
+            },
+            {
+              "type": "SlideCard",
+              "variant": "vio",
+              "title": "Chat Debug View",
+              "content": ["Power users open ⋯ → Show Chat Debug View for per-interaction token counts — eye-opening the first time you watch one agent step consume thousands of tokens."]
+            }
+          ]
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "good",
+          "html": "Awareness alone changes behavior. Make checking usage a habit before it becomes a surprise on the invoice."
+        }
+      ]
+    },
+
+    {
+      "type": "Slide",
+      "content": [
+        { "type": "Eyebrow", "num": "13", "text": "Tier 2 · The Workflow" },
+        { "type": "Headline", "html": "Research &rarr; Plan &rarr; <span class='cool'>Implement</span>" },
+        { "type": "Lead", "html": "The highest-leverage intermediate practice. Instead of one long session that accumulates context, split complex work into three deliberate sessions &mdash; each starting with minimal, relevant context." },
+        {
+          "type": "Stages",
+          "content": [
+            {
+              "type": "StageCard",
+              "num": "SESSION 1",
+              "title": "Research",
+              "items": [
+                "Fresh chat, cheap model, <b>Ask mode</b>",
+                "\"Explore how auth works. Don't edit.\"",
+                "You get a <b>map</b> of the key files and flow"
+              ]
+            },
+            {
+              "type": "StageCard",
+              "num": "SESSION 2",
+              "title": "Plan",
+              "items": [
+                "Fresh chat &mdash; paste the summary",
+                "\"Write a step-by-step plan. No code yet.\"",
+                "Review the approach while it's cheap to fix"
+              ]
+            },
+            {
+              "type": "StageCard",
+              "num": "SESSION 3",
+              "title": "Implement",
+              "items": [
+                "Fresh chat, <b>Agent mode</b>",
+                "Paste the approved plan",
+                "\"Implement step 1 only,\" then step 2…"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "type": "Slide",
+      "content": [
+        { "type": "Eyebrow", "num": "14", "text": "Tier 3 · Advanced" },
+        { "type": "Headline", "html": "Skills, hooks, MCP, and <span class='vio'>admin</span> controls." },
+        { "type": "Lead", "html": "For power users, tech leads, and admins &mdash; the surfaces that can save the most and, left unmanaged, cost the most." },
+        {
+          "type": "CardGrid",
+          "cols": 2,
+          "content": [
+            {
+              "type": "SlideCard",
+              "variant": "vio",
+              "title": "CLI Context Commands",
+              "content": [
+                { "type": "TickList", "items": [
+                  "<b>/context</b> &mdash; visualize window usage",
+                  "<b>/compact</b> &mdash; drop earlier exploration",
+                  "<b>/clear</b> or <b>/new</b> &mdash; reset between tasks",
+                  "<b>/model gpt-5-mini</b> &mdash; cheaper routine work"
+                ]}
+              ]
+            },
+            {
+              "type": "SlideCard",
+              "variant": "bad",
+              "title": "CLI Caveats",
+              "content": ["It auto-compacts at ~80%, but by then you've paid for a bloated context many times — compact proactively. Use Plan Mode (Shift+Tab) before big changes. Use /fleet sparingly: each subagent carries its own context window."]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "type": "Slide",
+      "content": [
+        { "type": "Eyebrow", "num": "15", "text": "Tier 3 · MCP Discipline" },
+        { "type": "Headline", "html": "MCP servers are a <span class='hl'>silent token tax.</span>" },
+        {
+          "type": "StatRow",
+          "content": [
+            { "type": "Stat", "value": "100K+", "color": "coral", "label": "TOKENS OF OVERHEAD · 15 SERVERS × 15 STEPS" }
+          ]
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "danger",
+          "html": "Each enabled tool injects its schema (<b>~100&ndash;500 tokens</b>) into the system prompt on <b>every agent step</b> &mdash; before the agent does anything useful."
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "good",
+          "html": "<b>The discipline:</b> enable only what the current task needs. Treat MCP servers like browser extensions &mdash; keep them <b>off by default</b> in mcp.json and toggle on per-task via <b>Configure Tools.</b> Leaner tool sets are cheaper <i>and</i> more reliable."
+        }
+      ]
+    },
+
+    {
+      "type": "Slide",
+      "content": [
+        { "type": "Eyebrow", "num": "16", "text": "Tier 3 · Custom Agents & Hooks" },
+        { "type": "Headline", "html": "Build <span class='cool'>lean</span>, reusable automation." },
+        {
+          "type": "SplitColumns",
+          "content": [
+            {
+              "type": "SplitCol",
+              "role": "dev",
+              "title": "Custom Scoped Agents",
+              "content": [
+                { "type": "TickList", "items": [
+                  "Pin a <b>cheap model</b> (gpt-5-mini)",
+                  "Minimal tool set — no edit tools for a reviewer",
+                  "Cap output: \"max 8 bullets, one line each\"",
+                  "\"LGTM and nothing else\" makes the common case nearly free"
+                ]}
+              ]
+            },
+            {
+              "type": "SplitCol",
+              "role": "admin",
+              "title": "Automation Hooks",
+              "content": [
+                { "type": "TickList", "items": [
+                  "Run <b>linters</b> and <b>type-checkers</b> after each edit",
+                  "Deterministic checks are <b>free</b>",
+                  "Every bug a hook catches = a round-trip saved",
+                  "Block destructive terminal commands with a human in the loop"
+                ]}
+              ]
+            }
+          ]
+        },
+        {
+          "type": "NoteBlock",
+          "html": "The principle: push correctness onto <b>free, deterministic tooling</b> and reserve paid model reasoning for the genuinely ambiguous parts."
+        }
+      ]
+    },
+
+    {
+      "type": "Slide",
+      "content": [
+        { "type": "Eyebrow", "num": "17", "text": "Tier 3 · Budget Architecture" },
+        { "type": "Headline", "html": "The four <span class='hl'>budget</span> layers." },
+        {
+          "type": "DataTable",
+          "headers": [
+            { "label": "Layer" },
+            { "label": "Scope" },
+            { "label": "Behavior" }
+          ],
+          "rows": [
+            {
+              "cells": [
+                { "name": true, "dot": "d-coral", "value": "User-level (ULB)" },
+                { "value": "One user" },
+                { "value": "The only hard per-person stop; a $0 ULB blocks a user immediately" }
+              ]
+            },
+            {
+              "cells": [
+                { "name": true, "dot": "d-amber", "value": "Cost-center" },
+                { "value": "A team / group" },
+                { "value": "Caps metered charges after the pool is exhausted" }
+              ]
+            },
+            {
+              "cells": [
+                { "name": true, "dot": "d-amber", "value": "Organization" },
+                { "value": "An org's repos" },
+                { "value": "Tracks / limits spend for that org" }
+              ]
+            },
+            {
+              "highlight": true,
+              "cells": [
+                { "name": true, "dot": "d-teal", "value": "Enterprise limit" },
+                { "value": "Whole enterprise" },
+                { "value": "Caps total metered charges after the pool" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "danger",
+          "html": "<b>\"Stop usage when budget limit is reached\" is OFF by default.</b> Left off, limits are <em>alerts</em>, not caps. And a $0 enterprise budget does <b>not</b> stop individual users &mdash; use universal ULBs as your real per-person control."
+        }
+      ]
+    },
+
+    {
+      "type": "Slide",
+      "content": [
+        { "type": "Eyebrow", "num": "18", "text": "Tier 3 · FinOps" },
+        { "type": "Headline", "html": "Monitor, alert, <span class='cool'>tune.</span>" },
+        {
+          "type": "CardGrid",
+          "cols": 3,
+          "content": [
+            {
+              "type": "SlideCard",
+              "variant": "vio",
+              "title": "Dashboards",
+              "content": ["Use the AI usage dashboard and downloadable reports. Pooled credits mean light users subsidize heavy ones — look at the distribution, not just the total."]
+            },
+            {
+              "type": "SlideCard",
+              "variant": "accent",
+              "title": "Alerts",
+              "content": ["Configure budget alerts at 75 / 90 / 100% and confirm who receives them before rollout."]
+            },
+            {
+              "type": "SlideCard",
+              "variant": "good",
+              "title": "Monthly Tuning",
+              "content": ["Blocked early? ULB too tight. Pool exhausting mid-cycle? Investigate agent/model patterns before raising the budget."]
+            }
+          ]
+        },
+        {
+          "type": "NoteBlock",
+          "html": "<b>Promo window Jun&ndash;Sep 2026:</b> Business gets ~3,000 credits/user and Enterprise ~7,000. Use it to capture your <b>true baseline</b> before the standard smaller pool returns."
+        }
+      ]
+    },
+
+    {
+      "type": "Slide",
+      "content": [
+        { "type": "Eyebrow", "num": "19", "text": "Decision Tree" },
+        { "type": "Headline", "html": "The whole guide, <span class='hl'>compressed.</span>" },
+        {
+          "type": "CardGrid",
+          "cols": 4,
+          "content": [
+            {
+              "type": "SlideCard",
+              "variant": "good",
+              "label": "FREE",
+              "labelType": "lbl-free",
+              "title": "Routine Code",
+              "content": ["Inline completions. Ghost text. Don't open chat."]
+            },
+            {
+              "type": "SlideCard",
+              "title": "Quick Question",
+              "content": ["Ask mode + Auto. Terse output. One fresh chat."]
+            },
+            {
+              "type": "SlideCard",
+              "variant": "accent",
+              "title": "Clear File Change",
+              "content": ["Edit mode + Auto. Use #file: to scope context."]
+            },
+            {
+              "type": "SlideCard",
+              "variant": "bad",
+              "label": "$$",
+              "labelType": "lbl-paid",
+              "title": "Complex Feature",
+              "content": ["Research → Plan → Implement. Agent mode, maxRequests capped, only the MCP tools this task needs."]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "type": "Slide",
+      "content": [
+        { "type": "Eyebrow", "num": "20", "text": "The Three Rules" },
+        {
+          "type": "StatRow",
+          "content": [
+            { "type": "Stat", "value": "80%", "color": "amber", "label": "OF THE SAVINGS FROM THREE RULES" }
+          ]
+        },
+        {
+          "type": "CardGrid",
+          "cols": 3,
+          "content": [
+            {
+              "type": "SlideCard",
+              "variant": "good",
+              "title": "① Smallest Mode",
+              "content": ["Completions are free; agent mode is expensive. Use the smallest mode that works."]
+            },
+            {
+              "type": "SlideCard",
+              "variant": "accent",
+              "title": "② Auto by Default",
+              "content": ["10% off and smart routing for zero effort. Don't override it."]
+            },
+            {
+              "type": "SlideCard",
+              "variant": "vio",
+              "title": "③ Small Context",
+              "content": ["Scope with #refs, close tabs, start fresh sessions. Tokens you don't send are tokens you don't pay for."]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "type": "Slide",
+      "content": [
+        { "type": "Eyebrow", "num": "21", "text": "Final Word" },
+        { "type": "Headline", "html": "Value per <span class='cool'>credit</span>, not minimal usage." },
+        { "type": "Lead", "html": "The goal is not minimal usage &mdash; a team afraid to use Copilot is wasting the seats you bought. The goal is the most real engineering done for each dollar of tokens." },
+        {
+          "type": "NoteBlock",
+          "variant": "good",
+          "html": "Spend <b>freely</b> on the hard problems where a frontier model in agent mode genuinely earns its cost. Be <b>frugal</b> on the routine work where a free completion or a cheap model does the same job. Cost discipline isn't a tax on productivity &mdash; it's what lets you afford the powerful tools exactly where they matter most."
+        }
+      ]
+    }
+  ]
+}

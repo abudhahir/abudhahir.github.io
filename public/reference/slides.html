@@ -1,0 +1,1913 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Governing Copilot Spend — Enterprise Field Guide</title>
+    <!-- Governing GitHub Copilot Spend (Enterprise) — self-contained presentation. Host by uploading this single .html file. -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+        :root {
+            --ink: #0E1426;
+            --ink-2: #151D36;
+            --ink-3: #1E2947;
+            --paper: #EFEADD;
+            --amber: #F5B43C;
+            --amber-deep: #E0892B;
+            --teal: #46D4B3;
+            --coral: #FF6F5E;
+            --violet: #9B8CFF;
+            --text: #E8E9F2;
+            --muted: #949DBC;
+            --line: rgba(255, 255, 255, .10);
+            --line-2: rgba(255, 255, 255, .16);
+            --disp: 'Space Grotesk', sans-serif;
+            --body: 'IBM Plex Sans', sans-serif;
+            --mono: 'IBM Plex Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            background: var(--ink);
+            color: var(--text);
+            font-family: var(--body);
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased
+        }
+
+        #stage {
+            position: fixed;
+            inset: 0;
+            outline: none
+        }
+
+        #stage::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(120% 90% at 88% 6%, rgba(245, 180, 60, .10), transparent 55%),
+                radial-gradient(90% 80% at 4% 100%, rgba(70, 212, 179, .08), transparent 50%),
+                radial-gradient(60% 60% at 95% 95%, rgba(155, 140, 255, .07), transparent 60%);
+        }
+
+        /* slide shell */
+        .slide {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            padding: clamp(28px, 6vw, 108px);
+            padding-bottom: clamp(70px, 9vh, 118px)
+        }
+
+        .slide.active {
+            display: flex
+        }
+
+        .slide-inner {
+            width: 100%;
+            max-width: 1180px;
+            margin: 0 auto
+        }
+
+        .slide.active .anim {
+            opacity: 0;
+            transform: translateY(14px);
+            animation: rise .6s cubic-bezier(.2, .7, .2, 1) forwards
+        }
+
+        .slide.active .anim:nth-child(1) {
+            animation-delay: .05s
+        }
+
+        .slide.active .anim:nth-child(2) {
+            animation-delay: .13s
+        }
+
+        .slide.active .anim:nth-child(3) {
+            animation-delay: .21s
+        }
+
+        .slide.active .anim:nth-child(4) {
+            animation-delay: .29s
+        }
+
+        .slide.active .anim:nth-child(5) {
+            animation-delay: .37s
+        }
+
+        .slide.active .anim:nth-child(6) {
+            animation-delay: .45s
+        }
+
+        @keyframes rise {
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        /* type */
+        .eyebrow {
+            font-family: var(--mono);
+            font-size: clamp(11px, 1.05vw, 13.5px);
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: clamp(16px, 2.4vh, 26px)
+        }
+
+        .eyebrow .num {
+            color: var(--amber)
+        }
+
+        .eyebrow::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--line);
+            max-width: 160px
+        }
+
+        .headline {
+            font-family: var(--disp);
+            font-weight: 600;
+            line-height: 1.02;
+            letter-spacing: -.02em;
+            font-size: clamp(29px, 5vw, 66px)
+        }
+
+        .headline .hl {
+            color: var(--amber)
+        }
+
+        .headline .cool {
+            color: var(--teal)
+        }
+
+        .headline .vio {
+            color: var(--violet)
+        }
+
+        .lead {
+            font-size: clamp(15px, 1.55vw, 21px);
+            color: var(--muted);
+            line-height: 1.55;
+            max-width: 46ch;
+            margin-top: clamp(14px, 2.2vh, 22px)
+        }
+
+        .mono {
+            font-family: var(--mono)
+        }
+
+        strong {
+            color: var(--text);
+            font-weight: 600
+        }
+
+        /* title */
+        .title-tag {
+            font-family: var(--mono);
+            letter-spacing: .3em;
+            font-size: 13px;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 24px;
+            display: flex;
+            gap: 12px;
+            align-items: center
+        }
+
+        .title-tag .chip {
+            border: 1px solid var(--line-2);
+            border-radius: 20px;
+            padding: 4px 12px;
+            color: var(--violet);
+            letter-spacing: .16em
+        }
+
+        .title-big {
+            font-family: var(--disp);
+            font-weight: 700;
+            letter-spacing: -.025em;
+            line-height: .98;
+            font-size: clamp(42px, 8.4vw, 112px)
+        }
+
+        .title-sub {
+            font-size: clamp(16px, 1.9vw, 24px);
+            color: var(--muted);
+            margin-top: 24px;
+            max-width: 42ch;
+            line-height: 1.5
+        }
+
+        .title-credit {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 14px;
+            margin-top: 34px;
+            padding: 14px 22px;
+            border: 1px solid var(--line-2);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, .03);
+            font-family: var(--mono)
+        }
+
+        .title-credit b {
+            font-size: clamp(20px, 2.4vw, 30px);
+            color: var(--teal);
+            font-weight: 600
+        }
+
+        .title-credit span {
+            color: var(--muted);
+            font-size: 13px;
+            letter-spacing: .04em
+        }
+
+        .hint {
+            margin-top: 36px;
+            font-family: var(--mono);
+            font-size: 12.5px;
+            color: var(--muted);
+            letter-spacing: .05em
+        }
+
+        .hint kbd {
+            font-family: var(--mono);
+            background: var(--ink-3);
+            border: 1px solid var(--line-2);
+            border-bottom-width: 2px;
+            border-radius: 6px;
+            padding: 2px 8px;
+            color: var(--text);
+            font-size: 11.5px;
+            margin: 0 2px
+        }
+
+        /* layout helpers */
+        .grid {
+            display: grid;
+            gap: clamp(12px, 1.4vw, 20px);
+            margin-top: clamp(20px, 3vh, 32px)
+        }
+
+        .g2 {
+            grid-template-columns: 1fr 1fr
+        }
+
+        .g3 {
+            grid-template-columns: repeat(3, 1fr)
+        }
+
+        .g4 {
+            grid-template-columns: repeat(4, 1fr)
+        }
+
+        .card {
+            background: var(--ink-2);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: clamp(16px, 1.7vw, 24px);
+            position: relative;
+            overflow: hidden
+        }
+
+        .card h4 {
+            font-family: var(--disp);
+            font-weight: 600;
+            font-size: clamp(15px, 1.4vw, 19px);
+            letter-spacing: -.01em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .card p {
+            color: var(--muted);
+            font-size: clamp(13px, 1.05vw, 15px);
+            line-height: 1.5
+        }
+
+        .card .tick {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--amber);
+            letter-spacing: .04em
+        }
+
+        .card.accent {
+            border-color: rgba(245, 180, 60, .4)
+        }
+
+        .card.good {
+            border-color: rgba(70, 212, 179, .35)
+        }
+
+        .card.good h4 {
+            color: var(--teal)
+        }
+
+        .card.bad {
+            border-color: rgba(255, 111, 94, .4)
+        }
+
+        .card.bad h4 {
+            color: var(--coral)
+        }
+
+        .card.vio {
+            border-color: rgba(155, 140, 255, .4)
+        }
+
+        .card.vio h4 {
+            color: var(--violet)
+        }
+
+        .card .lbl {
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-family: var(--mono);
+            font-size: 10.5px;
+            letter-spacing: .14em;
+            padding: 5px 10px;
+            border-bottom-left-radius: 12px;
+            text-transform: uppercase
+        }
+
+        .lbl-free {
+            background: rgba(70, 212, 179, .16);
+            color: var(--teal)
+        }
+
+        .lbl-paid {
+            background: rgba(255, 111, 94, .15);
+            color: var(--coral)
+        }
+
+        .lbl-adm {
+            background: rgba(155, 140, 255, .16);
+            color: var(--violet)
+        }
+
+        ul.ticks {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+            margin-top: 6px
+        }
+
+        ul.ticks li {
+            display: flex;
+            gap: 13px;
+            align-items: flex-start;
+            font-size: clamp(14px, 1.15vw, 16.5px);
+            line-height: 1.45;
+            color: var(--text)
+        }
+
+        ul.ticks li::before {
+            content: "\203A";
+            font-family: var(--mono);
+            color: var(--amber);
+            font-weight: 600;
+            line-height: 1.4
+        }
+
+        ul.ticks li span {
+            color: var(--muted)
+        }
+
+        /* big stat */
+        .statrow {
+            display: flex;
+            gap: clamp(20px, 4vw, 56px);
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-top: 10px
+        }
+
+        .stat .n {
+            font-family: var(--disp);
+            font-weight: 700;
+            letter-spacing: -.03em;
+            font-size: clamp(46px, 8.4vw, 112px);
+            line-height: .9
+        }
+
+        .stat .n.teal {
+            color: var(--teal)
+        }
+
+        .stat .n.amber {
+            color: var(--amber)
+        }
+
+        .stat .n.coral {
+            color: var(--coral)
+        }
+
+        .stat .n.vio {
+            color: var(--violet)
+        }
+
+        .stat .k {
+            font-family: var(--mono);
+            font-size: 13px;
+            color: var(--muted);
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            margin-top: 12px;
+            max-width: 24ch
+        }
+
+        /* table */
+        .tbl {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: clamp(16px, 2.4vh, 26px);
+            font-size: clamp(12.5px, 1.05vw, 15px)
+        }
+
+        .tbl th {
+            font-family: var(--mono);
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            font-size: 11px;
+            color: var(--muted);
+            text-align: left;
+            padding: 0 14px 12px;
+            border-bottom: 1px solid var(--line-2);
+            font-weight: 500
+        }
+
+        .tbl td {
+            padding: 11px 14px;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .tbl td.m {
+            font-family: var(--mono)
+        }
+
+        .tbl tr:last-child td {
+            border-bottom: none
+        }
+
+        .tbl .name {
+            font-weight: 500
+        }
+
+        .tbl tr.hi-row td {
+            background: rgba(155, 140, 255, .07)
+        }
+
+        .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 9px;
+            vertical-align: middle
+        }
+
+        .d-teal {
+            background: var(--teal)
+        }
+
+        .d-amber {
+            background: var(--amber)
+        }
+
+        .d-coral {
+            background: var(--coral)
+        }
+
+        .price {
+            font-family: var(--mono);
+            font-weight: 500
+        }
+
+        .price.lo {
+            color: var(--teal)
+        }
+
+        .price.mid {
+            color: var(--amber)
+        }
+
+        .price.hi {
+            color: var(--coral)
+        }
+
+        /* cost spectrum */
+        .spectrum {
+            margin-top: clamp(26px, 4vh, 46px);
+            position: relative;
+            height: 128px
+        }
+
+        .spectrum .bar {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 46px;
+            height: 16px;
+            border-radius: 9px;
+            background: linear-gradient(90deg, var(--teal) 0%, #8fd28a 18%, var(--amber) 46%, var(--amber-deep) 62%, var(--coral) 100%);
+            box-shadow: 0 0 30px rgba(245, 180, 60, .22)
+        }
+
+        .spectrum .mk {
+            position: absolute;
+            top: 0;
+            transform: translateX(-50%);
+            text-align: center
+        }
+
+        .spectrum .mk .pin {
+            width: 2px;
+            height: 30px;
+            background: var(--line-2);
+            margin: 34px auto 0
+        }
+
+        .spectrum .mk .val {
+            font-family: var(--mono);
+            font-weight: 600;
+            font-size: clamp(13px, 1.2vw, 16px)
+        }
+
+        .spectrum .mk .nm {
+            font-family: var(--mono);
+            font-size: 10.5px;
+            color: var(--muted);
+            margin-top: 4px;
+            white-space: nowrap
+        }
+
+        .spectrum .mk.lo .val {
+            color: var(--teal)
+        }
+
+        .spectrum .mk.mid .val {
+            color: var(--amber)
+        }
+
+        .spectrum .mk.hi .val {
+            color: var(--coral)
+        }
+
+        /* pool reservoir (enterprise signature) */
+        .pool {
+            margin-top: clamp(22px, 3.2vh, 34px)
+        }
+
+        .pool .vessel {
+            position: relative;
+            height: clamp(80px, 12vh, 112px);
+            border-radius: 16px;
+            border: 1px solid var(--line-2);
+            background: rgba(255, 255, 255, .03);
+            overflow: hidden
+        }
+
+        .pool .level {
+            position: absolute;
+            inset: 0;
+            width: 72%;
+            background:
+                linear-gradient(90deg, rgba(70, 212, 179, .32), rgba(245, 180, 60, .30) 75%, rgba(255, 111, 94, .30));
+            border-right: 2px solid var(--amber)
+        }
+
+        .pool .level::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(90deg, rgba(255, 255, 255, .05) 0 2px, transparent 2px 26px)
+        }
+
+        .pool .ptext {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 22px;
+            font-family: var(--mono)
+        }
+
+        .pool .ptext .big {
+            font-size: clamp(20px, 2.4vw, 30px);
+            font-weight: 600;
+            color: var(--text)
+        }
+
+        .pool .ptext .pct {
+            font-size: 13px;
+            color: var(--amber)
+        }
+
+        .pool .draws {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px;
+            flex-wrap: wrap
+        }
+
+        .pool .draw {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--muted);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 5px 12px
+        }
+
+        .pool .draw b {
+            color: var(--teal)
+        }
+
+        /* budget architecture (nested) */
+        .arch {
+            margin-top: clamp(20px, 3vh, 30px)
+        }
+
+        .layer {
+            border: 1px solid var(--line-2);
+            border-radius: 16px;
+            padding: clamp(13px, 1.5vw, 20px);
+            position: relative
+        }
+
+        .layer+.layer,
+        .layer .layer {
+            margin-top: 0
+        }
+
+        .layer .ltag {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: clamp(10px, 1.4vh, 14px)
+        }
+
+        .layer .ltag .what {
+            color: var(--muted);
+            font-weight: 400;
+            letter-spacing: .02em;
+            text-transform: none;
+            font-size: 12.5px
+        }
+
+        .layer.l-ent {
+            border-color: rgba(155, 140, 255, .45);
+            background: rgba(155, 140, 255, .05)
+        }
+
+        .layer.l-ent .ltag {
+            color: var(--violet)
+        }
+
+        .layer.l-cc {
+            border-color: rgba(245, 180, 60, .4);
+            background: rgba(245, 180, 60, .045)
+        }
+
+        .layer.l-cc .ltag {
+            color: var(--amber)
+        }
+
+        .layer.l-ulb {
+            border-color: rgba(255, 111, 94, .42);
+            background: rgba(255, 111, 94, .05)
+        }
+
+        .layer.l-ulb .ltag {
+            color: var(--coral)
+        }
+
+        .layer.l-pool {
+            border-color: rgba(70, 212, 179, .42);
+            background: rgba(70, 212, 179, .06);
+            text-align: center;
+            padding: clamp(14px, 1.8vw, 22px)
+        }
+
+        .layer.l-pool .ltag {
+            color: var(--teal);
+            justify-content: center;
+            margin-bottom: 0
+        }
+
+        /* ladder */
+        .ladder {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: clamp(18px, 2.6vh, 28px)
+        }
+
+        .rung {
+            display: flex;
+            align-items: center;
+            gap: 18px
+        }
+
+        .rung .lab {
+            width: clamp(120px, 16vw, 200px);
+            flex: none
+        }
+
+        .rung .lab b {
+            font-family: var(--disp);
+            font-weight: 600;
+            font-size: clamp(14px, 1.3vw, 18px)
+        }
+
+        .rung .lab small {
+            display: block;
+            color: var(--muted);
+            font-family: var(--mono);
+            font-size: 11px;
+            margin-top: 2px
+        }
+
+        .rung .track {
+            flex: 1;
+            height: 22px;
+            border-radius: 7px;
+            background: rgba(255, 255, 255, .05);
+            overflow: hidden
+        }
+
+        .rung .fill {
+            height: 100%;
+            border-radius: 7px
+        }
+
+        .rung .cost {
+            font-family: var(--mono);
+            font-size: 12.5px;
+            color: var(--muted);
+            width: 120px;
+            flex: none;
+            text-align: right
+        }
+
+        /* note */
+        .note {
+            margin-top: clamp(18px, 2.6vh, 26px);
+            border-left: 3px solid var(--amber);
+            background: rgba(245, 180, 60, .07);
+            padding: 14px 20px;
+            border-radius: 0 12px 12px 0;
+            font-size: clamp(13px, 1.1vw, 15.5px);
+            line-height: 1.5;
+            color: var(--text)
+        }
+
+        .note.danger {
+            border-color: var(--coral);
+            background: rgba(255, 111, 94, .08)
+        }
+
+        .note.good {
+            border-color: var(--teal);
+            background: rgba(70, 212, 179, .07)
+        }
+
+        .note.vio {
+            border-color: var(--violet);
+            background: rgba(155, 140, 255, .07)
+        }
+
+        .note b {
+            color: var(--amber)
+        }
+
+        .note.danger b {
+            color: var(--coral)
+        }
+
+        .note.good b {
+            color: var(--teal)
+        }
+
+        .note.vio b {
+            color: var(--violet)
+        }
+
+        .codeline {
+            font-family: var(--mono);
+            background: var(--ink-3);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 3px 9px;
+            font-size: .92em;
+            color: var(--teal)
+        }
+
+        /* stages */
+        .stages {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(14px, 1.6vw, 22px);
+            margin-top: clamp(20px, 3vh, 32px)
+        }
+
+        .stage {
+            background: var(--ink-2);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: clamp(18px, 1.9vw, 26px);
+            position: relative
+        }
+
+        .stage .st-n {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--amber);
+            letter-spacing: .14em
+        }
+
+        .stage h4 {
+            font-family: var(--disp);
+            font-weight: 600;
+            font-size: clamp(16px, 1.5vw, 21px);
+            margin: 6px 0 14px;
+            letter-spacing: -.01em
+        }
+
+        .stage ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 9px
+        }
+
+        .stage li {
+            font-size: clamp(12.5px, 1.05vw, 14.5px);
+            color: var(--muted);
+            line-height: 1.4;
+            padding-left: 16px;
+            position: relative
+        }
+
+        .stage li::before {
+            content: "\203A";
+            position: absolute;
+            left: 0;
+            color: var(--teal);
+            font-family: var(--mono)
+        }
+
+        /* split (cheat sheet) */
+        .split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(14px, 1.8vw, 26px);
+            margin-top: clamp(18px, 2.6vh, 28px)
+        }
+
+        .col h5 {
+            font-family: var(--mono);
+            font-size: 12px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 9px
+        }
+
+        .col.admin h5 {
+            color: var(--violet)
+        }
+
+        .col.dev h5 {
+            color: var(--teal)
+        }
+
+        .col .badge {
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+            transform: rotate(45deg)
+        }
+
+        .col.admin .badge {
+            background: var(--violet)
+        }
+
+        .col.dev .badge {
+            background: var(--teal)
+        }
+
+        /* chrome */
+        #counter {
+            position: fixed;
+            top: clamp(20px, 3.2vh, 34px);
+            right: clamp(22px, 4vw, 54px);
+            z-index: 20;
+            font-family: var(--mono);
+            font-size: 13px;
+            letter-spacing: .12em;
+            color: var(--muted)
+        }
+
+        #counter b {
+            color: var(--text)
+        }
+
+        #brand {
+            position: fixed;
+            top: clamp(20px, 3.2vh, 34px);
+            left: clamp(22px, 4vw, 54px);
+            z-index: 20;
+            font-family: var(--mono);
+            font-size: 11.5px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 9px
+        }
+
+        #brand .gem {
+            width: 9px;
+            height: 9px;
+            background: var(--violet);
+            border-radius: 2px;
+            transform: rotate(45deg)
+        }
+
+        #meter {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 20;
+            padding: 0 clamp(22px, 4vw, 54px) 14px
+        }
+
+        #meter .mrow {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 8px
+        }
+
+        #meter .mlabel {
+            font-family: var(--mono);
+            font-size: 10.5px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--muted)
+        }
+
+        #meter .mpct {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--amber);
+            margin-left: auto
+        }
+
+        #meter .track {
+            height: 5px;
+            background: rgba(255, 255, 255, .07);
+            border-radius: 3px;
+            overflow: hidden
+        }
+
+        #meter .fill {
+            height: 100%;
+            width: 0;
+            border-radius: 3px;
+            background: linear-gradient(90deg, var(--teal), var(--amber) 70%, var(--coral));
+            transition: width .5s cubic-bezier(.2, .7, .2, 1)
+        }
+
+        .nav {
+            position: fixed;
+            bottom: clamp(30px, 5vh, 44px);
+            z-index: 21;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid var(--line-2);
+            background: rgba(20, 28, 52, .7);
+            backdrop-filter: blur(6px);
+            color: var(--text);
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: .2s
+        }
+
+        .nav:hover {
+            border-color: var(--amber);
+            color: var(--amber)
+        }
+
+        #prev {
+            right: calc(clamp(22px, 4vw, 54px) + 52px)
+        }
+
+        #next {
+            right: clamp(22px, 4vw, 54px)
+        }
+
+        .nav:disabled {
+            opacity: .3;
+            cursor: default
+        }
+
+        #overview {
+            position: fixed;
+            inset: 0;
+            z-index: 40;
+            background: rgba(8, 12, 24, .97);
+            display: none;
+            padding: clamp(40px, 6vw, 80px);
+            overflow: auto
+        }
+
+        #overview.show {
+            display: block
+        }
+
+        #overview h3 {
+            font-family: var(--mono);
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 24px
+        }
+
+        .ov-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 14px
+        }
+
+        .ov-card {
+            background: var(--ink-2);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 18px;
+            cursor: pointer;
+            transition: .18s;
+            min-height: 104px
+        }
+
+        .ov-card:hover {
+            border-color: var(--amber);
+            transform: translateY(-2px)
+        }
+
+        .ov-card .ovn {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--amber);
+            letter-spacing: .1em
+        }
+
+        .ov-card .ovt {
+            font-family: var(--disp);
+            font-weight: 600;
+            font-size: 16px;
+            margin-top: 8px;
+            line-height: 1.2
+        }
+
+        .ov-card .ove {
+            font-family: var(--mono);
+            font-size: 10.5px;
+            color: var(--muted);
+            margin-top: 6px;
+            letter-spacing: .06em;
+            text-transform: uppercase
+        }
+
+        @media (max-width:760px) {
+
+            .g2,
+            .g3,
+            .g4,
+            .stages,
+            .split {
+                grid-template-columns: 1fr
+            }
+
+            .spectrum {
+                height: 170px
+            }
+
+            .rung .lab {
+                width: 120px
+            }
+
+            .rung .cost {
+                display: none
+            }
+
+            #brand {
+                display: none
+            }
+
+            .tbl .hide-sm {
+                display: none
+            }
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+            .slide.active .anim {
+                animation: none;
+                opacity: 1;
+                transform: none
+            }
+
+            #meter .fill {
+                transition: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="stage" tabindex="0">
+
+        <!-- 1 — TITLE -->
+        <section class="slide active">
+            <div class="slide-inner">
+                <div class="title-tag anim"><span>A Field Guide &middot; 2026</span><span class="chip">Enterprise</span>
+                </div>
+                <h1 class="title-big anim">Governing<br>Copilot Spend</h1>
+                <p class="title-sub anim">Running GitHub Copilot Enterprise on a shared credit pool &mdash; across
+                    VS&nbsp;Code, JetBrains&nbsp;IDEA, and the Copilot&nbsp;CLI.</p>
+                <div class="title-credit anim"><b>One pool. Every seat draws from it.</b><span>govern the pool, not the
+                        person</span></div>
+                <div class="hint anim"><kbd>&rarr;</kbd><kbd>Space</kbd> advance &nbsp;&middot;&nbsp; <kbd>O</kbd>
+                    overview &nbsp;&middot;&nbsp; <kbd>F</kbd> fullscreen</div>
+            </div>
+        </section>
+
+        <!-- 2 — THE SHIFT -->
+        <section class="slide">
+            <div class="slide-inner">
+                <div class="eyebrow anim"><span class="num">01</span> The Shift</div>
+                <h2 class="headline anim">The unit changed &mdash; and<br>now it's <span class="vio">pooled.</span></h2>
+                <div class="grid g2 anim">
+                    <ul class="ticks">
+                        <li>On <strong>June 1, 2026</strong> Premium Request Units retired. Everything meters in
+                            <strong>GitHub AI Credits</strong> (<span class="mono">1 credit = $0.01</span>).</li>
+                        <li>Billed on <strong>input + output + cached tokens</strong> at each model's published API
+                            rate.</li>
+                        <li>Enterprise seats are <strong>$39/user</strong> &mdash; base prices unchanged.</li>
+                    </ul>
+                    <ul class="ticks">
+                        <li>The enterprise twist: credits are <strong>pooled at the billing entity</strong>. No per-seat
+                            bucket &mdash; one shared reservoir.</li>
+                        <li>The old safety net is gone: an exhausted budget is a <strong>hard wall</strong>, not a quiet
+                            downgrade to a cheaper model.</li>
+                    </ul>
+                </div>
+                <div class="note vio anim">Your job as a team isn't to police individuals &mdash; it's to <b>govern a
+                        shared resource</b> with policy, budgets, and good defaults.</div>
+            </div>
+        </section>
+
+        <!-- 3 — THE POOL MATH -->
+        <section class="slide">
+            <div class="slide-inner">
+                <div class="eyebrow anim"><span class="num">02</span> The Shared Pool</div>
+                <div class="statrow anim">
+                    <div class="stat">
+                        <div class="n vio">780K</div>
+                        <div class="k">shared credits/month for a 200-seat Enterprise org (3,900 &times; 200)</div>
+                    </div>
+                    <h2 class="headline" style="max-width:13ch">It's one reservoir, not 200 <span
+                            class="cool">cups.</span></h2>
+                </div>
+                <div class="pool anim">
+                    <div class="vessel">
+                        <div class="level"></div>
+                        <div class="ptext"><span class="big">Shared credit pool</span><span class="pct">~72%
+                                remaining</span></div>
+                    </div>
+                    <div class="draws">
+                        <span class="draw">chat <b>draws</b></span><span class="draw">agent runs <b>draw</b></span><span
+                            class="draw">code review <b>draws</b></span><span class="draw">CLI sessions
+                            <b>draw</b></span><span class="draw">cloud agent <b>draws</b></span>
+                    </div>
+                </div>
+                <div class="note anim"><b>Promo window Jun&ndash;Sep 2026</b> lifts Enterprise to <span
+                        class="mono">7,000/user</span> (Business <span class="mono">1,900 &rarr; 3,000</span>), then
+                    reverts. Credits <b>don't roll over</b>. Use the promo to <b>baseline real consumption</b> before
+                    allowances shrink.</div>
+            </div>
+        </section>
+
+        <!-- 4 — SHARED RESPONSIBILITY -->
+        <section class="slide">
+            <div class="slide-inner">
+                <div class="eyebrow anim"><span class="num">02</span> Shared Pool, Shared Responsibility</div>
+                <h2 class="headline anim">One runaway loop<br><span style="color:var(--coral)">drains everyone.</span>
+                </h2>
+                <div class="grid g3 anim">
+                    <div class="card bad">
+                        <h4>The risk</h4>
+                        <p>A single developer's vague mega-task in agent mode can burn thousands of credits from the
+                            <strong>pool the whole team shares</strong>.</p>
+                    </div>
+                    <div class="card">
+                        <h4>The reframe</h4>
+                        <p>Cost discipline isn't a personal virtue here &mdash; it's <strong>collegial</strong>.
+                            Efficient habits leave runway for teammates.</p>
+                    </div>
+                    <div class="card good">
+                        <h4>The fix</h4>
+                        <p>Good <strong>defaults + guardrails</strong> make the cheap path the easy path, so nobody has
+                            to think about it.</p>
+                    </div>
+                </div>
+                <div class="note anim">Everything that follows splits into two tracks: <b>developer habits</b> that
+                    scale across the team, and <b>admin controls</b> that bound the worst case.</div>
+            </div>
+        </section>
+
+        <!-- 5 — WHAT'S METERED -->
+        <section class="slide">
+            <div class="slide-inner">
+                <div class="eyebrow anim"><span class="num">03</span> What Draws From the Pool</div>
+                <h2 class="headline anim">Know what <span class="hl">costs</span></h2>
+                <div class="grid g2 anim">
+                    <div class="card bad"><span class="lbl lbl-paid">Draws credits</span>
+                        <h4>Anything that calls a model</h4>
+                        <p>Chat &middot; Agent mode &middot; Edits &middot; Code review &middot; Copilot&nbsp;CLI
+                            &middot; Cloud agent &middot; Spaces &middot; Spark. Code review is
+                            <strong>dual-billed</strong> &mdash; credits <em>and</em> Actions minutes.</p>
+                    </div>
+                    <div class="card good"><span class="lbl lbl-free">Free &amp; unlimited</span>
+                        <h4>Inline completions</h4>
+                        <p>Code completions and Next&nbsp;Edit&nbsp;Suggestions never draw AI Credits on paid seats.
+                            <strong>Encourage tab-completion</strong> for routine flow.</p>
+                    </div>
+                </div>
+                <div class="note good anim">Practical signal: if a team's usage is <b>~90% completions</b>, the change
+                    barely touches them. The governance effort belongs where the <b>agentic spend</b> is.</div>
+            </div>
+        </section>
+
+        <!-- 6 — THE 40x LEVER -->
+        <section class="slide">
+            <div class="slide-inner">
+                <div class="eyebrow anim"><span class="num">04</span> Models &middot; The Org-Wide Lever</div>
+                <div class="statrow anim">
+                    <div class="stat">
+                        <div class="n amber">40&times;</div>
+                        <div class="k">spread between cheapest and most expensive output tokens</div>
+                    </div>
+                    <h2 class="headline" style="max-width:14ch">Model choice is a <span class="hl">policy</span>, not a
+                        preference.</h2>
+                </div>
+                <div class="spectrum anim">
+                    <div class="bar"></div>
+                    <div class="mk lo" style="left:2.5%">
+                        <div class="val">$1.25</div>
+                        <div class="pin"></div>
+                        <div class="nm">GPT-5.4 nano</div>
+                    </div>
+                    <div class="mk lo" style="left:10%">
+                        <div class="val">$5</div>
+                        <div class="pin"></div>
+                        <div class="nm">Claude Haiku</div>
+                    </div>
+                    <div class="mk mid" style="left:30%">
+                        <div class="val">$15</div>
+                        <div class="pin"></div>
+                        <div class="nm">Sonnet &middot; GPT-5.4</div>
+                    </div>
+                    <div class="mk hi" style="left:50%">
+                        <div class="val">$25</div>
+                        <div class="pin"></div>
+                        <div class="nm">Claude Opus</div>
+                    </div>
+                    <div class="mk hi" style="left:60%">
+                        <div class="val">$30</div>
+                        <div class="pin"></div>
+                        <div class="nm">GPT-5.5</div>
+                    </div>
+                    <div class="mk hi" style="left:97.5%">
+                        <div class="val">$50</div>
+                        <div class="pin"></div>
+                        <div class="nm">Claude Fable 5</div>
+                    </div>
+                </div>
+                <p class="lead anim" style="max-width:60ch">Output rates per million tokens. Across hundreds of seats,
+                    the default model in the dropdown is the single biggest line item you control.</p>
+            </div>
+        </section>
+
+        <!-- 7 — MODEL MENU -->
+        <section class="slide">
+            <div class="slide-inner">
+                <div class="eyebrow anim"><span class="num">04</span> Models &middot; The Menu</div>
+                <h2 class="headline anim">Rates per <span class="mono">1M</span> tokens</h2>
+                <table class="tbl anim">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Tier</th>
+                            <th>Input</th>
+                            <th class="hide-sm">Cached</th>
+                            <th>Output</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="name"><span class="dot d-teal"></span>GPT-5.4 nano</td>
+                            <td>Lightweight</td>
+                            <td class="price lo">$0.20</td>
+                            <td class="m hide-sm">$0.02</td>
+                            <td class="price lo">$1.25</td>
+                        </tr>
+                        <tr>
+                            <td class="name"><span class="dot d-teal"></span>GPT-5 mini</td>
+                            <td>Lightweight</td>
+                            <td class="price lo">$0.25</td>
+                            <td class="m hide-sm">$0.03</td>
+                            <td class="price lo">$2.00</td>
+                        </tr>
+                        <tr>
+                            <td class="name"><span class="dot d-teal"></span>Gemini 3 Flash</td>
+                            <td>Lightweight</td>
+                            <td class="price lo">$0.50</td>
+                            <td class="m hide-sm">$0.05</td>
+                            <td class="price lo">$3.00</td>
+                        </tr>
+                        <tr>
+                            <td class="name"><span class="dot d-teal"></span>Claude Haiku 4.5</td>
+                            <td>Versatile</td>
+                            <td class="price lo">$1.00</td>
+                            <td class="m hide-sm">$0.10</td>
+                            <td class="price lo">$5.00</td>
+                        </tr>
+                        <tr>
+                            <td class="name"><span class="dot d-amber"></span>Claude Sonnet 4.6</td>
+                            <td>Versatile</td>
+                            <td class="price mid">$3.00</td>
+                            <td class="m hide-sm">$0.30</td>
+                            <td class="price mid">$15.00</td>
+                        </tr>
+                        <tr>
+                            <td class="name"><span class="dot d-amber"></span>GPT-5.4</td>
+                            <td>Versatile</td>
+                            <td class="price mid">$2.50</td>
+                            <td class="m hide-sm">$0.25</td>
+                            <td class="price mid">$15.00</td>
+                        </tr>
+                        <tr class="hi-row">
+                            <td class="name"><span class="dot d-coral"></span>Claude Opus 4.8</td>
+                            <td>Powerful</td>
+                            <td class="price hi">$5.00</td>
+                            <td class="m hide-sm">$0.50</td>
+                            <td class="price hi">$25.00</td>
+                        </tr>
+                        <tr class="hi-row">
+                            <td class="name"><span class="dot d-coral"></span>GPT-5.5</td>
+                            <td>Powerful</td>
+                            <td class="price hi">$5.00</td>
+                            <td class="m hide-sm">$0.50</td>
+                            <td class="price hi">$30.00</td>
+                        </tr>
+                        <tr class="hi-row">
+                            <td class="name"><span class="dot d-coral"></span>Claude Fable 5</td>
+                            <td>Powerful</td>
+                            <td class="price hi">$10.00</td>
+                            <td class="m hide-sm">$1.00</td>
+                            <td class="price hi">$50.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="note vio anim">Admin lever: <b>model-availability policies</b> can restrict the highlighted
+                    frontier tier org-wide &mdash; often more effective than tightening budgets after the fact.</div>
+            </div>
+        </section>
+
+        <!-- 8 — MODEL GOVERNANCE -->
+        <section class="slide">
+            <div class="slide-inner">
+                <div class="eyebrow anim"><span class="num">04</span> Models &middot; The Standard</div>
+                <h2 class="headline anim">Set the default <span class="cool">once</span>, for everyone</h2>
+                <div class="grid g3 anim">
+                    <div class="card good">
+                        <h4>Auto as the org default</h4>
+                        <p>Routes by availability &amp; complexity, hugs cache boundaries, and gives paid seats a
+                            <strong>10% multiplier discount</strong>. GA in all three environments.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Lightweight for routine</h4>
+                        <p>nano / mini / Flash for boilerplate, quick edits, and <strong>planning</strong>. Publish this
+                            as the team convention.</p>
+                    </div>
+                    <div class="card vio">
+                        <h4>Frontier by exception</h4>
+                        <p>Opus &middot; GPT-5.5 &middot; Fable 5 reserved for documented hard cases &mdash; gate behind
+                            policy where the spend warrants it.</p>
+                    </div>
+                </div>
+                <div class="note good anim"><b>Runway, made concrete:</b> 1,500 credits buys ~<span
+                        class="mono">500K</span> GPT-5.5 output tokens &mdash; or ~<span class="mono">12M</span> nano
+                    tokens. Multiply that 24&times; gap across every seat. <em>(Hopping models mid-session re-breaks the
+                        cache.)</em></div>
+            </div>
+        </section>
+
+        <!-- 9 — CONTEXT ENGINEERING -->
+        <section class="slide">
+            <div class="slide-inner">
+                <div class="eyebrow anim"><span class="num">05</span> Context Engineering &middot; As a Team Standard
+                </div>
+                <h2 class="headline anim">Every token is billed<br><span class="hl">every turn</span></h2>
+                <div class="grid g3 anim">
+                    <div class="card">
+                        <h4>Start fresh</h4>
+                        <p>New task &rarr; new chat (<span class="codeline">&#8984;N</span> / CLI <span
+                                class="codeline">/clear</span>). Long threads reprocess all of themselves each reply.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h4>Scope, don't dump</h4>
+                        <p>Attach with <span class="codeline">#file</span> <span class="codeline">#sym</span> <span
+                                class="codeline">@</span> instead of letting the agent inhale the repo.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Compact &amp; fork</h4>
+                        <p><span class="codeline">/compact</span> to summarize long sessions; <span
+                                class="codeline">/fork</span> to branch without re-establishing context.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Trim the toolbelt</h4>
+                        <p>Every tool &amp; MCP definition costs context each turn. Disable what the task doesn't use.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h4>Plan, then build</h4>
+                        <p>Reason once to a plan, review it, hand off to a cheaper model for the mechanical edits.</p>
+                    </div>
+                    <div class="card good">
+                        <h4>Ride the cache</h4>
+                        <p>Cached input is <strong>~10&times; cheaper</strong>. Short, focused sessions on a stable
+                            prompt hit cache best.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10 — INSTRUCTIONS & MEMORY AT SCALE -->
+        <section class="slide">
+            <div class="slide-inner">
+                <div class="eyebrow anim"><span class="num">06</span> Shared Context at Org Scale</div>
+                <h2 class="headline anim">Encode standards <span class="cool">in version control</span></h2>
+                <div class="grid g4 anim">
+                    <div class="card">
+                        <h4>Always-on</h4>
+                        <p>A <strong>lean</strong> repo <span class="mono">copilot-instructions.md</span> &mdash; it's
+                            billed every turn, so keep it tight.</p>
+                    </div>
+                    <div class="card good">
+                        <h4>Scoped</h4>
+                        <p><span class="mono">*.instructions.md</span> + <span class="mono">applyTo</span> globs load
+                            only for matching files. Cheaper than one giant file.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Memory</h4>
+                        <p>Repo facts &amp; <strong>user preferences</strong> (Business/Enterprise) reused across
+                            agents; unused entries expire in 28 days. Curate.</p>
+                    </div>
+                    <div class="card vio">
+                        <h4>Protect it</h4>
+                        <p>Guard governance files with <span class="mono">CODEOWNERS</span> + branch protection so
+                            standards can't be quietly edited.</p>
+                    </div>
+                </div>
+                <div class="note anim">Net effect across the team: fewer re-explanations, better first-try output
+                    &mdash; which means <b>fewer billed round-trips per developer, multiplied by every seat</b>.</div>
+            </div>
+        </section>
+
+        <!-- 11 — EXCLUSIONS -->
+        <section class="slide">
+            <div class="slide-inner">
+                <div class="eyebrow anim"><span class="num">07</span> Exclusions &middot; An Enterprise Power</div>
+                <h2 class="headline anim">Keep files out &mdash; <span class="cool">cheaper</span> and safer</h2>
+                <div class="grid g2 anim">
+                    <div class="card vio"><span class="lbl lbl-adm">Server-side &middot; Enterprise</span>
+                        <h4 style="margin-top:6px">Content exclusion</h4>
+                        <p>Org / repo / enterprise policy via <span class="mono">fnmatch</span> patterns. Excluded files
+                            get <strong>no suggestions, no chat context, skipped in review</strong>. Propagation up to
+                            30&nbsp;min; JetBrains needs a restart.</p>
+                    </div>
+                    <div class="card"><span class="tick">Client-side</span>
+                        <h4 style="margin-top:6px"><span class="codeline">.copilotignore</span></h4>
+                        <p>VS&nbsp;Code &amp; CLI, <span class="mono">.gitignore</span>-style. Trims build output,
+                            generated files, unrelated monorepo packages. Commit a shared one &mdash; but it's
+                            <strong>not a security guarantee</strong>.</p>
+                    </div>
+                </div>
+                <div class="note vio anim">Enterprise gets a real enforced policy (content exclusion) <b>on top of</b>
+                    developer-side hygiene. Use both: policy for secrets, <span class="mono">.copilotignore</span> for
+                    token discipline everywhere.</div>
+            </div>
+        </section>
+
+        <!-- 12 — THE AGENT GAP -->
+        <section class="slide">
+            <div class="slide-inner">
+                <div class="eyebrow anim"><span class="num">07</span> The Gap</div>
+                <h2 class="headline anim">Exclusions <span style="color:var(--coral)">don't reach</span> the agent</h2>
+                <div class="grid g2 anim">
+                    <ul class="ticks">
+                        <li>Content exclusion is <strong>not supported</strong> in Copilot&nbsp;CLI, the cloud agent, or
+                            Agent&nbsp;mode in IDE chat.</li>
+                        <li>Agentic workflows spin up isolated environments that <strong>don't inherit</strong>
+                            path-exclusion filters.</li>
+                        <li>A cloud agent checking out a branch <strong>can read files under an excluded path</strong>.
+                            Documented limitation, not a bug.</li>
+                    </ul>
+                    <div class="card bad" style="align-self:start">
+                        <h4>Layered defense (org policy)</h4>
+                        <p style="margin-bottom:8px">Don't rely on one wall:</p>
+                        <ul class="ticks" style="margin-top:0">
+                            <li>Content exclusion + shared <span class="mono">.copilotignore</span></li>
+                            <li><span class="mono">AGENTS.md</span> rules: never read <span class="mono">*.env *.pem
+                                    *.key</span></li>
+                            <li><span class="mono">PreToolUse</span> hooks, default-deny</li>
+                            <li>Keep secrets <span style="color:var(--text)">out of the repo</span> &mdash; secret
+                                managers, not files</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="note danger anim">If a developer can read a file, the agent probably can too. <b>Bake "no
+                        secrets in the working tree" into onboarding.</b></div>
+            </div>
+        </section>
+
+        <!-- 13 — MODE ECONOMICS / DISCIPLINE -->
+        <section class="slide">
+            <div class="slide-inner">
+                <div class="eyebrow anim"><span class="num">08</span> Mode Economics &middot; Protecting the Pool</div>
+                <h2 class="headline anim">Same goal, <span class="hl">wildly</span> different draw</h2>
+                <div class="ladder anim">
+                    <div class="rung">
+                        <div class="lab"><b>Completions</b><small>inline &middot; NES</small></div>
+                        <div class="track">
+                            <div class="fill" style="width:3%;background:var(--teal)"></div>
+                        </div>
+                        <div class="cost">free &middot; unlimited</div>
+                    </div>
+                    <div class="rung">
+                        <div class="lab"><b>Chat (Ask)</b><small>one call</small></div>
+                        <div class="track">
+                            <div class="fill" style="width:12%;background:linear-gradient(90deg,var(--teal),#8fd28a)">
+                            </div>
+                        </div>
+                        <div class="cost">1&times; model call</div>
+                    </div>
+                    <div class="rung">
+                        <div class="lab"><b>Edit mode</b><small>multi-file</small></div>
+                        <div class="track">
+                            <div class="fill" style="width:30%;background:linear-gradient(90deg,#8fd28a,var(--amber))">
+                            </div>
+                        </div>
+                        <div class="cost">more output</div>
+                    </div>
+                    <div class="rung">
+                        <div class="lab"><b>Agent mode</b><small>tool loop</small></div>
+                        <div class="track">
+                            <div class="fill"
+                                style="width:100%;background:linear-gradient(90deg,var(--amber),var(--coral))"></div>
+                        </div>
+                        <div class="cost">up to ~100&times;</div>
+                    </div>
+                </div>
+                <div class="note danger anim"><b>Team norms that protect the pool:</b> phase agent work (plan &rarr; one
+                    step &rarr; relevant tests); be prescriptive about files &amp; "done"; tell the agent to <b>stop and
+                        ask</b>, not retry blindly; intervene early; use Chat when one call would do.</div>
+            </div>
+        </section>
+
+        <!-- 14 — BUDGET ARCHITECTURE -->
+        <section class="slide">
+            <div class="slide-inner">
+                <div class="eyebrow anim"><span class="num">09</span> Budget Architecture</div>
+                <h2 class="headline anim">Four nested <span class="vio">guardrails</span></h2>
+                <div class="arch anim">
+                    <div class="layer l-ent">
+                        <div class="ltag">Enterprise budget <span class="what">&mdash; outer cap on metered overage. Max
+                                bill = licenses + this budget.</span></div>
+                        <div class="layer l-cc">
+                            <div class="ltag">Cost-center budgets <span class="what">&mdash; per-team caps &amp;
+                                    chargeback.</span></div>
+                            <div class="layer l-ulb">
+                                <div class="ltag">User-level budgets (ULB) <span class="what">&mdash; per-seat hard
+                                        stop, checked first, always enforced.</span></div>
+                                <div class="layer l-pool">
+                                    <div class="ltag">Shared credit pool &mdash; included allowance</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="note vio anim">The <b>universal ULB</b> (a default applied to every user) is your most
+                    important single control &mdash; set it <b>above</b> the per-seat value, then override upward for
+                    verified power users.</div>
+            </div>
+        </section>
+
+        <!-- 15 — HARD STOPS & POLICIES -->
+        <section class="slide">
+            <div class="slide-inner">
+                <div class="eyebrow anim"><span class="num">09</span> The Rules That Actually Stop Spend</div>
+                <h2 class="headline anim">Alerts <span style="color:var(--coral)">aren't</span> limits</h2>
+                <div class="grid g3 anim">
+                    <div class="card bad">
+                        <h4>Enable the hard stop</h4>
+                        <p>On enterprise &amp; cost-center budgets, switch on <strong>"Stop usage when budget limit is
+                                reached."</strong> Otherwise it's alert-only.</p>
+                    </div>
+                    <div class="card accent">
+                        <h4>Set the alerts</h4>
+                        <p>Thresholds at <strong>75 / 90 / 100%</strong> for early warning &mdash; to admins and owners,
+                            not just after the wall.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Mind the overage gate</h4>
+                        <p>The <span class="mono">"AI credit paid usage"</span> policy must be on to allow <em>any</em>
+                            overage; off &rarr; usage blocks the moment the pool empties.</p>
+                    </div>
+                </div>
+                <div class="note danger anim">There is <b>no automatic fallback</b> to a cheaper model when a budget
+                    runs dry. ULBs <b>always</b> hard-stop &mdash; a $0 ULB blocks a user immediately, even with pool
+                    left.</div>
+            </div>
+        </section>
+
+        <!-- 16 — MONITORING & CHARGEBACK -->
+        <section class="slide">
+            <div class="slide-inner">
+                <div class="eyebrow anim"><span class="num">10</span> Monitoring &amp; Chargeback</div>
+                <h2 class="headline anim">Make the pool <span class="hl">legible</span></h2>
+                <div class="grid g2 anim">
+                    <div class="card vio"><span class="lbl lbl-adm">Admin</span>
+                        <h4>Org dashboards</h4>
+                        <p>Billing &rarr; AI usage: filter by <strong>user, model, organization, or cost
+                                center</strong>; export CSV for chargeback and trend analysis. Reset date + alerts at
+                            75/90/100%.</p>
+                    </div>
+                    <div class="card good"><span class="lbl lbl-free">Developer</span>
+                        <h4>In-flow visibility</h4>
+                        <p>VS&nbsp;Code status-bar % of allowance &middot; Agent Debug Logs &amp; Cache Explorer
+                            &middot; CLI <span class="codeline">/usage</span> per session.</p>
+                    </div>
+                </div>
+                <div class="note anim"><b>Operate on signals:</b> users blocked before mid-cycle &rarr; ULB too tight or
+                    a power user needs an override. Metered charges while the pool isn't empty &rarr; ULBs collectively
+                    exceed the pool; raise the enterprise budget or tighten ULBs.</div>
+            </div>
+        </section>
+
+        <!-- 17 — THREE ENVIRONMENTS -->
+        <section class="slide">
+            <div class="slide-inner">
+                <div class="eyebrow anim"><span class="num">11</span> Across the Toolchain</div>
+                <h2 class="headline anim">Same standard, <span class="cool">three surfaces</span></h2>
+                <div class="grid g3 anim">
+                    <div class="card">
+                        <h4>VS Code</h4>
+                        <p>Richest controls: <span class="mono">/compact</span> &middot; <span class="mono">/fork</span>
+                            &middot; Cache Explorer &middot; selective context loading. The reference implementation for
+                            your standards.</p>
+                    </div>
+                    <div class="card accent">
+                        <h4>JetBrains IDEA</h4>
+                        <p>Watch the <strong>project-root trap</strong>: instruction files scope to the IDE project
+                            root, not the Git repo root. Content exclusion needs an <strong>IDE reload</strong>; no
+                            native <span class="mono">/compact</span>.</p>
+                    </div>
+                    <div class="card bad">
+                        <h4>Copilot CLI</h4>
+                        <p><span class="codeline">/usage</span> &middot; <span class="codeline">/clear</span> &middot;
+                            launch inside the package. The <span class="mono">.github/</span> bulk-load can add
+                            <strong>150k+ tokens</strong> &mdash; keep it lean.</p>
+                    </div>
+                </div>
+                <div class="note danger anim">Govern the gap: content exclusion does <b>not</b> apply to the CLI, cloud
+                    agent, or agent mode on any surface. Same standards, same blind spot &mdash; cover it with AGENTS.md
+                    + hooks + secret hygiene.</div>
+            </div>
+        </section>
+
+        <!-- 18 — ROLLOUT PLAYBOOK -->
+        <section class="slide">
+            <div class="slide-inner">
+                <div class="eyebrow anim"><span class="num">12</span> Rollout Playbook</div>
+                <h2 class="headline anim">Standardize &rarr; Govern &rarr; <span class="cool">Operate</span></h2>
+                <div class="stages anim">
+                    <div class="stage">
+                        <div class="st-n">PHASE 01 &middot; STANDARDIZE</div>
+                        <h4>Repos &amp; defaults</h4>
+                        <ul>
+                            <li>Auto as org default; lightweight convention</li>
+                            <li>Lean shared <span class="mono">copilot-instructions.md</span></li>
+                            <li>Scoped <span class="mono">*.instructions.md</span> + committed <span
+                                    class="mono">.copilotignore</span></li>
+                            <li>Phased-agent prompting as a norm</li>
+                        </ul>
+                    </div>
+                    <div class="stage">
+                        <div class="st-n">PHASE 02 &middot; GOVERN</div>
+                        <h4>Budgets &amp; policy</h4>
+                        <ul>
+                            <li>Universal ULB above per-seat value + hard stop</li>
+                            <li>Cost-center budgets for chargeback</li>
+                            <li>Content exclusion on secret paths</li>
+                            <li>Model-availability policy for frontier tier</li>
+                        </ul>
+                    </div>
+                    <div class="stage">
+                        <div class="st-n">PHASE 03 &middot; OPERATE</div>
+                        <h4>Monitor &amp; iterate</h4>
+                        <ul>
+                            <li>Baseline during the Jun&ndash;Sep promo</li>
+                            <li>Monthly usage review by cost center</li>
+                            <li>Tune ULBs &amp; overrides from real data</li>
+                            <li>Scope auto code-review to protected branches</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 19 — CHEAT SHEET -->
+        <section class="slide">
+            <div class="slide-inner">
+                <div class="eyebrow anim"><span class="num">13</span> The Enterprise Cheat Sheet</div>
+                <h2 class="headline anim">Two tracks, <span class="cool">one pool</span></h2>
+                <div class="split anim">
+                    <div class="col admin">
+                        <h5><span class="badge"></span> Admins &amp; leads</h5>
+                        <ul class="ticks">
+                            <li>Universal ULB + hard stop; overrides from data</li>
+                            <li>Enterprise &amp; cost-center budgets with <strong>"stop at limit"</strong></li>
+                            <li>Content exclusion + model-availability policy</li>
+                            <li>Baseline in the promo; review usage monthly</li>
+                        </ul>
+                    </div>
+                    <div class="col dev">
+                        <h5><span class="badge"></span> Developers</h5>
+                        <ul class="ticks">
+                            <li><strong>Auto or lightweight</strong>; frontier on purpose</li>
+                            <li>Fresh chats, tight context, <span class="mono">#</span>/<span class="mono">@</span> refs
+                            </li>
+                            <li><strong>Chat over Agent</strong> unless a loop is truly needed</li>
+                            <li>Lean on free completions for routine flow</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="note anim"><b>Caveats:</b> every rate, allowance, and policy reflects mid-2026 GitHub docs
+                    and <b>changes often</b> &mdash; verify at <span class="mono">docs.github.com</span> before relying
+                    on a number. Enterprise promo allowances revert <b>Sep 1, 2026</b>. Pooling, ULB, and cost-center
+                    behavior are admin-configurable &mdash; confirm against your own billing settings.</div>
+            </div>
+        </section>
+
+    </div>
+
+    <div id="brand"><span class="gem"></span> Copilot Spend Governance &middot; Enterprise</div>
+    <div id="counter"><b id="cur">01</b> / <span id="total">19</span></div>
+
+    <button class="nav" id="prev" aria-label="Previous slide">&lsaquo;</button>
+    <button class="nav" id="next" aria-label="Next slide">&rsaquo;</button>
+
+    <div id="meter">
+        <div class="mrow"><span class="mlabel">Shared pool consumed</span><span class="mpct" id="mpct">0%</span></div>
+        <div class="track">
+            <div class="fill" id="mfill"></div>
+        </div>
+    </div>
+
+    <div id="overview">
+        <h3>Jump to a slide &mdash; press O or Esc to close</h3>
+        <div class="ov-grid" id="ovGrid"></div>
+    </div>
+
+    <script>
+        (function () {
+            var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+            var cur = 0, n = slides.length;
+            var stage = document.getElementById('stage');
+            var elCur = document.getElementById('cur'), elFill = document.getElementById('mfill'), elPct = document.getElementById('mpct');
+            var prev = document.getElementById('prev'), next = document.getElementById('next');
+            var overview = document.getElementById('overview'), ovGrid = document.getElementById('ovGrid');
+            document.getElementById('total').textContent = String(n).padStart(2, '0');
+
+            slides.forEach(function (s, i) {
+                var eb = s.querySelector('.eyebrow'); var hd = s.querySelector('.headline, .title-big');
+                var ebTxt = eb ? eb.textContent.replace(/\s+/g, ' ').trim() : 'Title';
+                var hdTxt = hd ? hd.textContent.replace(/\s+/g, ' ').trim() : '';
+                var c = document.createElement('div'); c.className = 'ov-card';
+                c.innerHTML = '<div class="ovn">' + String(i + 1).padStart(2, '0') + '</div><div class="ovt">' + (hdTxt || ebTxt) + '</div><div class="ove">' + (i === 0 ? 'Title' : ebTxt) + '</div>';
+                c.addEventListener('click', function () { go(i); closeOv(); });
+                ovGrid.appendChild(c);
+            });
+
+            function render() {
+                slides.forEach(function (s, i) { s.classList.toggle('active', i === cur); });
+                elCur.textContent = String(cur + 1).padStart(2, '0');
+                var pct = Math.round((cur) / (n - 1) * 100);
+                elFill.style.width = pct + '%'; elPct.textContent = pct + '%';
+                prev.disabled = cur === 0; next.disabled = cur === n - 1;
+            }
+            function go(i) { cur = Math.max(0, Math.min(n - 1, i)); render(); }
+            function nextS() { go(cur + 1); } function prevS() { go(cur - 1); }
+            function openOv() { overview.classList.add('show'); } function closeOv() { overview.classList.remove('show'); }
+
+            prev.addEventListener('click', function (e) { e.stopPropagation(); prevS(); });
+            next.addEventListener('click', function (e) { e.stopPropagation(); nextS(); });
+
+            document.addEventListener('keydown', function (e) {
+                if (overview.classList.contains('show')) {
+                    if (e.key === 'Escape' || e.key === 'o' || e.key === 'O') { closeOv(); e.preventDefault(); }
+                    return;
+                }
+                switch (e.key) {
+                    case 'ArrowRight': case ' ': case 'PageDown': nextS(); e.preventDefault(); break;
+                    case 'ArrowLeft': case 'PageUp': prevS(); e.preventDefault(); break;
+                    case 'Home': go(0); e.preventDefault(); break;
+                    case 'End': go(n - 1); e.preventDefault(); break;
+                    case 'o': case 'O': openOv(); e.preventDefault(); break;
+                    case 'Escape': closeOv(); break;
+                    case 'f': case 'F':
+                        if (!document.fullscreenElement) { if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen(); }
+                        else { if (document.exitFullscreen) document.exitFullscreen(); }
+                        e.preventDefault(); break;
+                }
+            });
+
+            stage.addEventListener('click', function (e) {
+                if (e.target.closest('.nav') || e.target.closest('a')) return;
+                var x = e.clientX / window.innerWidth;
+                if (x > 0.62) nextS(); else if (x < 0.38) prevS();
+            });
+
+            var sx = null;
+            stage.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+            stage.addEventListener('touchend', function (e) {
+                if (sx === null) return; var dx = e.changedTouches[0].clientX - sx;
+                if (Math.abs(dx) > 50) { dx < 0 ? nextS() : prevS(); } sx = null;
+            }, { passive: true });
+
+            stage.focus(); render();
+        })();
+    </script>
+</body>
+
+</html>

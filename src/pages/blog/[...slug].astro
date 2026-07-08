@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import SlideLayout from '../../layouts/SlideLayout.astro';
+import JsonSlideDeck from '../../components/slides/JsonSlideDeck';
 import { getCollection } from 'astro:content';
 import { getPostsInSeries } from '../../utils/series.js';
 import MermaidRenderer from '../../components/Mermaid.jsx';
@@ -20,8 +22,36 @@ let seriesPosts = [];
 if (post.data.series) {
   seriesPosts = await getPostsInSeries(post.data.series);
 }
+
+// For slides layout, dynamically import the JSON data
+let slidesData = null;
+if (post.data.pageLayout === 'slides' && post.data.slidesData) {
+  const slideModules = import.meta.glob('../../content/slides/*.json', { eager: true });
+  const matchKey = Object.keys(slideModules).find(key => key.includes(post.data.slidesData));
+  if (matchKey) {
+    slidesData = slideModules[matchKey].default || slideModules[matchKey];
+  }
+}
 ---
 
+{post.data.pageLayout === 'slides' && slidesData ? (
+<SlideLayout title={post.data.title} description={post.data.excerpt}>
+  <Fragment slot="head">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style is:inline>
+      body {
+        background: #0E1426 !important;
+        color: #E8E9F2 !important;
+        font-family: 'IBM Plex Sans', sans-serif !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+      }
+    </style>
+  </Fragment>
+  <JsonSlideDeck data={slidesData} client:only="react" />
+</SlideLayout>
+) : (
 <Layout title={post.data.title}>
   <div class="min-h-screen bg-background text-foreground pt-24">
     <div class="container mx-auto px-4 py-8">
@@ -264,6 +294,7 @@ if (post.data.series) {
     </div>
   </div>
 </Layout>
+)}
 
 <style>
   /* Ensure prose styles are properly applied */

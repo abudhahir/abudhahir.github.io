@@ -9,6 +9,10 @@ const sortedPosts = posts
   .filter(post => !post.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
+const slidePosts = posts
+  .filter(post => !post.data.draft && post.data.pageLayout === 'slides')
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
 const seriesGroups = await getPostsBySeries();
 const seriesInfo = await getSeriesInfo();
 ---
@@ -40,6 +44,9 @@ const seriesInfo = await getSeriesInfo();
           </button>
           <button id="tab-posts" class="pb-2 px-2 text-lg font-semibold border-b-2 border-transparent text-muted hover:text-foreground transition-colors">
             Posts
+          </button>
+          <button id="tab-slides" class="pb-2 px-2 text-lg font-semibold border-b-2 border-transparent text-muted hover:text-foreground transition-colors">
+            Slides
           </button>
         </div>
 
@@ -115,6 +122,84 @@ const seriesInfo = await getSeriesInfo();
           ))}
           </div>
         </div>
+
+        <!-- Slides Tab Content -->
+        <div id="slides-tab-content" class="hidden">
+          {slidePosts.length > 0 ? (
+            <div class="grid gap-8">
+            {slidePosts.map(post => (
+              <article class="glass rounded-lg p-6 border border-border hover:border-primary transition-colors">
+                <div class="flex items-start justify-between gap-4 mb-4">
+                  <div class="flex-1">
+                    <div class="flex items-center gap-2 mb-2">
+                      <span class="inline-flex items-center gap-1 px-2 py-1 text-xs bg-primary/20 text-primary rounded-full">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"></path>
+                        </svg>
+                        Slide Deck
+                      </span>
+                    </div>
+                    <h2 class="text-xl font-bold">
+                      <a href={`/blog/${post.slug}`} class="text-foreground hover:text-primary transition-colors">
+                        {post.data.title}
+                      </a>
+                    </h2>
+                    {post.data.subtitle && (
+                      <p class="text-sm text-muted mt-1">{post.data.subtitle}</p>
+                    )}
+                  </div>
+                  <div class="flex flex-col gap-2 items-end">
+                    {post.data.series && (
+                      <a 
+                        href={`/blog/series/${encodeURIComponent(post.data.series)}`}
+                        class="px-2 py-1 text-xs bg-secondary/50 text-foreground rounded-full hover:bg-secondary transition-colors"
+                      >
+                        {post.data.series}
+                      </a>
+                    )}
+                    {post.data.featured && (
+                      <span class="px-2 py-1 text-xs bg-primary/20 text-primary rounded-full">
+                        featured
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-4 text-sm text-muted mb-4">
+                  <span>{post.data.date.toLocaleDateString()}</span>
+                  <span>•</span>
+                  <span>{post.data.readTime || 'Slides'}</span>
+                  <span>•</span>
+                  <span>by {post.data.author}</span>
+                </div>
+
+                <p class="text-muted mb-4">{post.data.excerpt}</p>
+
+                {post.data.tags && post.data.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-2 mb-4">
+                    {post.data.tags.slice(0, 3).map(tag => (
+                      <span class="px-2 py-1 text-xs bg-secondary border border-border rounded-full">
+                        {tag}
+                      </span>
+                    ))}
+                    {post.data.tags.length > 3 && (
+                      <span class="text-xs px-2 py-1 text-muted">
+                        +{post.data.tags.length - 3} more
+                      </span>
+                    )}
+                  </div>
+                )}
+
+                <a href={`/blog/${post.slug}`} class="text-primary hover:text-primary/80 transition-colors text-sm font-medium">
+                  View Slides →
+                </a>
+              </article>
+            ))}
+            </div>
+          ) : (
+            <p class="text-muted">No slide decks yet.</p>
+          )}
+        </div>
       </div>
     </div>
   </div>
@@ -123,41 +208,35 @@ const seriesInfo = await getSeriesInfo();
 <script>
   // Tab switching functionality
   document.addEventListener('DOMContentLoaded', function() {
-    const tabSeries = document.getElementById('tab-series');
-    const tabPosts = document.getElementById('tab-posts');
-    const contentSeries = document.getElementById('series-tab-content');
-    const contentPosts = document.getElementById('posts-tab-content');
-    
-    if (!tabSeries || !tabPosts || !contentSeries || !contentPosts) return;
-    
-    tabSeries.addEventListener('click', () => {
-      // Update tabs
-      tabSeries.classList.add('border-primary', 'text-foreground');
-      tabSeries.classList.remove('border-transparent', 'text-muted');
-      
-      tabPosts.classList.remove('border-primary', 'text-foreground');
-      tabPosts.classList.add('border-transparent', 'text-muted');
-      
-      // Update content
-      contentSeries.classList.remove('hidden');
-      contentSeries.classList.add('block');
-      contentPosts.classList.add('hidden');
-      contentPosts.classList.remove('block');
-    });
-    
-    tabPosts.addEventListener('click', () => {
-      // Update tabs
-      tabPosts.classList.add('border-primary', 'text-foreground');
-      tabPosts.classList.remove('border-transparent', 'text-muted');
-      
-      tabSeries.classList.remove('border-primary', 'text-foreground');
-      tabSeries.classList.add('border-transparent', 'text-muted');
-      
-      // Update content
-      contentPosts.classList.remove('hidden');
-      contentPosts.classList.add('block');
-      contentSeries.classList.add('hidden');
-      contentSeries.classList.remove('block');
+    const tabs = [
+      { tab: 'tab-series', content: 'series-tab-content' },
+      { tab: 'tab-posts', content: 'posts-tab-content' },
+      { tab: 'tab-slides', content: 'slides-tab-content' },
+    ]
+      .map(({ tab, content }) => ({
+        tab: document.getElementById(tab),
+        content: document.getElementById(content),
+      }))
+      .filter(({ tab, content }) => tab && content);
+
+    if (tabs.length === 0) return;
+
+    function activate(active) {
+      tabs.forEach(({ tab, content }) => {
+        const isActive = tab === active.tab;
+
+        tab.classList.toggle('border-primary', isActive);
+        tab.classList.toggle('text-foreground', isActive);
+        tab.classList.toggle('border-transparent', !isActive);
+        tab.classList.toggle('text-muted', !isActive);
+
+        content.classList.toggle('hidden', !isActive);
+        content.classList.toggle('block', isActive);
+      });
+    }
+
+    tabs.forEach((entry) => {
+      entry.tab.addEventListener('click', () => activate(entry));
     });
   });
 </script>

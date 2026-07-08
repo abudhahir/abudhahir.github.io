@@ -1,4 +1,5 @@
 import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const blog = defineCollection({
   type: 'content',
@@ -13,6 +14,8 @@ const blog = defineCollection({
     series: z.string().optional(),
     subtitle: z.string().optional(),
     draft: z.boolean().optional(),
+    pageLayout: z.enum(['default', 'slides']).optional().default('default'),
+    slidesData: z.string().optional(),
   }),
   // Enable markdown processing
   markdown: {
@@ -21,6 +24,13 @@ const blog = defineCollection({
   },
 });
 
+// Slide deck JSON data files consumed by the [...slug] router via import.meta.glob.
+// Defined here so Astro does not auto-generate the collection.
+const slides = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/slides' }),
+});
+
 export const collections = {
   blog,
+  slides,
 };
