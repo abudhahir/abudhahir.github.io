@@ -3,9 +3,10 @@ title: "Enterprise Java Development with Spring Boot"
 date: "2024-02-28"
 excerpt: "A comprehensive guide to building scalable enterprise applications using Spring Boot, covering best practices and architectural patterns."
 tags: ["Java", "Spring Boot", "Enterprise", "Architecture"]
-author: "Abudhahir"
+author: "Abu Dhahir"
 featured: true
 readTime: "12 min read"
+draft: false
 ---
 
 # Enterprise Java Development with Spring Boot

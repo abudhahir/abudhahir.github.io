@@ -2,39 +2,90 @@
 import Layout from '../../layouts/Layout.astro';
 import SlideLayout from '../../layouts/SlideLayout.astro';
 import JsonSlideDeck from '../../components/slides/JsonSlideDeck';
-import { getCollection } from 'astro:content';
-import { getPostsInSeries } from '../../utils/series.js';
+import { getPostsInSeries, getSeriesPartLabel } from '../../utils/series.js';
+import { getPublishedBlogEntries } from '../../utils/blog.js';
+import { legacyBlogRedirects } from '../../data/legacyBlogRedirects.js';
 import MermaidRenderer from '../../components/Mermaid.jsx';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
-  return posts.map(post => ({
+  const posts = await getPublishedBlogEntries();
+  const postPaths = posts.map(post => ({
     params: { slug: post.slug },
-    props: { post }
+    props: { post },
   }));
+  const redirectPaths = Object.entries(legacyBlogRedirects).map(
+    ([slug, targetPath]) => ({
+      params: { slug },
+      props: { redirect: { slug, targetPath } },
+    }),
+  );
+
+  return [...postPaths, ...redirectPaths];
 }
 
-const { post } = Astro.props;
-const { Content } = await post.render();
+const { post, redirect } = Astro.props;
+const canonicalUrl = redirect
+  ? new URL(redirect.targetPath, Astro.site)
+  : undefined;
+let Content;
+
+if (post) {
+  ({ Content } = await post.render());
+}
 
 // Get series information if this post is part of a series
 let seriesPosts = [];
-if (post.data.series) {
+if (post?.data.series) {
   seriesPosts = await getPostsInSeries(post.data.series);
 }
 
+const currentSeriesIndex = post?.data.series
+  ? seriesPosts.findIndex(seriesPost => seriesPost.slug === post.slug)
+  : -1;
+const previousSeriesPost =
+  currentSeriesIndex > 0 ? seriesPosts[currentSeriesIndex - 1] : null;
+const nextSeriesPost =
+  currentSeriesIndex >= 0 && currentSeriesIndex < seriesPosts.length - 1
+    ? seriesPosts[currentSeriesIndex + 1]
+    : null;
+
 // For slides layout, dynamically import the JSON data
 let slidesData = null;
-if (post.data.pageLayout === 'slides' && post.data.slidesData) {
+if (post?.data.pageLayout === 'slides' && post.data.slidesData) {
   const slideModules = import.meta.glob('../../content/slides/*.json', { eager: true });
   const matchKey = Object.keys(slideModules).find(key => key.includes(post.data.slidesData));
   if (matchKey) {
     slidesData = slideModules[matchKey].default || slideModules[matchKey];
+  } else {
+    throw new Error(`Slide data not found: ${post.data.slidesData}`);
   }
 }
 ---
 
-{post.data.pageLayout === 'slides' && slidesData ? (
+{redirect ? (
+<Layout title="Article moved" description="This article has moved to its canonical location.">
+  <Fragment slot="head">
+    <link rel="canonical" href={canonicalUrl} />
+    <meta http-equiv="refresh" content={`0;url=${redirect.targetPath}`} />
+  </Fragment>
+  <main class="min-h-screen bg-background text-foreground pt-24">
+    <div class="container mx-auto px-4 py-16">
+      <div class="max-w-2xl mx-auto glass rounded-lg border border-border p-8">
+        <h1 class="text-3xl font-bold mb-4">This article has moved</h1>
+        <p class="text-muted mb-6">
+          Continue to the canonical version of this content.
+        </p>
+        <a class="text-primary hover:underline" href={redirect.targetPath}>
+          Open the canonical page →
+        </a>
+      </div>
+    </div>
+  </main>
+  <script is:inline define:vars={{ targetPath: redirect.targetPath }}>
+    window.location.replace(targetPath);
+  </script>
+</Layout>
+) : post.data.pageLayout === 'slides' && slidesData ? (
 <SlideLayout title={post.data.title} description={post.data.excerpt}>
   <Fragment slot="head">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -90,16 +141,17 @@ if (post.data.pageLayout === 'slides' && post.data.slidesData) {
               </div>
               {seriesPosts.length > 1 && (
                 <div class="flex flex-wrap gap-2">
-                  {seriesPosts.map((seriesPost, index) => (
+                  {seriesPosts.map((seriesPost) => (
                     <a 
                       href={`/blog/${seriesPost.slug}`}
+                      data-series-order={seriesPost.data.seriesOrder}
                       class={`px-3 py-1 text-xs rounded-full border transition-colors ${
                         seriesPost.slug === post.slug
                           ? 'bg-primary text-white border-primary'
                           : 'bg-secondary border-border text-foreground hover:bg-primary/10'
                       }`}
                     >
-                      Part {index + 1}
+                      {getSeriesPartLabel(seriesPost)}
                     </a>
                   ))}
                 </div>
@@ -118,19 +170,6 @@ if (post.data.pageLayout === 'slides' && post.data.slidesData) {
             </div>
           )}
 
-          {post.slug === 'prompt-engineering/slide-deck' && (
-            <div class="mb-6">
-              <a
-                href="/blog/prompt-engineering/slide-deck/slides/"
-                class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-white hover:bg-primary/90 transition-colors"
-              >
-                View Slide Deck
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-              </a>
-            </div>
-          )}
         </header>
 
         <!-- Article content -->
@@ -246,21 +285,17 @@ if (post.data.pageLayout === 'slides' && post.data.slidesData) {
           <section class="mt-16 pt-8 border-t border-border">
             <h2 class="text-2xl font-semibold mb-6">Continue Reading: {post.data.series}</h2>
             <div class="grid gap-4 md:grid-cols-2">
-              {seriesPosts
-                .filter(seriesPost => seriesPost.slug !== post.slug)
-                .map((seriesPost, index) => {
-                  const currentIndex = seriesPosts.findIndex(p => p.slug === post.slug);
-                  const isNext = index === currentIndex + 1;
-                  const isPrevious = index === currentIndex - 1;
-                  
-                  return (
+              {[previousSeriesPost, nextSeriesPost]
+                .filter(Boolean)
+                .map((seriesPost) => (
                     <a 
                       href={`/blog/${seriesPost.slug}`}
+                      data-series-order={seriesPost.data.seriesOrder}
                       class="glass rounded-lg p-4 border border-border hover:border-primary transition-colors group"
                     >
                       <div class="flex items-center justify-between mb-2">
                         <span class="text-sm text-primary font-medium">
-                          {isNext ? 'Next' : isPrevious ? 'Previous' : `Part ${seriesPosts.indexOf(seriesPost) + 1}`}
+                          {seriesPost === previousSeriesPost ? 'Previous' : 'Next'}
                         </span>
                         <span class="text-xs bg-primary/20 text-primary px-2 py-1 rounded-full">
                           {seriesPost.data.readTime || '5 min read'}
@@ -274,8 +309,7 @@ if (post.data.pageLayout === 'slides' && post.data.slidesData) {
                       )}
                       <p class="text-sm text-muted mt-2">{seriesPost.data.excerpt}</p>
                     </a>
-                  );
-                })}
+                ))}
             </div>
             <div class="mt-6 text-center">
               <a 

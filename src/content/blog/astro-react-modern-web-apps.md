@@ -3,9 +3,10 @@ title: "Building Modern Web Applications with Astro and React"
 date: "2024-03-15"
 excerpt: "Learn how to combine the power of Astro's static site generation with React's component-based architecture for optimal performance."
 tags: ["Astro", "React", "Web Development", "Performance"]
-author: "Abudhahir"
+author: "Abu Dhahir"
 featured: true
 readTime: "8 min read"
+draft: false
 ---
 
 # Building Modern Web Applications with Astro and React

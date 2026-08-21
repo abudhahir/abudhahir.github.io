@@ -3,9 +3,10 @@ title: "AI-Powered Development Tools: The Future of Coding"
 date: "2024-01-20"
 excerpt: "Exploring how AI tools like GitHub Copilot and ChatGPT are transforming the software development landscape and boosting developer productivity."
 tags: ["AI", "Development Tools", "Future", "Productivity", "GitHub Copilot"]
-author: "Abudhahir"
+author: "Abu Dhahir"
 featured: false
 readTime: "6 min read"
+draft: false
 ---
 
 # AI-Powered Development Tools: The Future of Coding

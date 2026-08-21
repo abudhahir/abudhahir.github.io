@@ -3,9 +3,10 @@ title: "Cloud-Native Development with Docker and Kubernetes"
 date: "2023-10-15"
 excerpt: "Learn how to build, deploy, and manage cloud-native applications using containerization and orchestration. Complete guide from Docker basics to Kubernetes deployment."
 tags: ["Docker", "Kubernetes", "Cloud Native", "DevOps", "Containerization"]
-author: "Abudhahir"
+author: "Abu Dhahir"
 featured: false
 readTime: "14 min read"
+draft: false
 ---
 
 # Cloud-Native Development with Docker and Kubernetes

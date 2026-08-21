@@ -3,9 +3,11 @@ title: "GitHub Copilot Cost Optimization Playbook"
 date: "2026-06-05"
 excerpt: "A practical, step-by-step companion for engineering teams on Copilot Business, Enterprise, and Pro."
 tags: ["GitHub Copilot", "Cost Optimization"]
-author: "Abudhahir"
+author: "Abu Dhahir"
 readTime: "15 min read"
 series: "Token Preservation"
+seriesOrder: 1
+draft: false
 ---
 
 # The GitHub Copilot Cost-Optimization Playbook: A Hands-On Guide for Teams

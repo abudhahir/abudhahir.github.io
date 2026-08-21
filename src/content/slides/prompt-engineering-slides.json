@@ -1,0 +1,681 @@
+{
+  "brand": "PROMPT ENGINEERING ? ABU DHAHIR",
+  "meterLabel": "DECK PROGRESS",
+  "slides": [
+    {
+      "type": "TitleSlide",
+      "tagText": "PROMPT ENGINEERING MASTERY",
+      "chipText": "GUIDE",
+      "title": "Prompt Engineering:<br>A Comprehensive Guide",
+      "subtitle": "Principles, techniques, and practical frameworks for effective LLM interaction.",
+      "creditBold": "Abu Dhahir",
+      "creditMuted": "36-slide canonical deck",
+      "hintContent": "<kbd>&rarr;</kbd> Space advance &middot; <kbd>O</kbd> overview &middot; <kbd>F</kbd> fullscreen"
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "02",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Core Concepts & Terminology"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>Essential Definitions</strong></h3>\n<p><strong>Prompt</strong>: Natural language or multimodal input that instructs an LLM to perform a specific task</p>\n<p><strong>Context Window</strong>: Maximum sequence length (tokens) that an LLM can process in a single interaction</p>\n<p><strong>Zero-Shot Prompting</strong>: Direct task performance without examples, relying on pretrained knowledge</p>\n<p><strong>Few-Shot Prompting</strong>: Providing limited input-output examples to demonstrate expectations</p>\n<p><strong>Chain-of-Thought (CoT)</strong>: Explicitly prompting intermediate reasoning steps before final answers</p>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "03",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Fundamental Prompting Techniques"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>Instruction Design Principles</strong></h3>\n<p><strong>Specificity</strong>: Precise instructions yield targeted responses</p>\n<ul>\n<li><em>Weak</em>: &quot;Write about climate change&quot;</li>\n<li><em>Strong</em>: &quot;Compose a 300-word executive summary on economic impacts of climate change on coastal infrastructure&quot;</li>\n</ul>\n<p><strong>Role Assignment</strong>: Define the model&#39;s persona to shape response style and content</p>\n<p><strong>Structured Outputs</strong>: Specify format requirements for usability</p>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "04",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Context Management"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "vio",
+          "html": "<h3><strong>Strategic Context Provision</strong></h3>\n<p><strong>Relevance Filtering</strong>: Include only context directly relevant to the task</p>\n<p><strong>Positioning</strong>: Place critical information at beginning or end of context window</p>\n<p><strong>Hierarchical Information</strong>: Structure from general to specific</p>\n<p><strong>Key Principle</strong>: Quality and structure of prompts directly determine output quality</p>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "05",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Advanced Techniques Overview"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>Advanced Prompt Engineering Techniques</strong></h3>\n<p><strong>Why Advanced Techniques?</strong></p>\n<ul>\n<li>Enable precise control and improved accuracy</li>\n<li>Support complex problem-solving capabilities</li>\n<li>Leverage sophisticated patterns that maximize LLM performance</li>\n</ul>\n<p><strong>Four Key Advanced Methods:</strong></p>\n<ol>\n<li>Chain-of-Thought (CoT) Prompting</li>\n<li>Tree-of-Thought (ToT) Prompting</li>\n<li>Retrieval-Augmented Generation (RAG)</li>\n<li>ReAct Framework (Reason + Act)</li>\n</ol>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "06",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Chain-of-Thought (CoT) Prompting"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>Concept &amp; Benefits</strong></h3>\n<p><strong>What it is</strong>: Encourages explicit intermediate reasoning steps before final answers</p>\n<p><strong>Why it works</strong>: </p>\n<ul>\n<li>Activates reasoning patterns in model&#39;s knowledge base</li>\n<li>More accurate final answers</li>\n<li>Reduced hallucinations</li>\n<li>Better multi-step problem handling</li>\n<li>Transparent, verifiable reasoning</li>\n</ul>\n<p><strong>Variations</strong>: Zero-shot CoT, Few-shot CoT, Self-consistency CoT</p>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "07",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "CoT Example"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "vio",
+          "html": "<h3><strong>Before vs. After CoT</strong></h3>\n<p><strong>Basic Prompt (Without CoT):</strong></p>\n<pre><code>&quot;Sarah has 5 apples. She gives 2 to Mark and then buys 4 more. How many apples does she have now?&quot;\n</code></pre>\n<p><em>Response: &quot;7&quot;</em></p>\n<p><strong>Advanced Prompt (With CoT):</strong></p>\n<pre><code>&quot;Sarah has 5 apples. She gives 2 to Mark and then buys 4 more. Let&#39;s think through this step by step:\n\n1. Start with initial apples: 5\n2. Subtract apples given to Mark: 5 - 2 = 3\n3. Add apples bought: 3 + 4 = 7\n4. Final answer: 7\n\nNow solve this: John has 12 books. He donates 5 to the library and then receives 3 as gifts. How many books does he have now? Please think step by step.&quot;\n</code></pre>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "08",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Tree-of-Thought (ToT) Prompting"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>Beyond Linear Reasoning</strong></h3>\n<p><strong>Concept</strong>: Explores multiple reasoning paths simultaneously instead of following a single chain</p>\n<p><strong>Benefits</strong>:</p>\n<ul>\n<li>Reduces path dependency</li>\n<li>Increases creativity and exploration</li>\n<li>Improves solution quality through comparative evaluation</li>\n<li>Mimics expert problem-solving strategies</li>\n</ul>\n<p><strong>Use Case</strong>: Complex problems with multiple valid approaches</p>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "09",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "ToT Example"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>Marketing Strategy Development</strong></h3>\n<p><strong>Prompt Structure</strong>:</p>\n<pre><code>&quot;Develop a marketing strategy for a new eco-friendly coffee shop. Consider three different approaches:\n\nApproach 1: Focus on digital marketing and social media\nApproach 2: Emphasize local community engagement\nApproach 3: Highlight premium quality and sustainability\n\nFor each approach, list key tactics and potential challenges. Then, synthesize the best elements into a comprehensive strategy.&quot;\n</code></pre>\n<p><strong>Result</strong>: Multiple perspectives evaluated and synthesized</p>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "10",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Retrieval-Augmented Generation (RAG)"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "vio",
+          "html": "<h3><strong>Knowledge + Generation</strong></h3>\n<p><strong>Concept</strong>: Combines information retrieval with text generation</p>\n<p><strong>How it works</strong>:</p>\n<ol>\n<li>Model retrieves relevant information from knowledge source</li>\n<li>Uses retrieved information to generate accurate, contextual responses</li>\n</ol>\n<p><strong>Benefits</strong>:</p>\n<ul>\n<li>Overcomes knowledge cutoffs</li>\n<li>Reduces hallucinations</li>\n<li>Allows domain-specific knowledge integration</li>\n<li>Provides traceability</li>\n</ul>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "11",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "RAG Example"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>Policy Document Analysis</strong></h3>\n<p><strong>Prompt Structure</strong>:</p>\n<pre><code>&quot;Based on the following company policy document:\n\n[PASTE POLICY DOCUMENT HERE]\n\nPlease answer: What is the procedure for requesting vacation time, and what are the notice requirements?&quot;\n</code></pre>\n<p><strong>Key Components</strong>:</p>\n<ul>\n<li>Context injection from external sources</li>\n<li>Explicit instruction to use provided context</li>\n<li>Specific question requiring the context</li>\n<li>Optional citation request</li>\n</ul>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "12",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "ReAct Framework"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>Reason + Act</strong></h3>\n<p><strong>Concept</strong>: Alternates between reasoning (thoughts) and actions (using tools/capabilities)</p>\n<p><strong>Benefits</strong>:</p>\n<ul>\n<li>Mimics human problem-solving patterns</li>\n<li>Allows integration with external tools and APIs</li>\n<li>Provides transparency into decision process</li>\n<li>Enables complex multi-step tasks</li>\n</ul>\n<p><strong>Pattern</strong>: Thought → Action → Observation → Repeat</p>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "13",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "ReAct Example"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "vio",
+          "html": "<h3><strong>Problem-Solving with Tools</strong></h3>\n<p><strong>Prompt</strong>:</p>\n<pre><code>&quot;Solve this problem using the ReAct framework. Available tools: [calculator], [web_search], [calendar]\n\nProblem: What will be the date 45 days from now, and what historical events happened on that date?\n\nBegin your reasoning:&quot;\n</code></pre>\n<p><strong>Expected Response Pattern</strong>:</p>\n<pre><code>Thought: I need to calculate the date 45 days from now. I should use the calendar tool.\nAction: [calendar] Calculate date 45 days from 2024-01-15\nObservation: The date will be 2024-02-29\n\nThought: Now I need to find historical events on February 29th. I should search the web.\nAction: [web_search] Historical events on February 29\nObservation: Events include: 1504 - Columbus uses lunar eclipse to trick Jamaicans...\n\nFinal Answer: 45 days from now will be February 29, 2024. Historical events on February 29 include...\n</code></pre>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "14",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Structured Frameworks"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>Systematic Prompt Design</strong></h3>\n<p><strong>Why Use Frameworks?</strong></p>\n<ul>\n<li>Ensure consistency and comprehensiveness</li>\n<li>Cover all necessary components</li>\n<li>Provide systematic approach across use cases</li>\n<li>Reduce trial and error</li>\n</ul>\n<p><strong>Two Key Frameworks</strong>:</p>\n<ol>\n<li><strong>AUTOMAT</strong>: Seven-component approach</li>\n<li><strong>CO-STAR</strong>: Six-component alternative</li>\n</ol>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "15",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "AUTOMAT Framework"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>Seven Key Components</strong></h3>\n<p><strong>A - Act as</strong>: Define the role or persona\n<strong>U - User Persona &amp; Audience</strong>: Specify target audience\n<strong>T - Targeted Action</strong>: State what needs to be performed\n<strong>O - Output Definition</strong>: Specify format and structure\n<strong>M - Mode/Tone</strong>: Define communication style\n<strong>A - Atypical Cases</strong>: Address edge cases and constraints\n<strong>T - Topic Whitelisting</strong>: Set content boundaries</p>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "16",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "AUTOMAT Example"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "vio",
+          "html": "<h3><strong>Complete Framework Application</strong></h3>\n<pre><code>Act as a senior financial analyst (A) explaining investment concepts to first-time investors (U). \nCreate an educational guide (T) in markdown format with headings and bullet points (O). \nUse clear, simple language with analogies (M). \nAddress common misconceptions about diversification (A). \nFocus only on stock market investments, not other asset classes (T).\n</code></pre>\n<p><strong>Result</strong>: Comprehensive, targeted prompt covering all aspects</p>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "17",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "CO-STAR Framework"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>Six Key Components</strong></h3>\n<p><strong>C - Context</strong>: Background information and situational details\n<strong>O - Objective</strong>: Primary goal or purpose\n<strong>S - Style &amp; Tone</strong>: Desired communication approach\n<strong>T - Target Audience</strong>: Who will receive/use the information\n<strong>A - Action</strong>: Specific tasks or actions required\n<strong>R - Response Format</strong>: How output should be structured</p>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "18",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "CO-STAR Example"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>E-commerce Strategy Development</strong></h3>\n<pre><code>Context: Our e-commerce company has seen a 30% increase in cart abandonment rates (C)\nObjective: Develop interventions to reduce abandonment (O)\nStyle: Data-driven with specific actionable recommendations (S)\nTarget: Marketing and product teams (T)\nAction: Analyze abandonment patterns and propose A/B tests (A)\nResponse: Report with findings, recommendations, and implementation plan (R)\n</code></pre>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "19",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Implementation Guidelines"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "vio",
+          "html": "<h3><strong>Best Practices for Advanced Prompting</strong></h3>\n<ol>\n<li><strong>Start Simple then Expand</strong>: Begin basic, add complexity gradually</li>\n<li><strong>Use Delimiters Clearly</strong>: Separate instructions from context (---, ###, ```)</li>\n<li><strong>Provide Examples</strong>: Include few-shot examples for complex tasks</li>\n<li><strong>Specify Output Format</strong>: Explicitly state desired structure</li>\n<li><strong>Iterate and Refine</strong>: Test variations and learn from responses</li>\n<li><strong>Consider Context Length</strong>: Be mindful of model context windows</li>\n</ol>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "20",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Common Pitfalls to Avoid"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>What Not to Do</strong></h3>\n<ol>\n<li><p><strong>Vague Instructions</strong></p>\n<ul>\n<li><em>Instead of:</em> &quot;Write about marketing&quot;</li>\n<li><em>Use:</em> &quot;Write a 500-word blog post about content marketing strategies for B2B companies&quot;</li>\n</ul>\n</li>\n<li><p><strong>Conflicting Directions</strong>: Avoid contradictory instructions</p>\n</li>\n<li><p><strong>Overly Complex Prompts</strong>: Break complex tasks into multiple steps</p>\n</li>\n<li><p><strong>Ignoring Model Limitations</strong>: Understand knowledge cutoffs and capabilities</p>\n</li>\n</ol>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "21",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Practical Applications"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>Business Analysis Example</strong></h3>\n<p><strong>CoT + AUTOMAT Combination</strong>:</p>\n<pre><code>Act as a business consultant (A) advising a retail client (U). \nAnalyze their sales data (T) and provide recommendations (O). \nUse professional tone with data-supported arguments (M). \nFocus on inventory turnover issues (A). \nLimit analysis to Q4 performance (T).\n\nPlease think step by step:\n1. Identify key trends in the data\n2. Calculate relevant metrics\n3. Identify problem areas\n4. Recommend specific actions\n</code></pre>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "22",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Creative Writing Example"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "vio",
+          "html": "<h3><strong>ToT + CO-STAR Combination</strong></h3>\n<pre><code>Context: A science fiction story about first contact (C)\nObjective: Create an engaging opening scene (O)\nStyle: Suspenseful with vivid descriptions (S)\nTarget: Adult science fiction readers (T)\nAction: Write three different opening paragraphs (A)\nResponse: Markdown with each option clearly labeled (R)\n\nExplore different approaches:\n1. Focus on the alien perspective\n2. Focus on human scientific discovery\n3. Focus on emotional impact of first contact\n</code></pre>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "23",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Advanced Applications"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>Complex Problem-Solving</strong></h3>\n<p><strong>Market Entry Strategy Example</strong>:</p>\n<pre><code>Create a comprehensive market entry strategy for:\nProduct: Electric vehicle charging stations\nMarket: Indonesia\nTimeframe: 2024-2026\n\nRequired analysis components:\n1. Regulatory environment assessment\n2. Competitive landscape analysis\n3. Supply chain logistics planning\n4. Financial modeling with three scenarios\n5. Risk mitigation strategies\n</code></pre>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "24",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Creative Content Generation"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>Product Launch Announcement</strong></h3>\n<pre><code>Write a product launch announcement for:\nProduct: Quantum computing cloud service\nTone: Exciting but technically credible\nFormat: Press release with headline, subhead, body, boilerplate\nConstraints: Include 3 key differentiators, avoid hype language, include technical specifications section\n</code></pre>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "25",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Technical Documentation"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "vio",
+          "html": "<h3><strong>API Documentation Generation</strong></h3>\n<pre><code>Generate API documentation for:\nEndpoint: /v1/fraud-detection\nInput: JSON schema with transaction data\nOutput: Risk score and explanation\nInclude: Code examples in Python, JavaScript, curl\nAdd: Error code explanations and rate limit information\n</code></pre>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "26",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Evaluation & Quality Assurance"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>Quantitative Metrics</strong></h3>\n<p><strong>Accuracy</strong>: Factual correctness and precision\n<strong>Relevance</strong>: Output alignment with task requirements\n<strong>Completeness</strong>: Coverage of all requested elements\n<strong>Efficiency</strong>: Token usage optimization</p>\n<h3><strong>Qualitative Assessment</strong></h3>\n<p><strong>Coherence</strong>: Logical flow and organization\n<strong>Clarity</strong>: Readability and understandability\n<strong>Tone</strong>: Consistency with specified style guidelines\n<strong>Originality</strong>: Creativity within constraints</p>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "27",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Challenges & Limitations"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>Technical Constraints</strong></h3>\n<ul>\n<li>Context window limitations affecting complex tasks</li>\n<li>Computational costs of advanced prompting techniques</li>\n<li>Latency issues in real-time applications</li>\n</ul>\n<h3><strong>Model Limitations</strong></h3>\n<ul>\n<li>Hallucination and confidence calibration issues</li>\n<li>Sensitivity to prompt phrasing and structure</li>\n<li>Knowledge cutoff dates and temporal limitations</li>\n</ul>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "28",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Implementation Challenges"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "vio",
+          "html": "<h3><strong>Real-World Considerations</strong></h3>\n<p><strong>Security</strong>: Prompt injection vulnerabilities\n<strong>Consistency</strong>: Maintenance across multiple interactions\n<strong>Scalability</strong>: Prompt management systems\n<strong>Ethics</strong>: Bias mitigation and transparency</p>\n<p><strong>Key Question</strong>: How do we maintain quality at scale?</p>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "29",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Future Directions"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>Emerging Trends</strong></h3>\n<p><strong>Technical Evolution</strong>:</p>\n<ul>\n<li>Multimodal prompt integration (text, image, audio)</li>\n<li>Adaptive prompting based on real-time feedback</li>\n<li>Automated prompt optimization using AI systems</li>\n</ul>\n<p><strong>Methodological Advances</strong>:</p>\n<ul>\n<li>Standardized evaluation frameworks</li>\n<li>Domain-specific pattern libraries</li>\n<li>Integration with software development lifecycle</li>\n</ul>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "30",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Ethical Considerations"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>Responsible Prompt Engineering</strong></h3>\n<p><strong>Bias Mitigation</strong>: Careful prompt design to reduce bias\n<strong>Transparency</strong>: Clear identification of AI-generated content\n<strong>Accountability</strong>: Frameworks for prompt-induced behaviors\n<strong>Fairness</strong>: Ensuring equitable access and outcomes</p>\n<p><strong>Principle</strong>: With great power comes great responsibility</p>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "31",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Implementation Checklist"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "vio",
+          "html": "<h3><strong>Getting Started</strong></h3>\n<ol>\n<li><input disabled=\"\" type=\"checkbox\"> Define clear objectives and success criteria</li>\n<li><input disabled=\"\" type=\"checkbox\"> Identify relevant context and constraints</li>\n<li><input disabled=\"\" type=\"checkbox\"> Select appropriate prompting techniques</li>\n<li><input disabled=\"\" type=\"checkbox\"> Design structured prompt framework</li>\n<li><input disabled=\"\" type=\"checkbox\"> Implement iterative testing protocol</li>\n<li><input disabled=\"\" type=\"checkbox\"> Establish evaluation metrics</li>\n<li><input disabled=\"\" type=\"checkbox\"> Develop version control system</li>\n<li><input disabled=\"\" type=\"checkbox\"> Create documentation standards</li>\n<li><input disabled=\"\" type=\"checkbox\"> Implement security safeguards</li>\n<li><input disabled=\"\" type=\"checkbox\"> Establish maintenance procedures</li>\n</ol>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "32",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Key Takeaways"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>Mastery Principles</strong></h3>\n<p><strong>Understanding</strong>: Grasp underlying principles of each technique\n<strong>Practice</strong>: Work with diverse examples and use cases\n<strong>Intuition</strong>: Develop sense for which approach works best\n<strong>Refinement</strong>: Continuously improve based on results and feedback</p>\n<p><strong>Remember</strong>: Prompt engineering is both an art and a science</p>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "33",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Conclusion"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>The Evolution of Prompt Engineering</strong></h3>\n<p><strong>From</strong>: Simple instruction crafting\n<strong>To</strong>: Sophisticated discipline requiring:</p>\n<ul>\n<li>Technical expertise</li>\n<li>Psychological insight</li>\n<li>Systematic methodology</li>\n</ul>\n<p><strong>Future</strong>: As LLMs advance, precise prompt design becomes increasingly critical</p>\n<p><strong>Success Factor</strong>: Combine technical knowledge with domain expertise and creative problem-solving</p>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "34",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Resources & Further Reading"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "vio",
+          "html": "<h3><strong>Learning Path</strong></h3>\n<p><strong>Official Guides</strong>:</p>\n<ul>\n<li>OpenAI Prompt Engineering Guide</li>\n<li>Google Cloud Prompt Engineering</li>\n<li>Microsoft Azure Prompt Engineering</li>\n</ul>\n<p><strong>Academic Resources</strong>:</p>\n<ul>\n<li>ACM Computing Surveys</li>\n<li>arXiv Preprints on Advanced Techniques</li>\n</ul>\n<p><strong>Community</strong>: Prompt Engineering Guide (promptingguide.ai)</p>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "35",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Q&A & Discussion"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>Open Questions</strong></h3>\n<p><strong>Technical</strong>:</p>\n<ul>\n<li>How do you handle context window limitations?</li>\n<li>What&#39;s the best approach for your specific use case?</li>\n</ul>\n<p><strong>Practical</strong>:</p>\n<ul>\n<li>How do you measure prompt effectiveness?</li>\n<li>What frameworks work best for your domain?</li>\n</ul>\n<p><strong>Strategic</strong>:</p>\n<ul>\n<li>How do you scale prompt engineering across teams?</li>\n<li>What are the ROI considerations?</li>\n</ul>\n"
+        }
+      ]
+    },
+    {
+      "type": "Slide",
+      "content": [
+        {
+          "type": "Eyebrow",
+          "num": "36",
+          "text": "Prompt Engineering"
+        },
+        {
+          "type": "Headline",
+          "html": "Thank You"
+        },
+        {
+          "type": "NoteBlock",
+          "variant": "",
+          "html": "<h3><strong>Contact &amp; Follow-up</strong></h3>\n<p><strong>Questions?</strong> Feel free to reach out\n<strong>Resources</strong>: Check the comprehensive guide\n<strong>Practice</strong>: Start with simple prompts and iterate\n<strong>Community</strong>: Join prompt engineering discussions</p>\n<p><strong>Remember</strong>: The best prompts come from experimentation and iteration</p>\n"
+        }
+      ]
+    }
+  ]
+}

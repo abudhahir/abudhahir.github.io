@@ -3,9 +3,10 @@ title: "TypeScript Best Practices for Large-Scale Applications"
 date: "2023-11-22"
 excerpt: "Essential TypeScript patterns and practices for building maintainable large-scale applications. Learn advanced type techniques and project organization strategies."
 tags: ["TypeScript", "Best Practices", "Large Scale", "Maintainability", "JavaScript"]
-author: "Abudhahir"
+author: "Abu Dhahir"
 featured: false
 readTime: "10 min read"
+draft: false
 ---
 
 # TypeScript Best Practices for Large-Scale Applications
