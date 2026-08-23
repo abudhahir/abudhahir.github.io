@@ -11,16 +11,6 @@ draft: false
 ---
 # Part 2: Tempo Integration - Distributed Tracing
 
-## Table of Contents
-1. [Understanding Distributed Tracing](#understanding-distributed-tracing)
-2. [Tempo Architecture](#tempo-architecture)
-3. [OpenTelemetry Integration](#opentelemetry-integration)
-4. [Creating Tempo Properties](#creating-tempo-properties)
-5. [Implementing Auto-Configuration](#implementing-auto-configuration)
-6. [Span Instrumentation](#span-instrumentation)
-7. [Testing Tempo Integration](#testing-tempo-integration)
-8. [Advanced Tracing Features](#advanced-tracing-features)
-
 ---
 
 ## Understanding Distributed Tracing

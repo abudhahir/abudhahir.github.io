@@ -135,6 +135,8 @@
   .markdown-content h5,
   .markdown-content h6 {
     @apply font-bold text-foreground;
+    /* Clears the fixed 96px header when an in-page anchor is followed. */
+    scroll-margin-top: 6rem;
   }
   
   .markdown-content h1 {

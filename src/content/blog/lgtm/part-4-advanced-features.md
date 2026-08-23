@@ -11,15 +11,6 @@ draft: false
 ---
 # Part 4: Advanced Features and Integration
 
-## Table of Contents
-1. [Correlation Across Signals](#correlation-across-signals)
-2. [Health Indicators](#health-indicators)
-3. [Pre-built Dashboards](#pre-built-dashboards)
-4. [Exemplars](#exemplars)
-5. [Context Propagation](#context-propagation)
-6. [Custom Annotations](#custom-annotations)
-7. [Performance Optimization](#performance-optimization)
-
 ---
 
 ## Correlation Across Signals

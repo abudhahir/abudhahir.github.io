@@ -6,6 +6,8 @@ import { getPostsInSeries, getSeriesPartLabel } from '../../utils/series.js';
 import { getPublishedBlogEntries } from '../../utils/blog.js';
 import { legacyBlogRedirects } from '../../data/legacyBlogRedirects.js';
 import MermaidRenderer from '../../components/Mermaid.jsx';
+import ArticleNavigator from '../../components/ArticleNavigator.jsx';
+import { buildHeadingTree, hasEnoughSections } from '../../utils/headingTree.js';
 
 export async function getStaticPaths() {
   const posts = await getPublishedBlogEntries();
@@ -28,10 +30,17 @@ const canonicalUrl = redirect
   ? new URL(redirect.targetPath, Astro.site)
   : undefined;
 let Content;
+let headings = [];
 
 if (post) {
-  ({ Content } = await post.render());
+  ({ Content, headings } = await post.render());
 }
+
+// The four-section minimum is measured against the built tree, so the
+// title-duplicate drop, depth normalisation, and `Table of Contents`
+// exclusion have all been applied before it is applied.
+const headingTree = buildHeadingTree(headings);
+const showNavigator = hasEnoughSections(headingTree);
 
 // Get series information if this post is part of a series
 let seriesPosts = [];
@@ -171,6 +180,11 @@ if (post?.data.pageLayout === 'slides' && post.data.slidesData) {
           )}
 
         </header>
+
+        <!-- Section navigator for this article only. Mounted before the
+             article so it is an early keyboard tab stop; it is positioned
+             fixed, so DOM order does not affect where it renders. -->
+        {showNavigator && <ArticleNavigator tree={headingTree} client:load />}
 
         <!-- Article content -->
         <article class="prose prose-lg prose-headings:text-foreground prose-p:text-foreground/90 prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-em:text-foreground/80 prose-code:text-foreground prose-pre:bg-secondary prose-pre:border prose-pre:border-border prose-pre:rounded-lg prose-blockquote:border-l-primary prose-blockquote:bg-secondary/50 prose-blockquote:rounded-r max-w-none markdown-content">

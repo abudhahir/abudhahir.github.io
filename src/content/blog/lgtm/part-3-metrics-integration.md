@@ -11,15 +11,6 @@ draft: false
 ---
 # Part 3: Metrics Integration - Prometheus and Mimir
 
-## Table of Contents
-1. [Understanding Metrics](#understanding-metrics)
-2. [Prometheus vs Mimir](#prometheus-vs-mimir)
-3. [Creating Metrics Properties](#creating-metrics-properties)
-4. [Implementing Auto-Configuration](#implementing-auto-configuration)
-5. [Custom Metrics](#custom-metrics)
-6. [Testing Metrics Integration](#testing-metrics-integration)
-7. [Advanced Metrics Features](#advanced-metrics-features)
-
 ---
 
 ## Understanding Metrics

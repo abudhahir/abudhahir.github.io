@@ -11,15 +11,6 @@ draft: false
 ---
 # Part 1: Loki Integration - Centralized Logging
 
-## Table of Contents
-1. [Understanding Loki](#understanding-loki)
-2. [Integration Strategy](#integration-strategy)
-3. [Creating Properties Classes](#creating-properties-classes)
-4. [Implementing Auto-Configuration](#implementing-auto-configuration)
-5. [Programmatic Logback Configuration](#programmatic-logback-configuration)
-6. [Testing Loki Integration](#testing-loki-integration)
-7. [Advanced Features](#advanced-features)
-
 ---
 
 ## Understanding Loki

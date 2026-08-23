@@ -10,18 +10,6 @@ seriesOrder: 2
 draft: false
 ---
 
-## Table of Contents
-1. [What is RAG?](#what-is-rag)
-2. [Traditional RAG Pipeline](#traditional-rag-pipeline)
-3. [Limitations of Traditional RAG](#limitations-of-traditional-rag)
-4. [What is Agentic RAG?](#what-is-agentic-rag)
-5. [Multi-Agent RAG Architecture](#multi-agent-rag-architecture)
-6. [Real-World Implementation: DocChat](#real-world-implementation-docchat)
-7. [Key Benefits and Use Cases](#key-benefits-and-use-cases)
-8. [Summary](#summary)
-
----
-
 ## What is RAG?
 
 **Retrieval-Augmented Generation (RAG)** is a powerful AI technique that enhances Large Language Models (LLMs) by incorporating relevant information from external knowledge sources.

@@ -14,27 +14,6 @@ draft: false
 
 ---
 
-## Table of Contents
-
-1. [Introduction to Agentic AI](#introduction-to-agentic-ai)
-2. [Understanding Multi-Agent Systems](#understanding-multi-agent-systems)
-3. [Agentic RAG: The Evolution of Retrieval-Augmented Generation](#agentic-rag-the-evolution-of-retrieval-augmented-generation)
-4. [Building Your First Multi-Agent System](#building-your-first-multi-agent-system)
-5. [Implementing Agentic RAG with LangGraph](#implementing-agentic-rag-with-langgraph)
-6. [MCP Integration: Model Context Protocol for Agentic RAG](#mcp-integration-model-context-protocol-for-agentic-rag)
-7. [Gatekeeper Architecture: Access Control for Multi-Agent Systems](#gatekeeper-architecture-access-control-for-multi-agent-systems)
-8. [Document Processing: Multi-Format Support](#document-processing-multi-format-support)
-9. [Hybrid Search: Vector + Keyword Retrieval](#hybrid-search-vector--keyword-retrieval)
-10. [Advanced Verification: Hallucination Detection and Fact Checking](#advanced-verification-hallucination-detection-and-fact-checking)
-11. [Self-Correction: Iterative Response Improvement](#self-correction-iterative-response-improvement)
-12. [System Configuration and Customization](#system-configuration-and-customization)
-13. [Real-World Usage Examples](#real-world-usage-examples)
-14. [Advanced Patterns and Best Practices](#advanced-patterns-and-best-practices)
-15. [Deployment and Production Considerations](#deployment-and-production-considerations)
-16. [Conclusion and Next Steps](#conclusion-and-next-steps)
-
----
-
 ## Introduction to Agentic AI
 
 ### What is Agentic AI?

@@ -14,20 +14,6 @@ draft: false
 
 ---
 
-## Table of Contents
-
-1. [Introduction to Agentic AI](#introduction-to-agentic-ai)
-2. [Understanding Multi-Agent Systems](#understanding-multi-agent-systems)
-3. [Agentic RAG: The Evolution of Retrieval-Augmented Generation](#agentic-rag-the-evolution-of-retrieval-augmented-generation)
-4. [Building Your First Multi-Agent System](#building-your-first-multi-agent-system)
-5. [Implementing Agentic RAG with LangGraph](#implementing-agentic-rag-with-langgraph)
-6. [Advanced Patterns and Best Practices](#advanced-patterns-and-best-practices)
-7. [Real-World Applications](#real-world-applications)
-8. [Troubleshooting and Optimization](#troubleshooting-and-optimization)
-9. [Conclusion and Next Steps](#conclusion-and-next-steps)
-
----
-
 ## Introduction to Agentic AI
 
 ### What is Agentic AI?

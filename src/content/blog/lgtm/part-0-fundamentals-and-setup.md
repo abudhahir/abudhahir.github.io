@@ -11,13 +11,6 @@ draft: false
 ---
 # Part 0: Fundamentals and Project Setup
 
-## Table of Contents
-1. [Understanding Spring Boot Starters](#understanding-spring-boot-starters)
-2. [Project Structure](#project-structure)
-3. [Setting Up the Multi-Module Project](#setting-up-the-multi-module-project)
-4. [Core Dependencies](#core-dependencies)
-5. [Understanding Auto-Configuration](#understanding-auto-configuration)
-
 ---
 
 ## Understanding Spring Boot Starters

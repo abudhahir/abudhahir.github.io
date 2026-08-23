@@ -11,15 +11,6 @@ draft: false
 ---
 # Part 5: Testing and Deployment
 
-## Table of Contents
-1. [Unit Testing](#unit-testing)
-2. [Integration Testing](#integration-testing)
-3. [Testcontainers Integration](#testcontainers-integration)
-4. [Publishing to Maven Central](#publishing-to-maven-central)
-5. [Documentation](#documentation)
-6. [Best Practices](#best-practices)
-7. [Production Checklist](#production-checklist)
-
 ---
 
 ## Unit Testing
