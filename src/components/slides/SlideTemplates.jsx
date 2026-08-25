@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * SlideTemplates — Reusable building blocks for slide presentations.
+ * SlideTemplates - Reusable building blocks for slide presentations.
  *
  * Each export is a composable primitive. Combine them inside a <Slide>
  * component to construct any slide layout from the design system.
@@ -18,7 +18,7 @@ import React from 'react';
  */
 
 /* ═══════════════════════════════════════════════════════
-   SLIDE SHELL — wraps one slide's content
+   SLIDE SHELL - wraps one slide's content
    ═══════════════════════════════════════════════════════ */
 export function Slide({ active = false, children }) {
   return (
@@ -37,7 +37,7 @@ export function Slide({ active = false, children }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   TITLE SLIDE — hero title with tag, credit box, hint
+   TITLE SLIDE - hero title with tag, credit box, hint
    ═══════════════════════════════════════════════════════ */
 export function TitleSlide({
   active = false,
@@ -88,7 +88,7 @@ export function TitleSlide({
 }
 
 /* ═══════════════════════════════════════════════════════
-   EYEBROW — section number + label + trailing line
+   EYEBROW - section number + label + trailing line
    ═══════════════════════════════════════════════════════ */
 export function Eyebrow({ num, text }) {
   return (
@@ -99,7 +99,7 @@ export function Eyebrow({ num, text }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   HEADLINE — large display heading (supports inner HTML)
+   HEADLINE - large display heading (supports inner HTML)
    ═══════════════════════════════════════════════════════ */
 export function Headline({ children, html, style }) {
   if (html) {
@@ -130,7 +130,7 @@ export function Vio({ children }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   LEAD — subdued paragraph below headline
+   LEAD - subdued paragraph below headline
    ═══════════════════════════════════════════════════════ */
 export function Lead({ children, html, style }) {
   if (html) {
@@ -150,7 +150,7 @@ export function Lead({ children, html, style }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   STAT ROW — big number(s) + optional headline beside
+   STAT ROW - big number(s) + optional headline beside
    ═══════════════════════════════════════════════════════ */
 export function StatRow({ children }) {
   return <div className="sd-statrow">{children}</div>;
@@ -166,7 +166,7 @@ export function Stat({ value, color = '', label }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   CARD GRID — responsive column grid
+   CARD GRID - responsive column grid
    ═══════════════════════════════════════════════════════ */
 export function CardGrid({ cols = 2, children }) {
   const colClass = cols === 4 ? 'sd-g4' : cols === 3 ? 'sd-g3' : 'sd-g2';
@@ -174,7 +174,7 @@ export function CardGrid({ cols = 2, children }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   SLIDE CARD — styled card with variant & optional label
+   SLIDE CARD - styled card with variant & optional label
    ═══════════════════════════════════════════════════════ */
 export function SlideCard({
   variant = '',
@@ -198,7 +198,7 @@ export function SlideCard({
 }
 
 /* ═══════════════════════════════════════════════════════
-   TICK LIST — bulleted list with › markers
+   TICK LIST - bulleted list with › markers
    ═══════════════════════════════════════════════════════ */
 export function TickList({ items = [], style }) {
   return (
@@ -211,7 +211,7 @@ export function TickList({ items = [], style }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   NOTE BLOCK — colored callout box
+   NOTE BLOCK - colored callout box
    ═══════════════════════════════════════════════════════ */
 export function NoteBlock({ variant = '', children, html }) {
   if (html) {
@@ -226,7 +226,7 @@ export function NoteBlock({ variant = '', children, html }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   DATA TABLE — styled pricing/comparison table
+   DATA TABLE - styled pricing/comparison table
    ═══════════════════════════════════════════════════════ */
 export function DataTable({ headers = [], rows = [] }) {
   return (
@@ -267,7 +267,7 @@ export function DataTable({ headers = [], rows = [] }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   SPECTRUM — gradient bar with positioned markers
+   SPECTRUM - gradient bar with positioned markers
    ═══════════════════════════════════════════════════════ */
 export function Spectrum({ markers = [] }) {
   return (
@@ -289,7 +289,7 @@ export function Spectrum({ markers = [] }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   POOL RESERVOIR — animated fill bar
+   POOL RESERVOIR - animated fill bar
    ═══════════════════════════════════════════════════════ */
 export function PoolReservoir({
   level = '72%',
@@ -320,7 +320,7 @@ export function PoolReservoir({
 }
 
 /* ═══════════════════════════════════════════════════════
-   NESTED LAYERS — budget architecture visualization
+   NESTED LAYERS - budget architecture visualization
    ═══════════════════════════════════════════════════════ */
 export function NestedLayers({ children }) {
   return <div className="sd-arch">{children}</div>;
@@ -339,7 +339,7 @@ export function Layer({ type, label, description, children }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   LADDER CHART — horizontal cost comparison bars
+   LADDER CHART - horizontal cost comparison bars
    ═══════════════════════════════════════════════════════ */
 export function LadderChart({ rungs = [] }) {
   return (
@@ -361,7 +361,7 @@ export function LadderChart({ rungs = [] }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   STAGE CARD — numbered phase card (rollout playbook)
+   STAGE CARD - numbered phase card (rollout playbook)
    ═══════════════════════════════════════════════════════ */
 export function Stages({ children }) {
   return <div className="sd-stages">{children}</div>;
@@ -382,7 +382,7 @@ export function StageCard({ num, title, items = [] }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   SPLIT COLUMNS — two-track cheat sheet layout
+   SPLIT COLUMNS - two-track cheat sheet layout
    ═══════════════════════════════════════════════════════ */
 export function SplitColumns({ children }) {
   return <div className="sd-split">{children}</div>;
@@ -400,14 +400,14 @@ export function SplitCol({ role = 'admin', title, children }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   CODE INLINE — styled inline code snippet
+   CODE INLINE - styled inline code snippet
    ═══════════════════════════════════════════════════════ */
 export function Code({ children }) {
   return <span className="sd-codeline">{children}</span>;
 }
 
 /* ═══════════════════════════════════════════════════════
-   MONO — monospace text span
+   MONO - monospace text span
    ═══════════════════════════════════════════════════════ */
 export function Mono({ children }) {
   return <span className="sd-mono">{children}</span>;

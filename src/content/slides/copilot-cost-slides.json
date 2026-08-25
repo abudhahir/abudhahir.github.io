@@ -26,13 +26,13 @@
               "type": "SlideCard",
               "variant": "bad",
               "title": "Before · Premium Requests",
-              "content": ["A fixed quota — say 300 requests/month. Each frontier-model call ate a multiple of one. Your typed prompt was the unit."]
+              "content": ["A fixed quota - say 300 requests/month. Each frontier-model call ate a multiple of one. Your typed prompt was the unit."]
             },
             {
               "type": "SlideCard",
               "variant": "good",
               "title": "After · GitHub AI Credits",
-              "content": ["1 credit = $0.01. Billed on the tokens you actually consume — input, output, and cached — at each model's published rate."]
+              "content": ["1 credit = $0.01. Billed on the tokens you actually consume - input, output, and cached - at each model's published rate."]
             }
           ]
         },
@@ -156,14 +156,14 @@
               "title": "Do this",
               "content": [
                 { "type": "Code", "content": ["def calculate_invoice_total(items):"] },
-                "Start typing and let ghost text complete the body — free of charge."
+                "Start typing and let ghost text complete the body - free of charge."
               ]
             },
             {
               "type": "SlideCard",
               "variant": "bad",
               "title": "Not this",
-              "content": ["Opening Copilot Chat and typing “write me a function that totals invoice line items” — a metered model call for something completions handle for free."]
+              "content": ["Opening Copilot Chat and typing “write me a function that totals invoice line items” - a metered model call for something completions handle for free."]
             }
           ]
         }
@@ -197,7 +197,7 @@
               "type": "SlideCard",
               "variant": "accent",
               "title": "Fresh Chat per Task",
-              "content": ["A session re-sends its entire accumulated history on every turn. Your tenth question drags the previous nine back through the model as input. New task = new chat — reset the running context to zero."]
+              "content": ["A session re-sends its entire accumulated history on every turn. Your tenth question drags the previous nine back through the model as input. New task = new chat - reset the running context to zero."]
             }
           ]
         },
@@ -294,14 +294,14 @@
               "content": [
                 "Tell Copilot exactly what to look at instead of letting it over-attach:",
                 { "type": "Code", "content": ["#file:checkout/totals.py #sym:apply_discount"] },
-                "Close unrelated editor tabs — open tabs are a silent context source."
+                "Close unrelated editor tabs - open tabs are a silent context source."
               ]
             },
             {
               "type": "SlideCard",
               "variant": "vio",
               "title": "Repository Instructions",
-              "content": ["A short .github/copilot-instructions.md is read on nearly every interaction. It eliminates the back-and-forth where Copilot guesses your conventions wrong. Keep it short — it loads every time."]
+              "content": ["A short .github/copilot-instructions.md is read on nearly every interaction. It eliminates the back-and-forth where Copilot guesses your conventions wrong. Keep it short - it loads every time."]
             }
           ]
         }
@@ -385,7 +385,7 @@
               "type": "SlideCard",
               "variant": "vio",
               "title": "Chat Debug View",
-              "content": ["Power users open ⋯ → Show Chat Debug View for per-interaction token counts — eye-opening the first time you watch one agent step consume thousands of tokens."]
+              "content": ["Power users open ⋯ → Show Chat Debug View for per-interaction token counts - eye-opening the first time you watch one agent step consume thousands of tokens."]
             }
           ]
         },
@@ -468,7 +468,7 @@
               "type": "SlideCard",
               "variant": "bad",
               "title": "CLI Caveats",
-              "content": ["It auto-compacts at ~80%, but by then you've paid for a bloated context many times — compact proactively. Use Plan Mode (Shift+Tab) before big changes. Use /fleet sparingly: each subagent carries its own context window."]
+              "content": ["It auto-compacts at ~80%, but by then you've paid for a bloated context many times - compact proactively. Use Plan Mode (Shift+Tab) before big changes. Use /fleet sparingly: each subagent carries its own context window."]
             }
           ]
         }
@@ -514,7 +514,7 @@
               "content": [
                 { "type": "TickList", "items": [
                   "Pin a <b>cheap model</b> (gpt-5-mini)",
-                  "Minimal tool set — no edit tools for a reviewer",
+                  "Minimal tool set - no edit tools for a reviewer",
                   "Cap output: \"max 8 bullets, one line each\"",
                   "\"LGTM and nothing else\" makes the common case nearly free"
                 ]}
@@ -607,7 +607,7 @@
               "type": "SlideCard",
               "variant": "vio",
               "title": "Dashboards",
-              "content": ["Use the AI usage dashboard and downloadable reports. Pooled credits mean light users subsidize heavy ones — look at the distribution, not just the total."]
+              "content": ["Use the AI usage dashboard and downloadable reports. Pooled credits mean light users subsidize heavy ones - look at the distribution, not just the total."]
             },
             {
               "type": "SlideCard",

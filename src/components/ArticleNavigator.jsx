@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
  * Section navigator for a standard blog article.
  *
  * Receives the heading tree built at build time by `src/utils/headingTree.js`,
- * so nothing is scraped from the DOM — which matters because Mermaid rewrites
+ * so nothing is scraped from the DOM - which matters because Mermaid rewrites
  * the article after load.
  *
  * From `xl` up it renders as a rail in the right gutter that expands leftward.
@@ -66,7 +66,7 @@ function SectionList({
     <ul className="space-y-0.5">
       {nodes.map(node => {
         // Level 2 and deeper is noise on a hundred-heading article, so it is
-        // revealed only beneath the section being read — unless a filter is
+        // revealed only beneath the section being read - unless a filter is
         // active, where hiding a match would make it unreachable.
         if (!filtering && node.level >= 2 && node.rootSlug !== activeRootSlug) {
           return null;
@@ -224,7 +224,7 @@ export default function ArticleNavigator({ tree = [] }) {
   }, [allNodes]);
 
   // Keep the active entry inside the panel viewport by scrolling the panel
-  // itself — never the document, which would fight the reader.
+  // itself - never the document, which would fight the reader.
   useEffect(() => {
     if (!activeSlug) return;
     const item = itemRefs.current[activeSlug];

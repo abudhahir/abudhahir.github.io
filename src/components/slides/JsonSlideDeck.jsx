@@ -77,7 +77,7 @@ function renderBlock(block, idx, isActiveSlide) {
 }
 
 /**
- * JsonSlideDeck — Dynamically renders a presentation from JSON data.
+ * JsonSlideDeck - Dynamically renders a presentation from JSON data.
  */
 export default function JsonSlideDeck({ data, embedded = false }) {
   const [cur, setCur] = useState(0);

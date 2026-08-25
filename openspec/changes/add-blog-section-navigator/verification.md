@@ -11,7 +11,7 @@ at the end.
 
 | Scenario | Evidence |
 |---|---|
-| Reader opens a standard article | Navigator present on exactly 28 of the 32 entries — every standard article above the threshold. |
+| Reader opens a standard article | Navigator present on exactly 28 of the 32 entries - every standard article above the threshold. |
 | Reader opens a slide-deck entry | `prompt-engineering-slides`: zero navigator elements in the live DOM after the deck hydrates. |
 | Reader follows a legacy URL | `/blog/flowablewithspring/` (redirect branch): no navigator markup served. |
 | Reader opens a non-article page | `/`, `/projects/`, `/blog/`, `/blog/series/Agentic AI Foundations/`: no navigator markup served. |
@@ -28,7 +28,7 @@ at the end.
 | Scenario | Evidence |
 |---|---|
 | Fenced code with hash lines | `agentic-ai/part-3`: 95 parsed headings against 126 raw `^#` lines. In `copilot-cost-optimization-playbook.md`, the fenced `# Just start typing…` line is absent from the tree. |
-| Shallowest heading is deeper | `openapi-code-generation-spring-boot-4`: 0 `h2`, 5 `h3` — all five promoted to top level, 5 rail ticks. |
+| Shallowest heading is deeper | `openapi-code-generation-spring-boot-4`: 0 `h2`, 5 `h3` - all five promoted to top level, 5 rail ticks. |
 | Body opens by restating the title | `lgtm/part-0`: leading `#` dropped, 9 top-level sections. `prompt-engineering-guide`: leading `###` dropped, 15 top-level sections (see the D3 note below). |
 | Top-level headings as section dividers | `copilot-cost-optimization-playbook`: only the leading `#` dropped; the four `Tier`/`Putting it together` dividers survive as top-level sections. |
 | Author renames a heading | `typescript-best-practices.md` line 57 renamed to `## Advanced Type Techniques RENAMED-PROBE`; the navigator entry and the anchor `#advanced-type-techniques-renamed-probe` both updated with no other edit. Probe reverted. |
@@ -66,7 +66,7 @@ HTML, with zero mismatches.
 | Current section outside the visible area | Panel container scrolls itself to keep the active entry in view; document `scrollY` never moved by the panel. |
 | Reader progresses through the article | 0% / 50% / 100%, reaching 100% at the article end (scrollY 74,451) rather than the document end (74,905). |
 | Diagrams change height after load | Growing the article element with no scroll event moved progress 55% → 22% and back to 55% on removal. Reproduced against the built bundle (55% → 26% → 55%). |
-| Reader selects a section | Heading lands at y=96 with the header bottom at y=69 — fully clear. |
+| Reader selects a section | Heading lands at y=96 with the header bottom at y=69 - fully clear. |
 | Reader selects from a filtered hierarchy | Same result when selecting the `welcome` match while the filter was active. |
 
 ### Theme consistency
@@ -79,7 +79,7 @@ HTML, with zero mismatches.
 
 1. **The four-section threshold boundary cannot be exercised against real
    content.** With all filters applied the collection's section counts are
-   `0, 0, 2, 2, 5, 5, 5, 5, 6, 6, 7, 8, 8, 9 …` — no article sits at three or
+   `0, 0, 2, 2, 5, 5, 5, 5, 6, 6, 7, 8, 8, 9 …` - no article sits at three or
    four. The two clear exclusions and the nearest inclusion were verified on
    rendered pages; the boundary itself was confirmed by inspecting the built
    tree, as `design.md` D12 anticipated.

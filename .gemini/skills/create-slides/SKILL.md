@@ -5,7 +5,7 @@ description: Create a new slide presentation using the JSON-driven slide engine.
 
 # Create Slides Skill
 
-Create new slide presentations by writing a **JSON data file** and rendering it with the `JsonSlideDeck` engine component. No JSX authoring is needed — the engine recursively maps JSON objects to pre-built React template primitives.
+Create new slide presentations by writing a **JSON data file** and rendering it with the `JsonSlideDeck` engine component. No JSX authoring is needed - the engine recursively maps JSON objects to pre-built React template primitives.
 
 ## Quick Start
 
@@ -18,7 +18,7 @@ To create a new presentation, you produce **two files**:
 
 ---
 
-## Step 1 — Set Up the Host
+## Step 1 - Set Up the Host
 
 ### Option A: Integrated Blog Post (Recommended)
 
@@ -75,7 +75,7 @@ import slideData from '../../content/slides/my-topic-slides.json';
 
 ---
 
-## Step 2 — The JSON Data File
+## Step 2 - The JSON Data File
 
 The JSON file is the **only thing you need to author**. It has this top-level shape:
 
@@ -95,7 +95,7 @@ The JSON file is the **only thing you need to author**. It has this top-level sh
 
 ---
 
-## Step 3 — Writing Slides
+## Step 3 - Writing Slides
 
 Each entry in the `slides` array is an object with a `"type"` key. There are two root slide types:
 
@@ -129,7 +129,7 @@ All props except `type` are optional.
 }
 ```
 
-The `content` array holds **blocks** — each block is a JSON object with its own `"type"`. Blocks are rendered in order, top to bottom.
+The `content` array holds **blocks** - each block is a JSON object with its own `"type"`. Blocks are rendered in order, top to bottom.
 
 ---
 
@@ -149,7 +149,7 @@ The `content` array holds **blocks** — each block is a JSON object with its ow
 
 | Type | Props | Description |
 |------|-------|-------------|
-| `CardGrid` | `cols` (2\|3\|4), `content` | Grid container — put `SlideCard` objects inside `content` |
+| `CardGrid` | `cols` (2\|3\|4), `content` | Grid container - put `SlideCard` objects inside `content` |
 | `SlideCard` | `variant`, `title`, `label`, `labelType`, `tickLabel`, `content` | Styled card |
 
 **SlideCard `variant`**: `""` (default), `"accent"` (amber border), `"good"` (teal), `"bad"` (coral), `"vio"` (violet)
@@ -173,7 +173,7 @@ Example:
 
 | Type | Props | Description |
 |------|-------|-------------|
-| `StatRow` | `content` | Container — put `Stat` and optionally `Headline` objects inside |
+| `StatRow` | `content` | Container - put `Stat` and optionally `Headline` objects inside |
 | `Stat` | `value`, `color`, `label` | Large stat number. `color`: `"teal"`, `"amber"`, `"coral"`, `"vio"` |
 | `DataTable` | `headers`, `rows` | Styled comparison table |
 | `Spectrum` | `markers` | Gradient horizontal bar with positioned tier markers |
@@ -302,14 +302,14 @@ Example:
 
 Any property that accepts HTML (`html`, `title` on TitleSlide, `subtitle`, `hintContent`, `items` array entries) is **automatically sanitized by DOMPurify** before rendering. This means:
 
-- ✅ `<span class='hl'>`, `<b>`, `<br>`, `<kbd>`, `<em>`, `<strong>` — all safe
-- ✅ `&rarr;`, `&middot;`, `&mdash;` — HTML entities work
-- ❌ `<script>`, `<iframe>`, `onclick=` — stripped automatically
+- ✅ `<span class='hl'>`, `<b>`, `<br>`, `<kbd>`, `<em>`, `<strong>` - all safe
+- ✅ `&rarr;`, `&middot;`, `&mdash;` - HTML entities work
+- ❌ `<script>`, `<iframe>`, `onclick=` - stripped automatically
 
 Use these CSS classes inside `<span>` tags for colored text in `Headline`:
-- `hl` — amber highlight
-- `cool` — teal highlight
-- `vio` — violet highlight
+- `hl` - amber highlight
+- `cool` - teal highlight
+- `vio` - violet highlight
 
 ---
 

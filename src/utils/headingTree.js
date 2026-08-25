@@ -28,7 +28,7 @@ export function normaliseHeadingText(text) {
  * template already renders, rather than a section of its own.
  *
  * True at depth 1, and also where the heading stands alone at the shallowest
- * depth in the document — the shape used by an article whose sections are
+ * depth in the document - the shape used by an article whose sections are
  * authored at `####` under a single `###` title line. Both forms would
  * otherwise become the only top-level entry and demote every real section
  * beneath a restatement of the page title.

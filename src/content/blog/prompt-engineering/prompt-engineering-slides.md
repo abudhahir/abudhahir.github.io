@@ -1,5 +1,5 @@
 ---
-title: "Prompt Engineering — Slide Deck"
+title: "Prompt Engineering - Slide Deck"
 subtitle: "A Comprehensive Guide in 36 Slides"
 excerpt: "A visual guide to prompt engineering fundamentals, advanced techniques, structured frameworks, evaluation, and practical LLM applications."
 date: 2025-01-16

@@ -1,5 +1,5 @@
 /**
- * SlideStyles — Scoped CSS for the slide presentation design system.
+ * SlideStyles - Scoped CSS for the slide presentation design system.
  * Uses its own color palette (ink/amber/teal/coral/violet) independent
  * of the site's emerald-dark theme.
  *

@@ -1,5 +1,5 @@
 ---
-title: "Copilot Cost Optimization — Slide Deck"
+title: "Copilot Cost Optimization - Slide Deck"
 date: "2026-06-10"
 excerpt: "A visual three-tier playbook for engineering teams to optimize GitHub Copilot costs under the token-based AI Credits billing model."
 tags: ["GitHub Copilot", "AI", "Cost Optimization", "FinOps", "Slides"]
@@ -13,4 +13,4 @@ pageLayout: "slides"
 slidesData: "copilot-cost-slides"
 ---
 
-Interactive slide deck covering the Copilot Cost Optimization Playbook — from basic habits to advanced admin controls.
+Interactive slide deck covering the Copilot Cost Optimization Playbook - from basic habits to advanced admin controls.

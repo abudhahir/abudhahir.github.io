@@ -313,37 +313,37 @@ By demanding upfront alignment on intent, separating behavioral requirements fro
 
 ## Sources
 
-- [Vibe Coding vs Spec-Driven Development: Why One Scales](https://www.mindstudio.ai/blog/vibe-coding-vs-spec-driven-development) — mindstudio.ai
-- [Vibe coding or spec-driven development? How to choose](https://www.infoworld.com/article/4166817/vibe-coding-or-spec-driven-development-how-to-choose.html) — InfoWorld
-- [OpenSpec Deep Dive: Spec-Driven Development Architecture](https://redreamality.com/garden/notes/openspec-guide/) — redreamality.com
-- [OpenSpec - Spec-Driven Development for AI Coding Assistants](https://openspec.pro/) — openspec.pro
-- [Spec-driven development with AI: Get started with a new open-source toolkit](https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/) — github.blog
-- [OpenSpec is Insane: Spec Driven Development is 100X Better](https://www.youtube.com/watch?v=wZFOW89Lsc0) — YouTube
-- [Beyond vibe coding: The five building blocks of AI-native engineering](https://www.thoughtworks.com/insights/blog/generative-ai/beyond-vibe-coding-the-five-building-blocks-of-aI-native-engineering) — Thoughtworks
-- [How Specs Work in OpenSpec](https://www.rushis.com/how-specs-work-in-openspec/) — rushis.com
-- [OpenSpec/docs/concepts.md at main](https://github.com/Fission-AI/OpenSpec/blob/main/docs/concepts.md) — GitHub
-- [Spec-Driven Development Tools: Kit vs Kiro vs Tessl (2026)](https://sparkvibeai.com/blog/spec-kit-vs-kiro-vs-tessl-vs-openspec/) — sparkvibeai.com
-- [OpenSpec for Copilot: A VS Code Extension to Accelerate Spec](https://tech-bridge-log.com/blog/openspec-for-copilot) — tech-bridge-log.com
-- [atman-33/openspec-for-copilot](https://github.com/atman-33/openspec-for-copilot) — GitHub
-- [OpenSpec Commands](https://docs.runmaestro.ai/openspec-commands) — Maestro
-- [OpenSpec/docs/supported-tools.md at main](https://github.com/Fission-AI/OpenSpec/blob/main/docs/supported-tools.md) — GitHub
-- [Fission-AI/OpenSpec: Spec-driven development (SDD)](https://github.com/Fission-AI/openspec) — GitHub
-- [Getting started with OpenSpec](https://sgryphon.gamertheory.net/2026/04/getting-started-with-openspec/) — Software / Wetware
-- [openspec/AGENTS.md - coopmaths / apps / comptoir](https://forge.apps.education.fr/coopmaths/apps/comptoir/-/blob/main/openspec/AGENTS.md) — GitLab
-- [openspec.md](https://gist.github.com/Darkflib/c7f25b41054a04a5835052e5a21cdf82) — GitHub Gist
-- [OpenSpec Workbench](https://marketplace.visualstudio.com/items?itemName=openspec-ui.openspec-ui-vscode) — Visual Studio Marketplace
-- [The Coding Harness Behind GitHub Copilot in VS Code](https://code.visualstudio.com/blogs/2026/05/15/agent-harnesses-github-copilot-vscode) — code.visualstudio.com
-- [OpenSpec](https://marketplace.visualstudio.com/items?itemName=Codder13.openspec) — Visual Studio Marketplace
-- [OpenSpec](https://open-vsx.org/extension/randysss/openspec-workflow) — Open VSX Registry
-- [spekhq/spek: A lightweight, read-only viewer for OpenSpec content](https://github.com/spekhq/spek) — GitHub
-- [spek — OpenSpec Viewer](https://marketplace.visualstudio.com/items?itemName=kewang.spek-vscode) — Visual Studio Marketplace
-- [Spec-Driven Development: From Vibe Coding to Structured Development](https://zarar.dev/spec-driven-development-from-vibe-coding-to-structured-development/) — zarar.dev
-- [OpenSpec Custom Schemas](https://intent-driven.dev/blog/2026/02/12/openspec-custom-schemas/) — intent-driven.dev
-- [OpenSpec 1.2 Release](https://intent-driven.dev/blog/2026/02/25/openspec-1-2-release/) — intent-driven.dev
-- [OpenSpec | Spec-Driven Development](https://intent-driven.dev/knowledge/openspec/) — intent-driven.dev
-- [Spec-Driven Development + Copilot: what do you use to plan](https://www.reddit.com/r/GithubCopilot/comments/1qopw0d/specdriven_development_copilot_what_do_you_use_to/) — Reddit
-- [Spec-Driven Development: Let AI Read the Boring Stuff For You](https://www.architectviewmaster.com/blog/spec-driven-development-let-ai-read-the-boring-stuff-for-you/) — architectviewmaster.com
-- [Spec-Driven Development with Brownfield Projects](https://intent-driven.dev/blog/2026/03/10/spec-driven-development-brownfield/) — intent-driven.dev
-- [OpenSpec (Spec-Driven Development) Failed My Experiment](https://dev.to/incomplete_developer/openspec-spec-driven-development-failed-my-experiment-instructionsmd-was-simpler-and-faster-3a5d) — dev.to
-- [Spec Kit vs Kiro: Which Spec-Driven Tool in 2026?](https://codemyspec.com/blog/spec-kit-vs-kiro) — CodeMySpec
-- [A Spec-Driven Development Template for use with GitHub Copilot](https://github.com/GregorBiswanger/copilot-spec-driven-template) — GitHub
+- [Vibe Coding vs Spec-Driven Development: Why One Scales](https://www.mindstudio.ai/blog/vibe-coding-vs-spec-driven-development) - mindstudio.ai
+- [Vibe coding or spec-driven development? How to choose](https://www.infoworld.com/article/4166817/vibe-coding-or-spec-driven-development-how-to-choose.html) - InfoWorld
+- [OpenSpec Deep Dive: Spec-Driven Development Architecture](https://redreamality.com/garden/notes/openspec-guide/) - redreamality.com
+- [OpenSpec - Spec-Driven Development for AI Coding Assistants](https://openspec.pro/) - openspec.pro
+- [Spec-driven development with AI: Get started with a new open-source toolkit](https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/) - github.blog
+- [OpenSpec is Insane: Spec Driven Development is 100X Better](https://www.youtube.com/watch?v=wZFOW89Lsc0) - YouTube
+- [Beyond vibe coding: The five building blocks of AI-native engineering](https://www.thoughtworks.com/insights/blog/generative-ai/beyond-vibe-coding-the-five-building-blocks-of-aI-native-engineering) - Thoughtworks
+- [How Specs Work in OpenSpec](https://www.rushis.com/how-specs-work-in-openspec/) - rushis.com
+- [OpenSpec/docs/concepts.md at main](https://github.com/Fission-AI/OpenSpec/blob/main/docs/concepts.md) - GitHub
+- [Spec-Driven Development Tools: Kit vs Kiro vs Tessl (2026)](https://sparkvibeai.com/blog/spec-kit-vs-kiro-vs-tessl-vs-openspec/) - sparkvibeai.com
+- [OpenSpec for Copilot: A VS Code Extension to Accelerate Spec](https://tech-bridge-log.com/blog/openspec-for-copilot) - tech-bridge-log.com
+- [atman-33/openspec-for-copilot](https://github.com/atman-33/openspec-for-copilot) - GitHub
+- [OpenSpec Commands](https://docs.runmaestro.ai/openspec-commands) - Maestro
+- [OpenSpec/docs/supported-tools.md at main](https://github.com/Fission-AI/OpenSpec/blob/main/docs/supported-tools.md) - GitHub
+- [Fission-AI/OpenSpec: Spec-driven development (SDD)](https://github.com/Fission-AI/openspec) - GitHub
+- [Getting started with OpenSpec](https://sgryphon.gamertheory.net/2026/04/getting-started-with-openspec/) - Software / Wetware
+- [openspec/AGENTS.md - coopmaths / apps / comptoir](https://forge.apps.education.fr/coopmaths/apps/comptoir/-/blob/main/openspec/AGENTS.md) - GitLab
+- [openspec.md](https://gist.github.com/Darkflib/c7f25b41054a04a5835052e5a21cdf82) - GitHub Gist
+- [OpenSpec Workbench](https://marketplace.visualstudio.com/items?itemName=openspec-ui.openspec-ui-vscode) - Visual Studio Marketplace
+- [The Coding Harness Behind GitHub Copilot in VS Code](https://code.visualstudio.com/blogs/2026/05/15/agent-harnesses-github-copilot-vscode) - code.visualstudio.com
+- [OpenSpec](https://marketplace.visualstudio.com/items?itemName=Codder13.openspec) - Visual Studio Marketplace
+- [OpenSpec](https://open-vsx.org/extension/randysss/openspec-workflow) - Open VSX Registry
+- [spekhq/spek: A lightweight, read-only viewer for OpenSpec content](https://github.com/spekhq/spek) - GitHub
+- [spek - OpenSpec Viewer](https://marketplace.visualstudio.com/items?itemName=kewang.spek-vscode) - Visual Studio Marketplace
+- [Spec-Driven Development: From Vibe Coding to Structured Development](https://zarar.dev/spec-driven-development-from-vibe-coding-to-structured-development/) - zarar.dev
+- [OpenSpec Custom Schemas](https://intent-driven.dev/blog/2026/02/12/openspec-custom-schemas/) - intent-driven.dev
+- [OpenSpec 1.2 Release](https://intent-driven.dev/blog/2026/02/25/openspec-1-2-release/) - intent-driven.dev
+- [OpenSpec | Spec-Driven Development](https://intent-driven.dev/knowledge/openspec/) - intent-driven.dev
+- [Spec-Driven Development + Copilot: what do you use to plan](https://www.reddit.com/r/GithubCopilot/comments/1qopw0d/specdriven_development_copilot_what_do_you_use_to/) - Reddit
+- [Spec-Driven Development: Let AI Read the Boring Stuff For You](https://www.architectviewmaster.com/blog/spec-driven-development-let-ai-read-the-boring-stuff-for-you/) - architectviewmaster.com
+- [Spec-Driven Development with Brownfield Projects](https://intent-driven.dev/blog/2026/03/10/spec-driven-development-brownfield/) - intent-driven.dev
+- [OpenSpec (Spec-Driven Development) Failed My Experiment](https://dev.to/incomplete_developer/openspec-spec-driven-development-failed-my-experiment-instructionsmd-was-simpler-and-faster-3a5d) - dev.to
+- [Spec Kit vs Kiro: Which Spec-Driven Tool in 2026?](https://codemyspec.com/blog/spec-kit-vs-kiro) - CodeMySpec
+- [A Spec-Driven Development Template for use with GitHub Copilot](https://github.com/GregorBiswanger/copilot-spec-driven-template) - GitHub
