@@ -1,17 +1,18 @@
 ---
 title: "The Prompt-Refiner Skill: Where a Chat Participant Starts"
 subtitle: "A cheap model, a frontmatter file, and the art of choosing a prompting technique"
-excerpt: "Before there was a VS Code extension, there was a skill. This part builds the prompt-refiner skill — a SKILL.md that classifies a raw prompt and rewrites it as a structured prompt using the cheapest available model."
+excerpt: "Before there was a VS Code extension, there was a skill. This part builds the prompt-refiner skill - a SKILL.md that classifies a raw prompt and rewrites it as a structured prompt using the cheapest available model."
 date: 2026-08-30
 author: "Abu Dhahir"
 tags: ["vs code", "extension", "chat participant", "copilot", "prompt engineering", "skills", "tutorial"]
 series: "VS Code Chat Participant"
+seriesOrder: 2
 draft: false
 ---
 
 Before there was a VS Code extension, a chat participant, or a webview, there was a single idea: **most people write bad prompts, and the fix should cost almost nothing.** That idea became a Copilot *skill*, and the skill became the seed for an entire extension. This series documents that journey, step by step.
 
-Here's the thing worth noticing up front: I did not start by scaffolding an extension. I started by building the smallest useful unit — a skill — and let the extension grow *around* it. If you take one lesson from this series, take that one.
+Here's the thing worth noticing up front: I did not start by scaffolding an extension. I started by building the smallest useful unit - a skill - and let the extension grow *around* it. If you take one lesson from this series, take that one.
 
 ## What a Copilot skill is
 
@@ -29,16 +30,16 @@ You are a prompt-refinement engine. Given a raw prompt: ...
 
 Three fields matter here:
 
-- `name` — the identifier we'll later look up from code.
-- `description` — what it does; surfaced when an agent decides whether to use it.
-- `model: cheap` — a hint that this skill should run on the *cheapest* model available, because refinement is a low-cost transform, not a reasoning task.
+- `name` - the identifier we'll later look up from code.
+- `description` - what it does; surfaced when an agent decides whether to use it.
+- `model: cheap` - a hint that this skill should run on the *cheapest* model available, because refinement is a low-cost transform, not a reasoning task.
 
 ## The core job: classify, then choose a technique
 
 The skill does three things to any raw prompt it receives:
 
-1. **Classify the task type** — generation, classification, extraction, reasoning, style transfer, or instruction-following.
-2. **Choose the prompting technique** — zero-shot, zero-shot chain-of-thought, one-shot, few-shot, multi-shot, or few-shot CoT.
+1. **Classify the task type** - generation, classification, extraction, reasoning, style transfer, or instruction-following.
+2. **Choose the prompting technique** - zero-shot, zero-shot chain-of-thought, one-shot, few-shot, multi-shot, or few-shot CoT.
 3. **Rewrite it** into a structured prompt using a fixed template.
 
 The technique selection is where the real value lives. The skill encodes a decision rule, not a fixed format:
@@ -102,4 +103,4 @@ Refinement is deterministic and low-stakes. Spending a frontier model on it is w
 
 ## What's next
 
-In Part 2, we scaffold the extension that will *host* this skill — and, in a nice bit of dogfooding, we use the prompt-refiner itself to generate the bootstrap objective.
+In Part 2, we scaffold the extension that will *host* this skill - and, in a nice bit of dogfooding, we use the prompt-refiner itself to generate the bootstrap objective.

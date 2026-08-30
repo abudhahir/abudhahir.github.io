@@ -1,15 +1,16 @@
 ---
 title: "A Chat Participant That Talks: Request Routing and Model Selection"
 subtitle: "createChatParticipant, natural-language detection, and the cheapest-model fallback chain"
-excerpt: "Part 3 makes @cleveloper respond — routing /refine to the skill and everything else to Copilot Chat, plus the model-selection logic: pinned model, cheapness ranking, and the preferredModel setting."
+excerpt: "Part 3 makes @cleveloper respond - routing /refine to the skill and everything else to Copilot Chat, plus the model-selection logic: pinned model, cheapness ranking, and the preferredModel setting."
 date: 2026-09-01
 author: "Abu Dhahir"
 tags: ["vs code", "extension", "chat participant", "language model", "copilot", "typescript", "tutorial"]
 series: "VS Code Chat Participant"
+seriesOrder: 4
 draft: false
 ---
 
-A participant is just a name until it has a request handler. This part wires `@cleveloper` to two backends — the prompt-refiner skill and raw Copilot Chat — and builds the model-selection logic that decides *which* model runs each job.
+A participant is just a name until it has a request handler. This part wires `@cleveloper` to two backends - the prompt-refiner skill and raw Copilot Chat - and builds the model-selection logic that decides *which* model runs each job.
 
 ## Registering the participant
 
@@ -42,12 +43,12 @@ export function createParticipant(context: vscode.ExtensionContext): vscode.Chat
 
 Two details beyond the handler:
 
-- `followupProvider` returns *suggested follow-ups* — the little clickable chips VS Code shows after a response. This is how you make a participant discoverable without a manual.
+- `followupProvider` returns *suggested follow-ups* - the little clickable chips VS Code shows after a response. This is how you make a participant discoverable without a manual.
 - `context.subscriptions.push(participant)` registers the participant's lifecycle with the extension so it's disposed cleanly.
 
 ## The routing decision
 
-Every message hits `handleRequest`, which makes one decision — *which backend handles this?*
+Every message hits `handleRequest`, which makes one decision - *which backend handles this?*
 
 ```ts
 const handleRequest = async (context, request, _chatContext, stream, token) => {
@@ -69,9 +70,9 @@ const handleRequest = async (context, request, _chatContext, stream, token) => {
 
 Three routes:
 
-1. **`/snippets`** — list or retrieve saved snippets (Part 5).
-2. **`/refine`** — *or* any natural-language request that looks like "refine my prompt" — runs the skill.
-3. **Everything else** — plain chat via Copilot Chat.
+1. **`/snippets`** - list or retrieve saved snippets (Part 5).
+2. **`/refine`** - *or* any natural-language request that looks like "refine my prompt" - runs the skill.
+3. **Everything else** - plain chat via Copilot Chat.
 
 That second condition is the interesting one. A slash command is explicit, but users type sentences. So we detect intent in free text:
 
@@ -85,7 +86,7 @@ function wantsPromptRefinement(prompt: string): boolean {
 }
 ```
 
-A verb *and* the word "prompt" both have to be present. "Improve this code" won't match; "improve my prompt" will. It's a deliberately narrow regex — broad heuristics here cause false routing, and a user who says "refine my prompt" to a generic chat is clearly asking for the skill.
+A verb *and* the word "prompt" both have to be present. "Improve this code" won't match; "improve my prompt" will. It's a deliberately narrow regex - broad heuristics here cause false routing, and a user who says "refine my prompt" to a generic chat is clearly asking for the skill.
 
 ## Streaming from Copilot Chat
 
@@ -107,7 +108,7 @@ export async function streamChatResponse(prompt, stream, token) {
 }
 ```
 
-The `vscode.lm` API is the bridge to the language model. `selectChatModels()` enumerates what's available, and `sendRequest` streams a response. Notice the error handling: a model outage shouldn't crash the participant — it should surface inline, in the chat, as a warning.
+The `vscode.lm` API is the bridge to the language model. `selectChatModels()` enumerates what's available, and `sendRequest` streams a response. Notice the error handling: a model outage shouldn't crash the participant - it should surface inline, in the chat, as a warning.
 
 ## Model selection: the fallback chain
 
@@ -145,11 +146,11 @@ export async function pickCheapestModel() {
 }
 ```
 
-The ranking is by **family keyword** — `flash` > `mini` > `haiku` > `lite` > everything else. It's a heuristic, but a stable and explainable one: model families tend to sort by cost the same way they sort by capability, and this ranking encodes the common case without hardcoding any specific model id.
+The ranking is by **family keyword** - `flash` > `mini` > `haiku` > `lite` > everything else. It's a heuristic, but a stable and explainable one: model families tend to sort by cost the same way they sort by capability, and this ranking encodes the common case without hardcoding any specific model id.
 
 ## The user setting plugs in
 
-The `/refine` route uses a *different* selector — one that honors the `cleveloper.refine.preferredModel` setting we declared in Part 2:
+The `/refine` route uses a *different* selector - one that honors the `cleveloper.refine.preferredModel` setting we declared in Part 2:
 
 ```ts
 export async function pickRefineModel() {
@@ -171,8 +172,8 @@ export async function pickRefineModel() {
 }
 ```
 
-The setting is matched **substring-wise** against each model's vendor, family, and name, so `gpt-4o`, `flash`, `mini`, or `haiku` all work. If it's empty or matches nothing, we fall back to the cheapest available. The key design decision: *a user preference is never silently overridden — it either resolves or defers to a sane default.*
+The setting is matched **substring-wise** against each model's vendor, family, and name, so `gpt-4o`, `flash`, `mini`, or `haiku` all work. If it's empty or matches nothing, we fall back to the cheapest available. The key design decision: *a user preference is never silently overridden - it either resolves or defers to a sane default.*
 
 ## What's next
 
-The participant now talks. But a chat box is a constrained surface — you can't easily copy the result or pick a model visually. Part 4 fixes that with a theme-aware webview.
+The participant now talks. But a chat box is a constrained surface - you can't easily copy the result or pick a model visually. Part 4 fixes that with a theme-aware webview.

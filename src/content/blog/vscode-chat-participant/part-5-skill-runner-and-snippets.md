@@ -1,15 +1,16 @@
 ---
 title: "The Skill Runner and the Snippet Library"
 subtitle: "Loading SKILL.md from disk, resolving model precedence, and persisting snippets"
-excerpt: "Part 5 turns the prompt-refiner SKILL.md into a runnable unit — parsing frontmatter, resolving models with a four-step precedence chain, and saving/inserting snippets through globalState and native user snippet files."
+excerpt: "Part 5 turns the prompt-refiner SKILL.md into a runnable unit - parsing frontmatter, resolving models with a four-step precedence chain, and saving/inserting snippets through globalState and native user snippet files."
 date: 2026-09-03
 author: "Abu Dhahir"
 tags: ["vs code", "extension", "chat participant", "skills", "snippets", "typescript", "tutorial"]
 series: "VS Code Chat Participant"
+seriesOrder: 6
 draft: false
 ---
 
-Until now, `runSkill` has been a black box. This part opens it. It also builds the snippet system — the feature that turns a one-off refined prompt into a reusable asset.
+Until now, `runSkill` has been a black box. This part opens it. It also builds the snippet system - the feature that turns a one-off refined prompt into a reusable asset.
 
 ## The skill runner: from file to stream
 
@@ -34,7 +35,7 @@ This is the extension's answer to the "where do skills live" question from the e
 
 ### Parsing frontmatter
 
-The frontmatter parser is deliberately simple — split on the first `---` fence and read `key: value` lines:
+The frontmatter parser is deliberately simple - split on the first `---` fence and read `key: value` lines:
 
 ```ts
 const FRONTMATTER_RE = /^\uFEFF?---\r?\n([\s\S]*?)\r?\n---\r?\n?/;
@@ -54,7 +55,7 @@ export function parseFrontmatter(raw: string): { data: Record<string, string>; b
 }
 ```
 
-No YAML library here — the frontmatter schema is flat `key: value`, and a hand-rolled parser keeps the dependency footprint at zero (the only runtime dependency in the whole extension is `js-yaml`, and that's for the *courses*, not the skills).
+No YAML library here - the frontmatter schema is flat `key: value`, and a hand-rolled parser keeps the dependency footprint at zero (the only runtime dependency in the whole extension is `js-yaml`, and that's for the *courses*, not the skills).
 
 ### Running it
 
@@ -108,12 +109,12 @@ export async function pickSkillModel(preference, modelId?) {
 
 The precedence, highest to lowest:
 
-1. **Explicit per-run `modelId`** — the webview's model picker, the strongest signal: the user chose this model *for this run*.
-2. **A hard frontmatter pin** — any `model` value *other than* `cheap` in `SKILL.md`, matched by substring. The skill author's explicit choice.
-3. **The `cleveloper.refine.preferredModel` setting** — the user's global preference (from Part 3's `pickRefineModel`).
-4. **The cheapest available model** — the default.
+1. **Explicit per-run `modelId`** - the webview's model picker, the strongest signal: the user chose this model *for this run*.
+2. **A hard frontmatter pin** - any `model` value *other than* `cheap` in `SKILL.md`, matched by substring. The skill author's explicit choice.
+3. **The `cleveloper.refine.preferredModel` setting** - the user's global preference (from Part 3's `pickRefineModel`).
+4. **The cheapest available model** - the default.
 
-The subtlety is in what `cheap` *means*: the prompt-refiner's frontmatter says `model: cheap`, which is *not* a hard pin — it defers to the user setting before falling back to cheapest. A user preference is never silently overridden, and the author's `cheap` hint only kicks in when nothing more specific is available.
+The subtlety is in what `cheap` *means*: the prompt-refiner's frontmatter says `model: cheap`, which is *not* a hard pin - it defers to the user setting before falling back to cheapest. A user preference is never silently overridden, and the author's `cheap` hint only kicks in when nothing more specific is available.
 
 ## Snippets: a two-tier persistence story
 
@@ -121,7 +122,7 @@ The subtlety is in what `cheap` *means*: the prompt-refiner's frontmatter says `
 
 ### The in-extension library
 
-The primary store is `globalState` — VS Code's per-user key-value store:
+The primary store is `globalState` - VS Code's per-user key-value store:
 
 ```ts
 const LIBRARY_KEY = 'cleveloper.snippets.library';
@@ -164,7 +165,7 @@ The `userSnippetsDir()` helper computes the platform-specific path (it has to di
 
 ### Inserting where the cursor is
 
-The picker command has one job — put the chosen snippet at the cursor, editor first, chat as fallback:
+The picker command has one job - put the chosen snippet at the cursor, editor first, chat as fallback:
 
 ```ts
 const editor = vscode.window.activeTextEditor;
@@ -190,4 +191,4 @@ async function insertIntoChat(body: string): Promise<void> {
 
 ## What's next
 
-The extension now has a participant, a skill runner, a webview, and snippets. Part 6 adds a *second* participant — `@bootcamp` — with a completely different shape: a stateful, YAML-driven course system.
+The extension now has a participant, a skill runner, a webview, and snippets. Part 6 adds a *second* participant - `@bootcamp` - with a completely different shape: a stateful, YAML-driven course system.
